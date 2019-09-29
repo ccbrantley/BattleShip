@@ -1,7 +1,0 @@
-.button{
-    -fx-alignment: center;
-    -fx-background-color: black;
-    -fx-background-image: url("../../../assets/led/ledRedBlinking.gif");
-    -fx-background-repeat:no-repeat;
-    -fx-background-size: 100%;
-}
