@@ -1,54 +1,69 @@
 package battleship;
+
 /* BattleShip
  *
- * @author Area 51 Block Party: 
+ * @author Area 51 Block Party:
  * Andrew Braswell
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
+ * Last Updated 09/30/2019
  */
-import battleship.Controllers.FXMLMainController;
-import java.io.File;
+
+import battleship.Controllers.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.stage.Modality;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class BattleShip extends Application {
+
     private LoaderGetter loaderGetter = new LoaderGetter();
-    
+
     @Override
-    public void start(Stage stage) throws Exception {
-        // Setting All Loaders
-        FXMLLoader loader;
+    public void start(Stage _stage) throws Exception {
+
+        // Setting paths for all loaders
         ArrayList<String> resourcePaths = new ArrayList();
         resourcePaths.add("Controllers/FXML/FXMLMain.fxml");
         resourcePaths.add("Controllers/FXML/FXMLPlay.fxml");
         resourcePaths.add("Controllers/FXML/FXMLResume.fxml");
         resourcePaths.add("Controllers/FXML/FXMLSettings.fxml");
-        for (String path : resourcePaths){
+
+        FXMLLoader loader;
+        for (String path : resourcePaths) {
+            // Initializing all loaders
             loader = new FXMLLoader(getClass().getResource(path));
             this.loaderGetter.addLoader(loader,path.substring(20));
+            // Assigning all loaderGetter to all controllers
+            Object controller = loader.getController();
+             try{
+                Method method = controller.getClass().getMethod("setLoaderGetter", LoaderGetter.class);
+                method.invoke(controller, this.loaderGetter);
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(ControllerHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        FXMLMainController mainController = this.loaderGetter.getMainController();
-        mainController.setLoaderGetter(this.loaderGetter);
-        Scene scene = new Scene(loaderGetter.getMainRoot());
+
+// Setting the stage and stage properties
+        _stage.setScene(new Scene(loaderGetter.getMainRoot()));
+        _stage.setFullScreen(true);
+        _stage.setResizable(false);
+        _stage.show();
+
+// Passing stage and maincontroller to position children
         ControllerHandler controllerHandler = new ControllerHandler();
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.setResizable(false);
-        stage.show();
-        controllerHandler.manageLayout(stage,mainController);
+        controllerHandler.manageLayout(_stage,this.loaderGetter.getMainController());
     }
-    
+
     /**
-     * @param args the command line arguments
+     * @param _args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] _args) {
+        launch(_args);
     }
 }

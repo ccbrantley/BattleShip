@@ -100,11 +100,11 @@ public class MapPane extends Pane {
     public String getHorizontalAlignment() {
         return this.horizontalAlignment;
     }
-    
-    public boolean getVerticalFillProperty(){
+
+    public boolean getVerticalFillProperty() {
         return this.fillVertical;
     }
-    public boolean getHorizontalFillProperty(){
+    public boolean getHorizontalFillProperty() {
         return this.fillHorizontal;
     }
 }

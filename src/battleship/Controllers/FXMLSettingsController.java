@@ -4,6 +4,7 @@ package battleship.Controllers;
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ * Last Updated 09/30/2019
  */
 
 import battleship.LoaderGetter;
@@ -16,21 +17,16 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer.Status;
 /**
  * FXML Controller class
@@ -40,7 +36,7 @@ import javafx.scene.media.MediaPlayer.Status;
 public class FXMLSettingsController implements Initializable {
     private LoaderGetter loaderGetter;
     private Map musicMap = new HashMap();
-    
+
     @FXML
         private GridPane soundSettingsGridPane;
     @FXML
@@ -59,7 +55,7 @@ public class FXMLSettingsController implements Initializable {
         private Slider hueSlider;
     @FXML
         private ComboBox musicSelection;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.volumeSlider.valueProperty().addListener((observable, oldValue, newValue)->{this.setVolumeLevel(newValue);});
@@ -75,7 +71,7 @@ public class FXMLSettingsController implements Initializable {
     public void returnMainMenu(ActionEvent event) throws IOException{
         loaderGetter.getMainController().setScene(event);
     }
-    
+
     public void initializeMusicSelection(){
         File musicFolder = new File("src/battleship/Controllers/Music");
         File[] musicFiles = musicFolder.listFiles();
@@ -86,7 +82,7 @@ public class FXMLSettingsController implements Initializable {
         }
         this.musicSelection.setItems(observableMusic);
     }
-    
+
 //*****************     SETTERS     *******************
     @FXML
     public void setMediaPlayerState(){
@@ -102,7 +98,7 @@ public class FXMLSettingsController implements Initializable {
     public void setVolumeLevel(Number _volumeLevel){
         this.loaderGetter.getMainController().getMediaPlayer().setVolume(_volumeLevel.doubleValue());
     }
-    
+
     @FXML
     public void setSong(Object _file){
         this.loaderGetter.getMainController().getMediaPlayer().stop();
@@ -113,7 +109,7 @@ public class FXMLSettingsController implements Initializable {
         this.loaderGetter.getMainController().setMediaPlayer(newPlayer);
         this.loaderGetter.getMainController().getMediaPlayer().play();
     }
-    
+
     @FXML
     public void setBrigthnessLevel(Number _brightnessLevel){
         ColorAdjust colorAdjust = this.loaderGetter.getMainController().getColorAdjust();
@@ -132,21 +128,21 @@ public class FXMLSettingsController implements Initializable {
         colorAdjust.setSaturation(_saturationLevel.doubleValue());
         this.loaderGetter.getSettingsRoot().setEffect(colorAdjust);
     }
-    
+
     @FXML
     public void setHueLevel(Number _hueLevel){
         ColorAdjust colorAdjust = this.loaderGetter.getMainController().getColorAdjust();
         colorAdjust.setHue(_hueLevel.doubleValue());
         this.loaderGetter.getSettingsRoot().setEffect(colorAdjust);
-    
+
     }
-    
+
     public void setLoaderGetter(LoaderGetter _loaderGetter){
         this.loaderGetter = _loaderGetter;
     }
-    
+
 //*****************     GETTERS     *******************
-    
+
     public MappingPane getChildren(){
         MappingPane mainPane = new MappingPane();
         //Pane passedPane, String relativePosition, double aspectWidth, double aspectHeight

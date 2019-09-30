@@ -1,17 +1,20 @@
 package battleship;
 
 /*
- * @author Area 51 Block Party: 
+ * @author Area 51 Block Party:
  * Andrew Braswell
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
+ * Last Updated 09/30/2019
  */
 
 import battleship.Controllers.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 public class LoaderGetter {
     private FXMLLoader mainLoader;
     private FXMLLoader playLoader;
@@ -21,9 +24,10 @@ public class LoaderGetter {
     private Parent playRoot;
     private Parent resumeRoot;
     private Parent settingsRoot;
-            
-    public LoaderGetter() {}
-    
+
+    public LoaderGetter() {
+    }
+
     public void addLoader(FXMLLoader _loader, String _type) throws IOException {
         if(_type.contains("Main")) {
             this.mainLoader = _loader;
@@ -32,7 +36,7 @@ public class LoaderGetter {
         if(_type.contains("Play")) {
             this.playLoader = _loader;
             this.playRoot = _loader.load();
-            
+
         }
         if(_type.contains("Resume")) {
             this.resumeLoader = _loader;
@@ -43,40 +47,63 @@ public class LoaderGetter {
             this.settingsRoot = _loader.load();
         }
     }
-    public FXMLLoader getMainLoader(){
+
+//*****************     GETTERS     *******************
+
+    public FXMLLoader getMainLoader() {
         return this.mainLoader;
     }
-    public FXMLLoader getPlayLoader(){
+
+    public FXMLLoader getPlayLoader() {
         return this.playLoader;
     }
-    public FXMLLoader getResumeLoader(){
+
+    public FXMLLoader getResumeLoader() {
         return this.resumeLoader;
     }
-    public FXMLLoader getSettingsLoader(){
+
+    public FXMLLoader getSettingsLoader() {
         return this.settingsLoader;
     }
-    public Parent getMainRoot(){
+    public ArrayList getAllLoader() {
+        ArrayList loaderArray = new ArrayList();
+        loaderArray.add(this.mainLoader);
+        loaderArray.add(this.playLoader);
+        loaderArray.add(this.resumeLoader);
+        loaderArray.add(this.settingsLoader);
+        return loaderArray;
+    }
+
+    public Parent getMainRoot() {
         return this.mainRoot;
     }
-    public Parent getPlayRoot(){
+
+    public Parent getPlayRoot() {
         return this.playRoot;
     }
-    public Parent getResumeRoot(){
+
+    public Parent getResumeRoot() {
         return this.resumeRoot;
     }
-    public Parent getSettingsRoot(){
+
+    public Parent getSettingsRoot() {
         return this.settingsRoot;
     }
-    public FXMLMainController getMainController(){
+
+    public FXMLMainController getMainController() {
         return this.mainLoader.getController();
     }
-    public FXMLPlayController getPlayController(){
+
+    public FXMLPlayController getPlayController() {
         return this.playLoader.getController();
     }
-    public FXMLResumeController getResumeController(){
+
+    public FXMLResumeController getResumeController() {
         return (FXMLResumeController)this.resumeLoader.getController();
     }
-    public FXMLSettingsController getSettingsController(){
+
+    public FXMLSettingsController getSettingsController() {
         return (FXMLSettingsController)this.settingsLoader.getController();
     }
+
 }

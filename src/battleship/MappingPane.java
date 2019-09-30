@@ -16,12 +16,13 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 
 public class MappingPane extends Pane {
-    
+
     private ArrayList<MapPane> mappedPanes = new ArrayList();
-    
+
     /**Default Constructor
      */
-    public MappingPane() {}
+    public MappingPane() {
+    }
 
     /**
      * @param _passedPane pane to be added to the MappingPane.
@@ -51,10 +52,10 @@ public class MappingPane extends Pane {
             else if ((newWidth/newHeight) < (childAspectRatioWidth/childAspectRatioHeight)) {
                 newHeight = newWidth*childAspectRatioWidth;
             }
-            if(child.getVerticalFillProperty()){
+            if(child.getVerticalFillProperty()) {
                 newHeight = _stageHeight;
             }
-            if(child.getHorizontalFillProperty()){
+            if(child.getHorizontalFillProperty()) {
                 newWidth = _stageWidth;
             }
             if("top".equals(childVerticalAlignment)) {
