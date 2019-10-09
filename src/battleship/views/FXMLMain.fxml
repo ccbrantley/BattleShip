@@ -13,7 +13,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080" prefWidth="1080" stylesheets="@../Stylesheets/mainmenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.Controllers.FXMLMainController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080" prefWidth="1080" stylesheets="@../../assets/stylesheets/mainmenu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.controllers.FXMLMainController">
     <children>
       <GridPane fx:id="signInPane" prefHeight="250.0" prefWidth="250.0">
          <columnConstraints>

@@ -10,7 +10,7 @@ package battleship.models;
  * Last Updated 09/30/2019
  */
 
-import battleship.Controllers.*;
+import battleship.controllers.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

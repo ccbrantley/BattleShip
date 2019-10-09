@@ -1,7 +1,6 @@
 package battleship.models;
 
 import java.io.File;
-import sun.plugin.dom.stylesheets.StyleSheet;
 
 /**
  * @author Area 51 Block Party:
@@ -12,49 +11,49 @@ import sun.plugin.dom.stylesheets.StyleSheet;
  * Last Updated: 10/09/2019
  */
 public class ResourceGetter {
-    
+    public ResourceGetter(){}
     public String getBlueButtonCSS() {
-        File styleSheet = new File("src/assets/bluebutton.css");
+        File styleSheet = new File("src/assets/stylesheets/bluebutton.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getYellowButtonCSS() {
-        File styleSheet = new File("src/assets/yellowbutton.css");
+        File styleSheet = new File("src/assets/stylesheets/yellowbutton.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getRedButtonCSS() {
-        File styleSheet = new File("src/assets/redbutton.css");
+        File styleSheet = new File("src/assets/stylesheets/redbutton.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getBattleShipCSS() {
-        File styleSheet = new File("src/assets/battleship.css");
+        File styleSheet = new File("src/assets/stylesheets/battleship.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getBottomGridCSS() {
-        File styleSheet = new File("src/assets/bottomGrid.css");
+        File styleSheet = new File("src/assets/stylesheets/bottomGrid.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getCarrierCSS() {
-        File styleSheet = new File("src/assets/carrier.css");
+        File styleSheet = new File("src/assets/stylesheets/carrier.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getFxmlGoogleSignInCSS() {
-        File styleSheet = new File("src/assets/fxmlgooglesign.css");
+        File styleSheet = new File("src/assets/stylesheets/fxmlgooglesign.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getFxmlPlayCSS() {
-        File styleSheet = new File("src/assets/fxmlplay.css");
+        File styleSheet = new File("src/assets/stylesheets/fxmlplay.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getFxmlResumeCSS() {
-        File styleSheet = new File("src/assets/fxmlresume.css");
+        File styleSheet = new File("src/assets/stylesheets/fxmlresume.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getFxmlSettingsCSS() {
-        File styleSheet = new File("src/assets/fxmlsettings.css");
+        File styleSheet = new File("src/assets/stylesheets/fxmlsettings.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     public String getMainMenuCSS() {
-        File styleSheet = new File("src/assets/mainmenu.css");
+        File styleSheet = new File("src/assets/stylesheets/mainmenu.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/");
     }
     

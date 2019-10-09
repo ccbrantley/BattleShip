@@ -1,5 +1,4 @@
-package battleship.models;
-
+package battleship;
 /* BattleShip
  *
  * @author Area 51 Block Party:
@@ -10,6 +9,7 @@ package battleship.models;
  * Last Updated 09/30/2019
  */
 
+import battleship.models.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javafx.application.Application;
@@ -27,16 +27,16 @@ public class BattleShip extends Application {
     public void start(Stage _stage) throws Exception {
         // Setting paths for all loaders
         ArrayList<String> resourcePaths = new ArrayList();
-        resourcePaths.add("../views/FXML/FXMLMain.fxml");
-        resourcePaths.add("../views/FXML/FXMLPlay.fxml");
-        resourcePaths.add("../views/FXML/FXMLResume.fxml");
-        resourcePaths.add("../views/FXML/FXMLSettings.fxml");
+        resourcePaths.add("views/FXMLMain.fxml");
+        resourcePaths.add("views/FXMLPlay.fxml");
+        resourcePaths.add("views/FXMLResume.fxml");
+        resourcePaths.add("views/FXMLSettings.fxml");
 
         FXMLLoader loader;
         for (String path : resourcePaths) {
             // Initializing all loaders
             loader = new FXMLLoader(getClass().getResource(path));
-            this.loaderGetter.addLoader(loader,path.substring(20));
+            this.loaderGetter.addLoader(loader,path.substring(10));
             // Assigning all loaderGetter to all controllers
             Object controller = loader.getController();
              try{

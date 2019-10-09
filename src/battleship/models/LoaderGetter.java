@@ -8,7 +8,7 @@ package battleship.models;
  * Last Updated 09/30/2019
  */
 
-import battleship.Controllers.*;
+import battleship.controllers.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;

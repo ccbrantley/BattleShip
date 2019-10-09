@@ -1,4 +1,4 @@
-package battleship.Controllers;
+package battleship.controllers;
 
 /*
  * @author Area 51 Block Party: 

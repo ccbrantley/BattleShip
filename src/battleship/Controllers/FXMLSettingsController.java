@@ -1,4 +1,4 @@
-package battleship.Controllers;
+package battleship.controllers;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -71,7 +71,7 @@ public class FXMLSettingsController implements Initializable {
     }
 
     public void initializeMusicSelection(){
-        File musicFolder = new File("src/battleship/Controllers/Music");
+        File musicFolder = new File("src/assets/music");
         File[] musicFiles = musicFolder.listFiles();
         ObservableList<String> observableMusic = FXCollections.observableArrayList();
         for(File file : musicFiles ){
