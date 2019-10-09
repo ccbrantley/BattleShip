@@ -1,4 +1,4 @@
-package battleship;
+package battleship.models;
 
 /**MappingPane serves to make a Panes position easier to quantify.
  * It will allow access to various Pane properties.

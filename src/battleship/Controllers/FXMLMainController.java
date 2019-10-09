@@ -10,7 +10,8 @@ package battleship.Controllers;
  * Richard Abrams
  * Last Updated: 09/30/2019
  */
-import battleship.*;
+
+import battleship.models.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

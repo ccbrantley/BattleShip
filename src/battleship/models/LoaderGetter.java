@@ -1,5 +1,4 @@
-package battleship;
-
+package battleship.models;
 /*
  * @author Area 51 Block Party:
  * Andrew Braswell

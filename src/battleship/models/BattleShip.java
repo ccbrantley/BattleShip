@@ -1,4 +1,4 @@
-package battleship;
+package battleship.models;
 
 /* BattleShip
  *
@@ -10,7 +10,6 @@ package battleship;
  * Last Updated 09/30/2019
  */
 
-import battleship.Controllers.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javafx.application.Application;
@@ -26,13 +25,12 @@ public class BattleShip extends Application {
 
     @Override
     public void start(Stage _stage) throws Exception {
-
         // Setting paths for all loaders
         ArrayList<String> resourcePaths = new ArrayList();
-        resourcePaths.add("Controllers/FXML/FXMLMain.fxml");
-        resourcePaths.add("Controllers/FXML/FXMLPlay.fxml");
-        resourcePaths.add("Controllers/FXML/FXMLResume.fxml");
-        resourcePaths.add("Controllers/FXML/FXMLSettings.fxml");
+        resourcePaths.add("../views/FXML/FXMLMain.fxml");
+        resourcePaths.add("../views/FXML/FXMLPlay.fxml");
+        resourcePaths.add("../views/FXML/FXMLResume.fxml");
+        resourcePaths.add("../views/FXML/FXMLSettings.fxml");
 
         FXMLLoader loader;
         for (String path : resourcePaths) {

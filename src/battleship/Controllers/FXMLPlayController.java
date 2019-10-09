@@ -8,10 +8,7 @@ package battleship.Controllers;
  * Richard Abrams
  * Last Updated 09/30/2019
  */
-
-import battleship.LoaderGetter;
-import battleship.MapPane;
-import battleship.MappingPane;
+import battleship.models.*;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,7 +76,6 @@ public class FXMLPlayController implements Initializable {
         addingButton.setId("Carrier");
         addingButton2.setId("Carrier");
         addingButton3.setId("Battleship");
-        addingButton.getStylesheets().add(getClass().getResource("Stylesheets/carrier.css").toExternalForm());
         addingButton2.getStylesheets().add(getClass().getResource("Stylesheets/carrier.css").toExternalForm());
         addingButton3.getStylesheets().add(getClass().getResource("Stylesheets/battleship.css").toExternalForm());
         //column index rowe index, column span, row span

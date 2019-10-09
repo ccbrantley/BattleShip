@@ -1,4 +1,4 @@
-package battleship;
+package battleship.models;
 
 /* This class serves to take a controller and readjust its children
  * on the stage to allow proper graphic display.
