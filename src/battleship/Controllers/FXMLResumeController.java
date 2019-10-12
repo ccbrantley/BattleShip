@@ -1,4 +1,4 @@
-package battleship.Controllers;
+package battleship.controllers;
 
 /*
  * @author Area 51 Block Party: 
@@ -8,9 +8,7 @@ package battleship.Controllers;
  * Richard Abrams
  */
 
-import battleship.LoaderGetter;
-import battleship.MapPane;
-import battleship.MappingPane;
+import battleship.models.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

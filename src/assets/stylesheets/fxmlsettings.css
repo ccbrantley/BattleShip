@@ -1,0 +1,62 @@
+.mainFxmlClass {
+ -fx-background-image: url("../images/water/Ocean2.gif");
+ -fx-background-size: 100% 100%;
+}
+
+.button {
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6;
+}
+
+.label {
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6;
+    
+}
+.combo-box {
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6; 
+    -fx-text-size: 50;
+}
+
+.combo-box .list-cell {
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6; 
+}
+.combo-box .list-view { 
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6; 
+}
+.combo-box .menu-item:focused {
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6; 
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6; 
+}
+
+.thumb {
+    -fx-background-color: grey;
+   -fx-opacity: .6;
+}
+
+.track{
+     -fx-background-color: black;  
+   -fx-opacity: .6;
+}
+

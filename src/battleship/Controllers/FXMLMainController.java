@@ -1,4 +1,4 @@
-package battleship.Controllers;
+package battleship.controllers;
 
 /* This class serves to navigate between controllers and to handle
  * initialization of various objects and attributes to be used
@@ -10,7 +10,8 @@ package battleship.Controllers;
  * Richard Abrams
  * Last Updated: 09/30/2019
  */
-import battleship.*;
+
+import battleship.models.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -96,7 +97,7 @@ public class FXMLMainController implements Initializable {
      *
      */
     public void startMusic() {
-        String musicFile = "src/battleship/Controllers/Music/The Planets, Op. 32_ Jupiter, the Bringer of Jollity.mp3";
+        String musicFile = "src/assets/music/The Planets, Op. 32_ Jupiter, the Bringer of Jollity.mp3";
         Media soundFile = new Media(new File(musicFile).toURI().toString());
         this.mediaPlayer = new MediaPlayer(soundFile);
         this.mediaPlayer.play();

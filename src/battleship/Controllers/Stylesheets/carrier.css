@@ -1,9 +1,0 @@
-.button{
-    -fx-alignment: center;
-    -fx-background-color: transparent;
-    -fx-background-image: url("../../../assets/ship/carrier.png");
-    -fx-background-repeat:no-repeat;
-    -fx-background-size: 100%;
-    -fx-max-width: infinity;
-    -fx-max-height: infinity;
-}

@@ -1,4 +1,4 @@
-package battleship.Controllers;
+package battleship.controllers;
 
 /*
  * @author Area 51 Block Party:
@@ -8,10 +8,7 @@ package battleship.Controllers;
  * Richard Abrams
  * Last Updated 09/30/2019
  */
-
-import battleship.LoaderGetter;
-import battleship.MapPane;
-import battleship.MappingPane;
+import battleship.models.*;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,6 +31,7 @@ public class FXMLPlayController implements Initializable {
     @FXML
             private GridPane gridPaneBottom;
     private LoaderGetter loaderGetter;
+    private ResourceGetter resourceGetter = new ResourceGetter();
 
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
@@ -48,17 +46,20 @@ public class FXMLPlayController implements Initializable {
     @FXML
     private void setButtonState(ActionEvent _event) {
         Button pressedButton = (Button)_event.getSource();
-        String blueButtonstyleSheet = "Stylesheets/bluebutton.css";
-        String yellowButtonstyleSheet = "Stylesheets/yellowbutton.css";
-        String redButtonStylesheet = "Stylesheets/redbutton.css";
-        if(pressedButton.getStylesheets().contains(getClass().getResource(blueButtonstyleSheet).toExternalForm())){
+        String blueButtonstyleSheet = this.resourceGetter.getBlueButtonCSS();
+        String yellowButtonstyleSheet = this.resourceGetter.getYellowButtonCSS();
+        String redButtonStylesheet = this.resourceGetter.getRedButtonCSS();
+        if(pressedButton.getStylesheets().contains(blueButtonstyleSheet)){
             setStyleSheet(pressedButton,blueButtonstyleSheet,yellowButtonstyleSheet);
         }
-        else if (pressedButton.getStylesheets().contains(getClass().getResource(yellowButtonstyleSheet).toExternalForm())){
+        else if (pressedButton.getStylesheets().contains(yellowButtonstyleSheet)){
             setStyleSheet(pressedButton,yellowButtonstyleSheet,redButtonStylesheet);
         }
-        else{
+        else if (pressedButton.getStylesheets().contains(redButtonStylesheet)){
             setStyleSheet(pressedButton,redButtonStylesheet,blueButtonstyleSheet);
+        }
+        else{
+            setStyleSheet(pressedButton,blueButtonstyleSheet,yellowButtonstyleSheet);
         }
     }
 
@@ -66,8 +67,8 @@ public class FXMLPlayController implements Initializable {
     private void setStyleSheet(Object _node, String _oldStylesheet, String _newStylesheet) {
         if(_node instanceof Button){
             Button button = (Button)_node;
-            button.getStylesheets().remove(getClass().getResource(_oldStylesheet).toExternalForm());
-            button.getStylesheets().add(getClass().getResource(_newStylesheet).toExternalForm());
+            button.getStylesheets().remove(_oldStylesheet);
+            button.getStylesheets().add(_newStylesheet);
         }
     }
 
@@ -79,14 +80,14 @@ public class FXMLPlayController implements Initializable {
         addingButton.setId("Carrier");
         addingButton2.setId("Carrier");
         addingButton3.setId("Battleship");
-        addingButton.getStylesheets().add(getClass().getResource("Stylesheets/carrier.css").toExternalForm());
-        addingButton2.getStylesheets().add(getClass().getResource("Stylesheets/carrier.css").toExternalForm());
-        addingButton3.getStylesheets().add(getClass().getResource("Stylesheets/battleship.css").toExternalForm());
+        addingButton.getStylesheets().add(this.resourceGetter.getCarrierCSS());
+        addingButton2.getStylesheets().add(this.resourceGetter.getCarrierCSS());
+        addingButton3.getStylesheets().add(this.resourceGetter.getBattleShipCSS());
         //column index rowe index, column span, row span
+        
         gridPaneBottom.add(addingButton, 0,1,4,2);
         addingButton2.setRotate(90);
         gridPaneBottom.add(addingButton2,3,3,4,2);
-
         gridPaneBottom.add(addingButton3, 1, 6, 5, 6);
     }
 
