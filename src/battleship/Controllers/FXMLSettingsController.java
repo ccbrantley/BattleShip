@@ -31,7 +31,7 @@ import javafx.scene.layout.GridPane;
  */
 public class FXMLSettingsController implements Initializable {
     private SettingsControllerLogic settingsControllerLogic;
-    
+
     private Map musicMap = new HashMap();
 
     @FXML
@@ -90,11 +90,11 @@ public class FXMLSettingsController implements Initializable {
     }
 
 //*****************     GETTERS     *******************
-    
+
     public ComboBox getMusicSelection(){
         return this.musicSelection;
     }
-    
+
     public Map getMusicMap() {
         return this.musicMap;
     }

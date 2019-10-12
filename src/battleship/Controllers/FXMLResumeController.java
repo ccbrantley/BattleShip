@@ -1,7 +1,7 @@
 package battleship.controllers;
 
 /*
- * @author Area 51 Block Party: 
+ * @author Area 51 Block Party:
  * Andrew Braswell
  * Christopher Brantley
  * Jacob Schumacher
@@ -15,17 +15,17 @@ import javafx.fxml.Initializable;
 
 public class FXMLResumeController implements Initializable {
     private LoaderGetter loaderGetter;
-    
+
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
-    }    
-    
+    }
+
 //*****************     SETTERS     *******************
-    
+
     public void setLoaderGetter(LoaderGetter _loaderGetter){
         this.loaderGetter = _loaderGetter;
     }
-    
+
 //*****************     GETTERS     *******************
-    
+
 }

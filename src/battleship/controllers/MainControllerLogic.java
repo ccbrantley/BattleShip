@@ -53,15 +53,15 @@ public class MainControllerLogic {
     public FXMLMainController getMainController() {
         return this.mainController;
     }
-    
-    
+
+
     public MappingPane getChildren() {
     MappingPane mainPane = new MappingPane();
     //Pane passedPane, String relativePosition, double aspectWidth, double aspectHeigh, fillvertical, fillhorizontal
     mainPane.mapToPane(new MapPane(this.mainController.getMainMenuPane(), "middle", "center", 1.5, 1, true, false));
     return mainPane;
 }
-    
+
 //*****************     SETTERS     *******************
     public void setLoaderGetter (LoaderGetter _loaderGetter) {
         this.loaderGetter = _loaderGetter;

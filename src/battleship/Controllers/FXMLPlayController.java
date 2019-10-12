@@ -84,7 +84,7 @@ public class FXMLPlayController implements Initializable {
         addingButton2.getStylesheets().add(this.resourceGetter.getCarrierCSS());
         addingButton3.getStylesheets().add(this.resourceGetter.getBattleShipCSS());
         //column index rowe index, column span, row span
-        
+
         gridPaneBottom.add(addingButton, 0,1,4,2);
         addingButton2.setRotate(90);
         gridPaneBottom.add(addingButton2,3,3,4,2);
