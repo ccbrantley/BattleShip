@@ -1,5 +1,16 @@
 package battleship.controllers;
 
+/* This class serves to navigate between controllers and to handle
+ * initialization of various objects and attributes to be used
+ * within all other controllers.
+ * @author Area 51 Block Party:
+ * Andrew Braswell
+ * Christopher Brantley
+ * Jacob Schumacher
+ * Richard Abrams
+ * Last Updated: 09/30/2019
+ */
+
 import battleship.models.LoaderGetter;
 import java.io.File;
 import java.io.IOException;
@@ -16,16 +27,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-/* This class serves to navigate between controllers and to handle
- * initialization of various objects and attributes to be used
- * within all other controllers.
- * @author Area 51 Block Party:
- * Andrew Braswell
- * Christopher Brantley
- * Jacob Schumacher
- * Richard Abrams
- * Last Updated: 09/30/2019
- */
 public class SettingsControllerLogic {
     private static SettingsControllerLogic object;
     private FXMLSettingsController settingsController;
