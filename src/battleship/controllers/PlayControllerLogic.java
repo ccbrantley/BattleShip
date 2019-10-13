@@ -13,10 +13,14 @@ import battleship.models.MapPane;
 import battleship.models.MappingPane;
 import battleship.models.ResourceGetter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -45,17 +49,30 @@ public class PlayControllerLogic {
         this.loaderGetter.getMainController().getLogic().setScene(event);
     }
 
-    public void rotateGridPaneEvent (ScrollEvent _event) {
+    public void rotateGridPaneEvent (ScrollEvent _event) throws NoSuchMethodException {
         GridPane rotatePane = (GridPane)_event.getSource();
         int colIndex = GridPane.getColumnIndex(rotatePane);
         int rowIndex = GridPane.getRowIndex(rotatePane);
-        this.playController.getPlayerShipPane().getChildren().remove(rotatePane);
-
+        int rotateSize = rotatePane.getChildren().size();
+        int colSpan = 1;
+        int rowSpan = 5;
+        Method getShip;
+        String baseMethodString = ("get".concat(rotatePane.getId().substring(0,1).toUpperCase().concat(rotatePane.getId().substring(1,(rotatePane.getId().length()- 1)))));
         if(rotatePane.getId().endsWith("V")) {
-            this.playController.getPlayerShipPane().add(this.playController.getCarrierH(),colIndex,rowIndex,5,1);
+            getShip = this.playController.getClass().getMethod(baseMethodString.concat("H"));
+            colSpan = 5;
+            rowSpan = 1;
         }
         else {
-            this.playController.getPlayerShipPane().add(this.playController.getCarrierV(),colIndex,rowIndex,1,5);
+                getShip = this.playController.getClass().getMethod(baseMethodString.concat("V"));
+            }
+        if(this.gridBoundaryCheck(colIndex + rotateSize) && this.gridBoundaryCheck(rowIndex + rotateSize)){
+            try {
+                this.playController.getPlayerShipPane().add((Node)getShip.invoke(this.playController),colIndex,rowIndex,colSpan,rowSpan);
+                this.playController.getPlayerShipPane().getChildren().remove(rotatePane);
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

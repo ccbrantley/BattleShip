@@ -11,6 +11,8 @@ package battleship.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -37,9 +39,21 @@ public class FXMLPlayController implements Initializable {
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
         this.playerShip.add(this.allCarrierH, 0, 0, 5, 1);
-        this.allCarrierH.setOnScroll(FXMLPlayController.this.playControllerLogic::rotateGridPaneEvent);
+        this.allCarrierH.setOnScroll((_event) -> {
+            try {
+                FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         this.allCarrierH.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
-        this.allCarrierV.setOnScroll(FXMLPlayController.this.playControllerLogic::rotateGridPaneEvent);
+        this.allCarrierV.setOnScroll((_event) -> {
+            try {
+                FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         this.allCarrierV.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
     }
 
@@ -92,10 +106,10 @@ public class FXMLPlayController implements Initializable {
     public GridPane getMenuPane(){
         return this.menu;
     }
-    public GridPane getCarrierH(){
+    public GridPane getAllCarrierH(){
         return this.allCarrierH;
     }
-    public GridPane getCarrierV(){
+    public GridPane getAllCarrierV(){
         return this.allCarrierV;
     }
 }
