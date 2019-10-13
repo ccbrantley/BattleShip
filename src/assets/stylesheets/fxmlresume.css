@@ -1,7 +1,6 @@
 .mainFxmlClass {
  -fx-background-image: url("../images/water/Ocean2.gif");
  -fx-background-size: 100% 100%;
- 
 }
 
 .label{
@@ -10,4 +9,10 @@
     -fx-scale-y: 2;
     -fx-scale-x: 2;
     -fx-alignment: center;
+}
+.button{
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .6;
 }

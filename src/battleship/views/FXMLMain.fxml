@@ -32,8 +32,14 @@
                  <font>
                     <Font name="Times New Roman Bold" size="100" />
                  </font>
+               <padding>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </padding>
               </Label>
-              <Button fx:id="play" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#setScene" text="Play" GridPane.rowIndex="2" />
+              <Button fx:id="play" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#setScene" text="Play" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="10.0" right="10.0" top="10.0" />
+               </padding></Button>
               <Button fx:id="resume" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#setScene" text="Resume" GridPane.rowIndex="4">
                <padding>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
@@ -44,7 +50,7 @@
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>
             </Button>
-              <Button fx:id="exit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#closeGUI" text="Quit" GridPane.rowIndex="8">
+              <Button fx:id="exit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Quit" GridPane.rowIndex="8">
                <padding>
                   <Insets bottom="10.0" right="10.0" top="10.0" />
                </padding>

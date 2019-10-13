@@ -1,14 +1,11 @@
 package battleship.controllers;
 
-/* This class serves to navigate between controllers and to handle
- * initialization of various objects and attributes to be used
- * within all other controllers.
- * @author Area 51 Block Party:
+/* @author Area 51 Block Party:
  * Andrew Braswell
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
- * Last Updated: 09/30/2019
+ * Last Updated: 10/12/2019
  */
 
 import battleship.models.ControllerHandler;
@@ -19,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.media.Media;
@@ -27,14 +23,14 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class MainControllerLogic {
-    private FXMLMainController mainController;
-    private LoaderGetter loaderGetter;
 
     public MainControllerLogic(FXMLMainController _controller) {
         this.mainController = _controller;
         this.startMusic();
     }
 
+    private final FXMLMainController mainController;
+    private LoaderGetter loaderGetter;
 
     private void startMusic() {
         String musicFile = "src/assets/music/The Planets, Op. 32_ Jupiter, the Bringer of Jollity.mp3";
@@ -58,7 +54,7 @@ public class MainControllerLogic {
     public MappingPane getChildren() {
     MappingPane mainPane = new MappingPane();
     //Pane passedPane, String relativePosition, double aspectWidth, double aspectHeigh, fillvertical, fillhorizontal
-    mainPane.mapToPane(new MapPane(this.mainController.getMainMenuPane(), "middle", "center", 1.5, 1, true, false));
+    mainPane.mapToPane(new MapPane(this.mainController.getMainGridPane(), "middle", "center", 1.5, 1, true, false));
     return mainPane;
 }
 
@@ -82,11 +78,12 @@ public class MainControllerLogic {
             case "resume":
                 root = this.loaderGetter.getResumeRoot();
                 FXMLResumeController resumeController = this.loaderGetter.getResumeController();
+                controllerHandler.manageLayout(mainStage, resumeController.getLogic());
                 break;
             case "settings":
                 root = this.loaderGetter.getSettingsRoot();
                 FXMLSettingsController settingsController = this.loaderGetter.getSettingsController();
-                controllerHandler.manageLayout(mainStage, settingsController);
+                controllerHandler.manageLayout(mainStage, settingsController.getLogic());
                 break;
             case "main":
                 root = this.loaderGetter.getMainRoot();
