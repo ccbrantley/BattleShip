@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -31,7 +29,25 @@
             <Button fx:id="cruiser" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="cruiser" GridPane.columnSpan="3" GridPane.rowIndex="2" />
             <Button fx:id="submarine" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="submarine" GridPane.columnSpan="3" GridPane.rowIndex="3" />
             <Button fx:id="destroyer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="destroyer" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <Button fx:id="carrier" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Carrier" GridPane.columnSpan="5" />
+            <GridPane fx:id="allCarrierH" prefHeight="57.0" prefWidth="187.0" stylesheets="@../../assets/stylesheets/carrier.css" GridPane.columnSpan="5">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="carrier1" mnemonicParsing="false" />
+                  <Button fx:id="carrier2" mnemonicParsing="false" GridPane.columnIndex="1" />
+                  <Button fx:id="carrier3" mnemonicParsing="false" GridPane.columnIndex="2" />
+                  <Button fx:id="carrier4" mnemonicParsing="false" GridPane.columnIndex="3" />
+                  <Button fx:id="carrier5" mnemonicParsing="false" GridPane.columnIndex="4" />
+               </children>
+            </GridPane>
          </children>
       </GridPane>
       <GridPane fx:id="playerLogic" alignment="CENTER" layoutX="209.0" layoutY="8.0" prefHeight="250.0" prefWidth="250.0">
@@ -194,50 +210,7 @@
             <Button fx:id="populateGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Populate Grid" />
          </children>
       </GridPane>
-      <TabPane layoutY="448.0" prefHeight="200.0" prefWidth="200.0" rotate="-90.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0">
-        <tabs>
-          <Tab text="Ships">
-               <content>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
-               </content>
-          </Tab>
-          <Tab text="Chat">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      <GridPane fx:id="allCarrierH" prefHeight="57.0" prefWidth="187.0" stylesheets="@../../assets/stylesheets/carrier.css">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="carrier1" mnemonicParsing="false" />
-            <Button fx:id="carrier2" mnemonicParsing="false" GridPane.columnIndex="1" />
-            <Button fx:id="carrier3" mnemonicParsing="false" GridPane.columnIndex="2" />
-            <Button fx:id="carrier4" mnemonicParsing="false" GridPane.columnIndex="3" />
-            <Button fx:id="carrier5" mnemonicParsing="false" GridPane.columnIndex="4" />
-         </children>
-      </GridPane>
-      <GridPane fx:id="allCarrierV" layoutX="108.0" layoutY="172.0" stylesheets="@../../assets/stylesheets/carrier.css">
+      <GridPane fx:id="allCarrierV" layoutX="-210.0" layoutY="523.0" stylesheets="@../../assets/stylesheets/carrier.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -256,5 +229,6 @@
             <Button fx:id="carrier5" mnemonicParsing="false" rotate="90.0" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <Button fx:id="carrier" layoutX="-182.0" layoutY="-18.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Carrier" />
    </children>
 </AnchorPane>

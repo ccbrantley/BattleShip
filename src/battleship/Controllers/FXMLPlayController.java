@@ -39,6 +39,7 @@ public class FXMLPlayController implements Initializable {
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
         this.playerShip.add(this.allCarrierH, 0, 0, 5, 1);
+        //this.allCarrierH.SetOnMousePressed
         this.allCarrierH.setOnScroll((_event) -> {
             try {
                 FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
