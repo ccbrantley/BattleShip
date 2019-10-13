@@ -1,11 +1,5 @@
 package battleship.controllers;
 
-import battleship.models.LoaderGetter;
-import battleship.models.MapPane;
-import battleship.models.MappingPane;
-import java.io.IOException;
-import javafx.event.ActionEvent;
-
 /* @author Area 51 Block Party:
  * Andrew Braswell
  * Christopher Brantley
@@ -13,6 +7,12 @@ import javafx.event.ActionEvent;
  * Richard Abrams
  * Last Updated: 10/12/2019
  */
+
+import battleship.models.LoaderGetter;
+import battleship.models.MapPane;
+import battleship.models.MappingPane;
+import java.io.IOException;
+import javafx.event.ActionEvent;
 
 public class ResumeControllerLogic {
 

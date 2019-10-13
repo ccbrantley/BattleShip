@@ -37,7 +37,7 @@ public class MainControllerLogic {
         Media soundFile = new Media(new File(musicFile).toURI().toString());
         this.mainController.setMediaPlayer(new MediaPlayer(soundFile));
         this.mainController.getMediaPlayer().play();
-        this.mainController.getMediaPlayer().setVolume(.5);
+        this.mainController.getMediaPlayer().setVolume(.25);
     }
 
     public void closeGUI() {
@@ -73,7 +73,7 @@ public class MainControllerLogic {
             case "play":
                 root = this.loaderGetter.getPlayRoot();
                 FXMLPlayController playController = this.loaderGetter.getPlayController();
-                controllerHandler.manageLayout(mainStage, playController);
+                controllerHandler.manageLayout(mainStage, playController.getLogic());
                 break;
             case "resume":
                 root = this.loaderGetter.getResumeRoot();

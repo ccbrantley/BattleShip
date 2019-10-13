@@ -29,7 +29,7 @@ public class BattleShip extends Application {
         // Setting paths for all loaders
         ArrayList<String> resourcePaths = new ArrayList();
         resourcePaths.add("views/FXMLMain.fxml");
-        //resourcePaths.add("views/FXMLPlay.fxml");
+        resourcePaths.add("views/FXMLPlay.fxml");
         resourcePaths.add("views/FXMLResume.fxml");
         resourcePaths.add("views/FXMLSettings.fxml");
 

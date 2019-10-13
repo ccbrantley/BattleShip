@@ -26,6 +26,11 @@ public class FXMLMainController implements Initializable {
         this.mainControllerLogic = new MainControllerLogic(this);
     }
 
+    @Override
+    public void initialize(URL _url, ResourceBundle _rb) {
+        this.exit.setOnAction(a -> this.mainControllerLogic.closeGUI());
+    }
+
     public MainControllerLogic mainControllerLogic;
     private MediaPlayer mediaPlayer;
     private final ColorAdjust colorAdjust = new ColorAdjust();
@@ -33,11 +38,6 @@ public class FXMLMainController implements Initializable {
     private GridPane mainMenuPane;
     @FXML
     private Button exit;
-
-    @Override
-    public void initialize(URL _url, ResourceBundle _rb) {
-        this.exit.setOnAction(a -> this.mainControllerLogic.closeGUI());
-    }
 
 //*****************     SETTERS     *******************
     @FXML

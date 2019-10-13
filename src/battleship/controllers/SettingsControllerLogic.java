@@ -38,8 +38,8 @@ public class SettingsControllerLogic {
         Map musicMap = new HashMap();
         ObservableList<String> observableMusic = FXCollections.observableArrayList();
         for(File file : musicFiles ){
-            musicMap.put(file.getPath().substring(33), file.getPath());
-            observableMusic.add(file.getPath().substring(33));
+            musicMap.put(file.getPath().substring(17), file.getPath());
+            observableMusic.add(file.getPath().substring(17));
             }
         this.settingsController.getMusicMap().putAll(musicMap);
         this.settingsController.setPlayList(observableMusic);
