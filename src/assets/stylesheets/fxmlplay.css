@@ -4,9 +4,7 @@
 }
 
 .button{
-    -fx-text-fill: black;
-    -fx-text-size: 20;
-    -fx-scale-y: 1;
-    -fx-scale-x: 1;
-    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }

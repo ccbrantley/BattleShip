@@ -12,10 +12,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class FXMLPlayController implements Initializable {
 
@@ -25,7 +36,11 @@ public class FXMLPlayController implements Initializable {
 
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
-        this.populateGrid.setOnAction(a -> this.playControllerLogic.setCarrier());
+        this.playerShip.add(this.allCarrierH, 0, 0, 5, 1);
+        this.allCarrierH.setOnScroll(FXMLPlayController.this.playControllerLogic::rotateGridPaneEvent);
+        this.allCarrierH.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
+        this.allCarrierV.setOnScroll(FXMLPlayController.this.playControllerLogic::rotateGridPaneEvent);
+        this.allCarrierV.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
     }
 
     PlayControllerLogic playControllerLogic;
@@ -37,6 +52,16 @@ public class FXMLPlayController implements Initializable {
     private GridPane menu;
     @FXML
     private Button populateGrid;
+    @FXML
+    private Button carrier;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private GridPane addShips;
+    @FXML
+    private GridPane allCarrierH;
+    @FXML
+    private GridPane allCarrierV;
 
     @FXML
     public void returnMainMenu(ActionEvent _event) throws IOException {
@@ -66,6 +91,12 @@ public class FXMLPlayController implements Initializable {
 
     public GridPane getMenuPane(){
         return this.menu;
+    }
+    public GridPane getCarrierH(){
+        return this.allCarrierH;
+    }
+    public GridPane getCarrierV(){
+        return this.allCarrierV;
     }
 }
 

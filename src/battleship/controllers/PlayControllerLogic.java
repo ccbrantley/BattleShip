@@ -13,19 +13,76 @@ import battleship.models.MapPane;
 import battleship.models.MappingPane;
 import battleship.models.ResourceGetter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
 
 public class PlayControllerLogic {
+
     public PlayControllerLogic (FXMLPlayController _controller) {
      this.playController = _controller;
     }
+
     FXMLPlayController playController;
     private LoaderGetter loaderGetter;
     private final ResourceGetter resourceGetter = new ResourceGetter();
+    private int BOARDCOLUMNSIZE = 7;
+    private int BOARDROWSIZE = 7;
 
     public void returnMainMenu(ActionEvent event) throws IOException {
         this.loaderGetter.getMainController().getLogic().setScene(event);
+    }
+
+    public void rotateGridPaneEvent (ScrollEvent _event) {
+        GridPane rotatePane = (GridPane)_event.getSource();
+        int colIndex = GridPane.getColumnIndex(rotatePane);
+        int rowIndex = GridPane.getRowIndex(rotatePane);
+        this.playController.getPlayerShipPane().getChildren().remove(rotatePane);
+
+        if(rotatePane.getId().endsWith("V")) {
+            this.playController.getPlayerShipPane().add(this.playController.getCarrierH(),colIndex,rowIndex,5,1);
+        }
+        else {
+            this.playController.getPlayerShipPane().add(this.playController.getCarrierV(),colIndex,rowIndex,1,5);
+        }
+    }
+
+    public void moveChildOfGridEvent (KeyEvent event) {
+        GridPane eventPane = (GridPane)event.getSource();
+        int colIndex = GridPane.getColumnIndex(eventPane);
+        int rowIndex = GridPane.getRowIndex(eventPane);
+        int colSpan = GridPane.getColumnSpan(eventPane);
+        int rowSpan = GridPane.getRowSpan(eventPane);
+        switch (event.getText().toUpperCase()) {
+            case "D":
+                GridPane.setColumnIndex(eventPane, this.gridBoundaryCheck((colIndex+colSpan)+1) ? colIndex+1 : colIndex);
+                break;
+            case "A":
+                GridPane.setColumnIndex(eventPane, this.gridBoundaryCheck(colIndex-1) ? colIndex-1 : colIndex);
+                break;
+            case "W":
+                GridPane.setRowIndex(eventPane, this.gridBoundaryCheck(rowIndex-1) ? rowIndex-1 : rowIndex);
+                break;
+            case "S":
+                GridPane.setRowIndex(eventPane, this.gridBoundaryCheck((rowIndex+rowSpan)+1) ? rowIndex+1 : rowIndex);
+                break;
+        }
+    }
+
+    private Boolean gridBoundaryCheck (int _index) {
+        return !(_index < 0 | _index > this.BOARDROWSIZE | _index > this.BOARDCOLUMNSIZE);
     }
 
 //*****************     GETTERS     *******************
@@ -37,6 +94,23 @@ public class PlayControllerLogic {
         mainPane.mapToPane(new MapPane(this.playController.getPlayerShipPane(), "bottom","center", 1, 1, false, false));
         mainPane.mapToPane(new MapPane(this.playController.getMenuPane(), "bottom", "right", 1, 1, false, false));
         return mainPane;
+    }
+
+    public static Predicate<Node> isButton(){
+        return p -> (p instanceof Button);
+    }
+
+    public Button getSectorFromAlpha(String _sector) {
+        GridPane shipPane = this.playController.getPlayerShipPane();
+        Button actualSector;
+        ArrayList<Button> temporaryList = new ArrayList();
+        shipPane.getChildren().filtered(isButton()).forEach(child -> {temporaryList.add((Button)child);});
+        for(Button child : temporaryList){
+            if(child.getId().equals(_sector)){
+                return child;
+            }
+        }
+        return null;
     }
 
 //*****************     SETTERS     *******************

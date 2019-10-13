@@ -51,7 +51,7 @@ public class BattleShip extends Application {
         }
         // Setting the stage and stage properties
         Scene scene = new Scene(loaderGetter.getMainRoot());
-        _stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); 
+        _stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         _stage.setScene(scene);
         _stage.setFullScreen(true);
         _stage.setResizable(false);
