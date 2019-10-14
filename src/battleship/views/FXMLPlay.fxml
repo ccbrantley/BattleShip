@@ -9,48 +9,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="667.0" stylesheets="@../../assets/stylesheets/fxmlplay.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleship.controllers.FXMLPlayController">
     <children>
-      <GridPane fx:id="addShips" layoutX="465.0" layoutY="413.0" prefHeight="242.0" prefWidth="200.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="battleship" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="battleship" GridPane.columnSpan="4" GridPane.rowIndex="1" />
-            <Button fx:id="cruiser" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="cruiser" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-            <Button fx:id="submarine" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="submarine" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-            <Button fx:id="destroyer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="destroyer" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <GridPane fx:id="allCarrierH" prefHeight="57.0" prefWidth="187.0" stylesheets="@../../assets/stylesheets/carrier.css" GridPane.columnSpan="5">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button fx:id="carrier1" mnemonicParsing="false" />
-                  <Button fx:id="carrier2" mnemonicParsing="false" GridPane.columnIndex="1" />
-                  <Button fx:id="carrier3" mnemonicParsing="false" GridPane.columnIndex="2" />
-                  <Button fx:id="carrier4" mnemonicParsing="false" GridPane.columnIndex="3" />
-                  <Button fx:id="carrier5" mnemonicParsing="false" GridPane.columnIndex="4" />
-               </children>
-            </GridPane>
-         </children>
-      </GridPane>
-      <GridPane fx:id="playerLogic" alignment="CENTER" layoutX="209.0" layoutY="8.0" prefHeight="250.0" prefWidth="250.0">
+      <GridPane fx:id="playerLogic" alignment="CENTER" layoutX="567.0" layoutY="70.0" prefHeight="27.0" prefWidth="30.0">
          <children>
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" prefHeight="91.0" prefWidth="155.0" styleClass="blueButton" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="1" />
@@ -99,7 +58,7 @@
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="6" GridPane.rowIndex="3" />
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="6" GridPane.rowIndex="4" />
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" prefHeight="91.0" prefWidth="0.0" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="6" GridPane.rowIndex="6" />
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonState" stylesheets="@../../assets/stylesheets/bluebutton.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
          <columnConstraints>
@@ -121,59 +80,113 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="playerShip" alignment="CENTER" layoutX="202.0" layoutY="398.0" prefHeight="250.0" prefWidth="250.0">
+      <GridPane fx:id="playerShip" alignment="CENTER" layoutX="189.0" layoutY="198.0" prefHeight="466.0" prefWidth="461.0" stylesheets="@../../assets/stylesheets/bottomgrid.css">
          <children>
-            <Button fx:id="A1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" styleClass="blueButton" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
-            <Button fx:id="A2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" />
-            <Button fx:id="B3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="B1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="1" />
-            <Button fx:id="B2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="C1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="2" />
-            <Button fx:id="D1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="3" />
-            <Button fx:id="E1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="4" />
-            <Button fx:id="C2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="D2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="E2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button fx:id="F2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button fx:id="F1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="5" />
-            <Button fx:id="G1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="6" />
-            <Button fx:id="A3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" />
-            <Button fx:id="C3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="D3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button fx:id="E3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button fx:id="F3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button fx:id="G3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Button fx:id="A4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" />
-            <Button fx:id="B4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button fx:id="C4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button fx:id="D4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Button fx:id="E4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Button fx:id="F4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button fx:id="G4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Button fx:id="A5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" />
-            <Button fx:id="B5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Button fx:id="C5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Button fx:id="D5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button fx:id="E5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <Button fx:id="F5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <Button fx:id="G5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-            <Button fx:id="A6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" />
-            <Button fx:id="B6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Button fx:id="C6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Button fx:id="D6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-            <Button fx:id="E6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <Button fx:id="F6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-            <Button fx:id="G6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <Button fx:id="C7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-            <Button fx:id="B7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-            <Button fx:id="A7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" />
-            <Button fx:id="D7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <Button fx:id="E7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <Button fx:id="F7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Button fx:id="G7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-            <Button fx:id="G2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="B78" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" />
+            <Button fx:id="B7" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" />
+            <Button fx:id="B71" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" />
+            <Button fx:id="B72" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" />
+            <Button fx:id="B73" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" />
+            <Button fx:id="B74" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" />
+            <Button fx:id="B75" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" />
+            <Button fx:id="B76" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" />
+            <Button fx:id="B77" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" />
+            <Button fx:id="B710" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" />
+            <Button fx:id="B711" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="1" />
+            <Button fx:id="B712" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="B713" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button fx:id="B714" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button fx:id="B715" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <Button fx:id="B716" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Button fx:id="B717" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Button fx:id="B718" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <Button fx:id="B719" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <Button fx:id="B720" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+            <Button fx:id="B722" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="2" />
+            <Button fx:id="B723" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="B724" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="B725" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="B726" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <Button fx:id="B727" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <Button fx:id="B728" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <Button fx:id="B729" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <Button fx:id="B730" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Button fx:id="B731" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+            <Button fx:id="B733" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="3" />
+            <Button fx:id="B734" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="B735" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button fx:id="B736" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Button fx:id="B737" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <Button fx:id="B738" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <Button fx:id="B739" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <Button fx:id="B740" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <Button fx:id="B741" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <Button fx:id="B742" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="3" />
+            <Button fx:id="B744" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="4" />
+            <Button fx:id="B745" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="B746" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="B747" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Button fx:id="B748" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Button fx:id="B749" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <Button fx:id="B750" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Button fx:id="B751" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <Button fx:id="B752" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <Button fx:id="B753" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="4" />
+            <Button fx:id="B755" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="5" />
+            <Button fx:id="B756" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="B757" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button fx:id="B758" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button fx:id="B759" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <Button fx:id="B760" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <Button fx:id="B761" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <Button fx:id="B762" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <Button fx:id="B763" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <Button fx:id="B764" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+            <Button fx:id="B766" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="6" />
+            <Button fx:id="B767" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button fx:id="B768" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Button fx:id="B769" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Button fx:id="B770" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <Button fx:id="B771" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <Button fx:id="B772" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+            <Button fx:id="B773" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+            <Button fx:id="B774" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+            <Button fx:id="B775" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="6" />
+            <Button fx:id="B777" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="7" />
+            <Button fx:id="B778" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Button fx:id="B779" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Button fx:id="B780" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <Button fx:id="B781" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <Button fx:id="B782" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <Button fx:id="B783" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+            <Button fx:id="B784" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+            <Button fx:id="B785" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+            <Button fx:id="B786" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="7" />
+            <Button fx:id="B788" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="8" />
+            <Button fx:id="B789" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button fx:id="B790" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Button fx:id="B791" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Button fx:id="B792" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+            <Button fx:id="B793" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+            <Button fx:id="B794" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+            <Button fx:id="B795" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+            <Button fx:id="B796" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+            <Button fx:id="B797" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="8" />
+            <Button fx:id="B7110" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.rowIndex="9" />
+            <Button fx:id="B7111" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Button fx:id="B7112" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <Button fx:id="B7113" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Button fx:id="B7114" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+            <Button fx:id="B7115" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+            <Button fx:id="B7116" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+            <Button fx:id="B7117" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="7" GridPane.rowIndex="9" />
+            <Button fx:id="B7118" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="8" GridPane.rowIndex="9" />
+            <Button fx:id="B7119" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="91.0" prefWidth="155.0" stylesheets="@../../assets/stylesheets/bottomgrid.css" GridPane.columnIndex="9" GridPane.rowIndex="9" />
          </children>
           <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -190,27 +203,46 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <GridPane fx:id="menu" layoutX="539.0" layoutY="164.0">
+      <GridPane fx:id="allCarrierH" layoutX="-206.0" layoutY="-44.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../../assets/stylesheets/carrier.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="carrier1" mnemonicParsing="false" />
+            <Button fx:id="carrier2" mnemonicParsing="false" GridPane.columnIndex="1" />
+            <Button fx:id="carrier3" mnemonicParsing="false" GridPane.columnIndex="2" />
+            <Button fx:id="carrier4" mnemonicParsing="false" GridPane.columnIndex="3" />
+            <Button fx:id="carrier5" mnemonicParsing="false" GridPane.columnIndex="4" />
+         </children>
+      </GridPane>
+      <GridPane fx:id="menu" layoutX="567.0" layoutY="33.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#returnMainMenu" text="Main Menu" GridPane.rowIndex="1">
+            <Button fx:id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#returnMainMenu" text="Main Menu">
                <GridPane.margin>
                   <Insets bottom="5.0" top="5.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="populateGrid" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Populate Grid" />
          </children>
       </GridPane>
-      <GridPane fx:id="allCarrierV" layoutX="-210.0" layoutY="523.0" stylesheets="@../../assets/stylesheets/carrier.css">
+      <GridPane fx:id="allCarrierV" layoutX="-140.0" layoutY="338.0" stylesheets="@../../assets/stylesheets/carrier.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -229,6 +261,39 @@
             <Button fx:id="carrier5" mnemonicParsing="false" rotate="90.0" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="carrier" layoutX="-182.0" layoutY="-18.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Carrier" />
+      <GridPane fx:id="allBattleshipV" layoutX="-122.0" layoutY="516.0" stylesheets="@../../assets/stylesheets/bottomgrid.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="battleship1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" rotate="90.0" />
+            <Button fx:id="battleship2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" rotate="90.0" GridPane.rowIndex="1" />
+            <Button fx:id="battleship3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" rotate="90.0" GridPane.rowIndex="2" />
+            <Button fx:id="battleship4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" rotate="90.0" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <GridPane fx:id="allBattleshipH" layoutX="-281.0" layoutY="-54.0" stylesheets="@../../assets/stylesheets/bottomgrid.css">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="battleship1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" />
+            <Button fx:id="battleship2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="1" />
+            <Button fx:id="battleship4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="143.0" prefWidth="114.0" GridPane.columnIndex="3" />
+            <Button fx:id="battleship3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

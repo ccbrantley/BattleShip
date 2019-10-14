@@ -10,26 +10,15 @@ package battleship.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-
 public class FXMLPlayController implements Initializable {
 
     public FXMLPlayController () {
@@ -39,23 +28,22 @@ public class FXMLPlayController implements Initializable {
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
         this.playerShip.add(this.allCarrierH, 0, 0, 5, 1);
-        //this.allCarrierH.SetOnMousePressed
-        this.allCarrierH.setOnScroll((_event) -> {
-            try {
-                FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
-            } catch (NoSuchMethodException ex) {
-                Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        this.playerShip.add(this.allBattleshipH, 5,5,4,1);
+        ArrayList<GridPane> allShips = new ArrayList();
+        allShips.add(allCarrierH);
+        allShips.add(allCarrierV);
+        allShips.add(allBattleshipH);
+        allShips.add(allBattleshipV);
+        allShips.forEach(child -> {
+            child.setOnScroll((_event) -> {
+                try {
+                    FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
+                } catch (NoSuchMethodException ex) {
+                    Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        child.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
         });
-        this.allCarrierH.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
-        this.allCarrierV.setOnScroll((_event) -> {
-            try {
-                FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
-            } catch (NoSuchMethodException ex) {
-                Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        this.allCarrierV.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
     }
 
     PlayControllerLogic playControllerLogic;
@@ -66,17 +54,15 @@ public class FXMLPlayController implements Initializable {
     @FXML
     private GridPane menu;
     @FXML
-    private Button populateGrid;
-    @FXML
-    private Button carrier;
-    @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private GridPane addShips;
     @FXML
     private GridPane allCarrierH;
     @FXML
     private GridPane allCarrierV;
+    @FXML
+    private GridPane allBattleshipH;
+    @FXML
+    private GridPane allBattleshipV;
 
     @FXML
     public void returnMainMenu(ActionEvent _event) throws IOException {
@@ -107,11 +93,22 @@ public class FXMLPlayController implements Initializable {
     public GridPane getMenuPane(){
         return this.menu;
     }
+
     public GridPane getAllCarrierH(){
         return this.allCarrierH;
     }
+
     public GridPane getAllCarrierV(){
         return this.allCarrierV;
     }
+
+    public GridPane getAllBattleshipH() {
+        return this.allBattleshipH;
+    }
+
+    public GridPane getAllBattleshipV() {
+        return this.allBattleshipV;
+    }
+
 }
 
