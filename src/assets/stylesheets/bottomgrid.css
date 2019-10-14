@@ -1,52 +1,42 @@
 .button{
-    -fx-background-image: url("../images/grid/bottomSector.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
     -fx-background-color: transparent;
+    -fx-background-repeat:no-repeat;
+    -fx-background-size: 100% 100%;
+}
+#grid{
+-fx-background-image: url("../images/grid/bottomSector.png");
+}
+#destroyer1{
+    -fx-background-image: url("../images/ship/destroyer1.png");
+}
+#destroyer2{
+    -fx-background-image: url("../images/ship/destroyer2.png");
 }
 #battleship1{
     -fx-background-image: url("../images/ship/Pseudo-Battleship1.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #battleship2{
     -fx-background-image: url("../images/ship/Pseudo-Battleship2.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #battleship3{
     -fx-background-image: url("../images/ship/Pseudo-Battleship3.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #battleship4{
     -fx-background-image: url("../images/ship/Pseudo-Battleship4.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #carrier1 {
     -fx-background-image: url("../images/ship/carrier1.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #carrier2 {
     -fx-background-image: url("../images/ship/carrier2.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #carrier3 {
     -fx-background-image: url("../images/ship/carrier3.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #carrier4 {
     -fx-background-image: url("../images/ship/carrier4.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 #carrier5 {
     -fx-background-image: url("../images/ship/carrier5.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat:no-repeat;
 }
 

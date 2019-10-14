@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,11 +27,14 @@ public class FXMLPlayController implements Initializable {
     public void initialize(URL _url, ResourceBundle _rb) {
         this.playerShip.add(this.allCarrierH, 0, 0, 5, 1);
         this.playerShip.add(this.allBattleshipH, 5,5,4,1);
+        this.playerShip.add(this.allDestroyerH, 3,3,2,1);
         ArrayList<GridPane> allShips = new ArrayList();
         allShips.add(allCarrierH);
         allShips.add(allCarrierV);
         allShips.add(allBattleshipH);
         allShips.add(allBattleshipV);
+        allShips.add(allDestroyerH);
+        allShips.add(allDestroyerV);
         this.playControllerLogic.initializeController(allShips);
     }
 
@@ -54,6 +55,10 @@ public class FXMLPlayController implements Initializable {
     private GridPane allBattleshipH;
     @FXML
     private GridPane allBattleshipV;
+    @FXML
+    private GridPane allDestroyerH;
+    @FXML
+    private GridPane allDestroyerV;
 
     @FXML
     public void returnMainMenu(ActionEvent _event) throws IOException {
@@ -99,6 +104,14 @@ public class FXMLPlayController implements Initializable {
 
     public GridPane getAllBattleshipV() {
         return this.allBattleshipV;
+    }
+
+    public GridPane getAllDestroyerH() {
+        return this.allDestroyerH;
+    }
+
+    public GridPane getAllDestroyerV(){
+        return this.allDestroyerV;
     }
 
 }
