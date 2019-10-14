@@ -25,20 +25,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
 
 public class PlayControllerLogic {
 
-    public PlayControllerLogic (FXMLPlayController _controller) {
+    public PlayControllerLogic (FXMLPlayController _controller) throws FileNotFoundException {
      this.playController = _controller;
+     this.explosionAnimation = new Animator("EXPLOSION");
     }
 
     FXMLPlayController playController;
     private LoaderGetter loaderGetter;
     private final ResourceGetter resourceGetter = new ResourceGetter();
-    private final Animator animator = new Animator();
+    private final Animator explosionAnimation;
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
 
@@ -119,9 +121,14 @@ public class PlayControllerLogic {
     private Boolean gridBoundaryCheck (int _index) {
         return !(_index < 0 | _index > this.BOARDROWSIZE | _index > this.BOARDCOLUMNSIZE);
     }
-
+// Should allow this to take in x, y coordinates or use getSectorFromAlpha to get a button then receive it's position
     public void displayExplosion (ActionEvent _event) throws FileNotFoundException {
-        this.playController.getAnchorPane().getChildren().add(this.animator.getExplosionAnimation());
+        ImageView explosionView = this.explosionAnimation.getImageView();
+        this.explosionAnimation.setImageViewScale(.5,.5);
+        this.explosionAnimation.setImageViewLayout(600, 600);
+        this.playController.getAnchorPane().getChildren().add(explosionView);
+        this.explosionAnimation.playAnimation();
+        this.explosionAnimation.getTimeline().setOnFinished(event -> {this.playController.getAnchorPane().getChildren().remove(explosionView);});
     }
 //*****************     GETTERS     *******************
 

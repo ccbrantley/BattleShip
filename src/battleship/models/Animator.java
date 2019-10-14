@@ -24,11 +24,18 @@ import javafx.util.Duration;
  *
  * @author chris
  */
-public class Animator {
-    public Animator () {
+public final class Animator {
+
+    public Animator (String _type) throws FileNotFoundException {
+        if (_type.equals("EXPLOSION")){
+            this.createExplosionAnimation();
+        }
     }
 
-    public ImageView getExplosionAnimation() throws FileNotFoundException {
+    private ImageView imageView;
+    private Timeline timeLine;
+
+    public void createExplosionAnimation() throws FileNotFoundException {
         Image smoke = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke1.png"));
         Image smoke2 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke2.png"));
         Image smoke3 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke3.png"));
@@ -69,7 +76,7 @@ public class Animator {
         Image smoke38 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke38.png"));
         Image smoke39 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke39.png"));
         Image smoke40 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke40.png"));
-        ImageView smokeView = new ImageView(smoke);
+        ImageView smokeView = new ImageView();
         final Timeline timeline = new Timeline();
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.millis(0), (ActionEvent t) -> {
@@ -193,12 +200,44 @@ public class Animator {
                     smokeView.setImage(smoke40);
         })
             );
-        timeline.play();
-        smokeView.setScaleX(.2);
-        smokeView.setScaleY(.2);
-        smokeView.setLayoutX(200);
-        smokeView.setLayoutY(200);
-        timeline.setCycleCount(Animation.INDEFINITE);
-        return smokeView;
+        //timeline.setCycleCount(Animation.INDEFINITE);
+        this.imageView = smokeView;
+        this.timeLine = timeline;
+    }
+
+        public void playAnimation() {
+            this.timeLine.playFromStart();
+        }
+
+//*****************     GETTERS     *******************
+
+    public ImageView getImageView() {
+        return this.imageView;
+    }
+
+    public Timeline getTimeline() {
+        return this.timeLine;
+    }
+
+
+//*****************     SETTERS     *******************
+
+    public void setImageViewScale(double _scaleX, double _scaleY) {
+        this.imageView.setScaleX(_scaleX);
+        this.imageView.setScaleY(_scaleY);
+    }
+
+    public void setImageViewLayout(double _layoutX, double _layoutY) {
+        this.imageView.setLayoutX(_layoutX);
+        this.imageView.setLayoutY(_layoutY);
+    }
+
+    public void setAnimationLoop(boolean _truthValue) {
+        if(_truthValue) {
+            this.timeLine.setCycleCount(Animation.INDEFINITE);
+        }
+        else {
+            this.timeLine.setCycleCount(this.timeLine.getKeyFrames().size());
+        }
     }
 }

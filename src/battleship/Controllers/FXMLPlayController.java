@@ -8,6 +8,7 @@ package battleship.controllers;
  * Last Updated: 10/12/2019
  */
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 public class FXMLPlayController implements Initializable {
 
-    public FXMLPlayController () {
+    public FXMLPlayController () throws FileNotFoundException {
         this.playControllerLogic = new PlayControllerLogic(this);
     }
 
