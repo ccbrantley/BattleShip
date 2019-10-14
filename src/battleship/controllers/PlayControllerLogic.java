@@ -8,10 +8,12 @@ package battleship.controllers;
  * Last Updated: 10/12/2019
  */
 
+import battleship.models.Animator;
 import battleship.models.LoaderGetter;
 import battleship.models.MapPane;
 import battleship.models.MappingPane;
 import battleship.models.ResourceGetter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,6 +22,7 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
@@ -35,10 +38,21 @@ public class PlayControllerLogic {
     FXMLPlayController playController;
     private LoaderGetter loaderGetter;
     private final ResourceGetter resourceGetter = new ResourceGetter();
+    private final Animator animator = new Animator();
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
 
     public void initializeController(ArrayList<GridPane> _allShips){
+        this.playController.getExplosion().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent _event) {
+                try {
+                    PlayControllerLogic.this.displayExplosion(_event);
+                }catch (FileNotFoundException ex) {
+                    Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         _allShips.forEach(child -> {
             child.setOnScroll((_event) -> {
                 try {
@@ -106,9 +120,12 @@ public class PlayControllerLogic {
         return !(_index < 0 | _index > this.BOARDROWSIZE | _index > this.BOARDCOLUMNSIZE);
     }
 
+    public void displayExplosion (ActionEvent _event) throws FileNotFoundException {
+        this.playController.getAnchorPane().getChildren().add(this.animator.getExplosionAnimation());
+    }
 //*****************     GETTERS     *******************
 
-    public MappingPane getChildren() {
+    public MappingPane getChildren () {
         MappingPane mainPane = new MappingPane();
         //Pane passedPane, String relativePosition, double aspectWidth, double aspectHeight
         mainPane.mapToPane(new MapPane(this.playController.getPlayerLogicPane(), "top", "center", 1, 1, false, false));

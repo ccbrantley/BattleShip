@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 public class FXMLPlayController implements Initializable {
@@ -59,6 +60,8 @@ public class FXMLPlayController implements Initializable {
     private GridPane allDestroyerH;
     @FXML
     private GridPane allDestroyerV;
+    @FXML
+    private Button explosion;
 
     @FXML
     public void returnMainMenu(ActionEvent _event) throws IOException {
@@ -73,6 +76,10 @@ public class FXMLPlayController implements Initializable {
     }
 
 //*****************     GETTERS     *******************
+
+    public AnchorPane getAnchorPane(){
+        return this.anchorPane;
+    }
 
     public PlayControllerLogic getLogic(){
         return this.playControllerLogic;
@@ -112,6 +119,10 @@ public class FXMLPlayController implements Initializable {
 
     public GridPane getAllDestroyerV(){
         return this.allDestroyerV;
+    }
+
+    public Button getExplosion() {
+        return this.explosion;
     }
 
 }
