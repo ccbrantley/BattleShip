@@ -38,6 +38,19 @@ public class PlayControllerLogic {
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
 
+    public void initializeController(ArrayList<GridPane> _allShips){
+        _allShips.forEach(child -> {
+            child.setOnScroll((_event) -> {
+                try {
+                    this.rotateGridPaneEvent(_event);
+                } catch (NoSuchMethodException ex) {
+                    Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        child.setOnKeyPressed(this::moveChildOfGridEvent);
+        });
+    }
+
     public void returnMainMenu(ActionEvent event) throws IOException {
         this.loaderGetter.getMainController().getLogic().setScene(event);
     }

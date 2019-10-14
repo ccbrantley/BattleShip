@@ -34,16 +34,7 @@ public class FXMLPlayController implements Initializable {
         allShips.add(allCarrierV);
         allShips.add(allBattleshipH);
         allShips.add(allBattleshipV);
-        allShips.forEach(child -> {
-            child.setOnScroll((_event) -> {
-                try {
-                    FXMLPlayController.this.playControllerLogic.rotateGridPaneEvent(_event);
-                } catch (NoSuchMethodException ex) {
-                    Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-        child.setOnKeyPressed(FXMLPlayController.this.playControllerLogic::moveChildOfGridEvent);
-        });
+        this.playControllerLogic.initializeController(allShips);
     }
 
     PlayControllerLogic playControllerLogic;
