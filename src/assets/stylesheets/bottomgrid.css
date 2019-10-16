@@ -4,16 +4,16 @@
     -fx-background-size: 100% 100%;
 }
 #battleship1 {
-    -fx-background-image: url("../images/ship/Pseudo-Battleship1.png");
+    -fx-background-image: url("../images/ship/battleship1.png");
 }
 #battleship2 {
-    -fx-background-image: url("../images/ship/Pseudo-Battleship2.png");
+    -fx-background-image: url("../images/ship/battleship2.png");
 }
 #battleship3 {
-    -fx-background-image: url("../images/ship/Pseudo-Battleship3.png");
+    -fx-background-image: url("../images/ship/battleship3.png");
 }
 #battleship4 {
-    -fx-background-image: url("../images/ship/Pseudo-Battleship4.png");
+    -fx-background-image: url("../images/ship/battleship4.png");
 }
 #carrier1 {
     -fx-background-image: url("../images/ship/carrier1.png");

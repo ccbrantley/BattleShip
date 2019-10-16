@@ -9,11 +9,22 @@ package battleship.views;
  */
 
 import battleship.models.ResourceGetter;
+import com.sun.glass.ui.Cursor;
+import com.sun.glass.ui.MenuItem.Callback;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.SnapshotResult;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -24,6 +35,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 
 public class ShipSelectionPane {
     public ShipSelectionPane(double _screenWidth, double _screenHeight, AnchorPane mainPane) {
@@ -210,7 +222,12 @@ public class ShipSelectionPane {
         }
         this.allShipHashMap.put(buttonId, temporaryList);
         temporaryList.forEach(child->{((Button)child).setOnKeyPressed(event -> {this.shipMovementEvent(event);});});
-        temporaryList.forEach(child->{((Button)child).setOnDragDetected(event -> {this.shipOnDragDetected(event);});});
+        temporaryList.forEach(child->{((Button)child).setOnDragDetected(event -> {try {
+            this.shipOnDragDetected(event);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });});
         temporaryList.forEach(child ->{((Button)child).setOnScroll(event -> {this.shipRotationEvent(event);});});
     }
 
@@ -264,15 +281,30 @@ public class ShipSelectionPane {
     }
 }
 
-    private void shipOnDragDetected(MouseEvent _event){
+    private void shipOnDragDetected(MouseEvent _event) throws FileNotFoundException{
         Button curButton = (Button)_event.getSource();
-        // allow any transfer mode
+        String curId = curButton.getId().substring(0,curButton.getId().length()-1);
         Dragboard db = curButton.startDragAndDrop(TransferMode.ANY);
-        // put a string on dragboard
         ClipboardContent content = new ClipboardContent();
-        content.putString(curButton.getId().substring(0,curButton.getId().length()-1));
+        content.putString(curId);
         db.setContent(content);
         _event.consume();
+        //int shipSize = this.getShipSize(curId);
+        //double imageDimension = (shipSize*(this.newDimension/10));
+        ImageView cursorView = new ImageView(new Image(new FileInputStream("src\\assets\\images\\ship\\".concat(curId).concat(".png")), 100, 100, true, false));
+        Image cursorImage = cursorView.getImage();
+        cursorView.setOpacity(100);
+        if((this.determineShipOrientation(curId)) == 1){
+            cursorView.setRotate(90);
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(Color.TRANSPARENT);
+            cursorImage = cursorView.snapshot(params, null);
+        }
+        db.setDragView(cursorImage,0,0);
+    }
+
+    private int getShipSize(String _name) {
+        return ((ArrayList)this.allShipHashMap.get(_name)).size();
     }
 
     private void shipRotationEvent(ScrollEvent _event){
