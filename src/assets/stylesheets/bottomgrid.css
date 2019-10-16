@@ -32,9 +32,13 @@
 }
 #destroyer1 {
     -fx-background-image: url("../images/ship/destroyer1.png");
+    -fx-background-size: 100% 50%;
+    -fx-background-position: right;
 }
 #destroyer2 {
     -fx-background-image: url("../images/ship/destroyer2.png");
+    -fx-background-size: 100% 50%;
+    -fx-background-position: left;
 }
 #grid {
 -fx-background-image: url("../images/grid/bottomSector.png");
