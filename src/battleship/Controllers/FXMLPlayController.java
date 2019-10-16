@@ -9,9 +9,7 @@ package battleship.controllers;
  */
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,47 +25,20 @@ public class FXMLPlayController implements Initializable {
 
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {
-        this.playerShip.add(this.allCarrierH, 0, 0, 5, 1);
-        this.playerShip.add(this.allBattleshipH, 5,5,4,1);
-        this.playerShip.add(this.allDestroyerH, 3,3,2,1);
-        ArrayList<GridPane> allShips = new ArrayList();
-        allShips.add(allCarrierH);
-        allShips.add(allCarrierV);
-        allShips.add(allBattleshipH);
-        allShips.add(allBattleshipV);
-        allShips.add(allDestroyerH);
-        allShips.add(allDestroyerV);
-        this.playControllerLogic.initializeController(allShips);
+        this.playControllerLogic.initializeController();
     }
 
     PlayControllerLogic playControllerLogic;
     @FXML
-    private GridPane playerLogic;
-    @FXML
-    private GridPane playerShip;
-    @FXML
-    private GridPane menu;
-    @FXML
     private AnchorPane anchorPane;
     @FXML
-    private GridPane allCarrierH;
+    private GridPane menuGridPane;
     @FXML
-    private GridPane allCarrierV;
+    private Button singlePlayer;
     @FXML
-    private GridPane allBattleshipH;
+    private Button mutliPlayer;
     @FXML
-    private GridPane allBattleshipV;
-    @FXML
-    private GridPane allDestroyerH;
-    @FXML
-    private GridPane allDestroyerV;
-    @FXML
-    private Button explosion;
-
-    @FXML
-    public void returnMainMenu(ActionEvent _event) throws IOException {
-        this.playControllerLogic.returnMainMenu(_event);
-    }
+    private Button main;
 
 //*****************     SETTERS     *******************
 
@@ -78,52 +49,23 @@ public class FXMLPlayController implements Initializable {
 
 //*****************     GETTERS     *******************
 
-    public AnchorPane getAnchorPane(){
+    public AnchorPane getMainPane(){
         return this.anchorPane;
+    }
+
+    public GridPane getMenuPane() {
+        return this.menuGridPane;
     }
 
     public PlayControllerLogic getLogic(){
         return this.playControllerLogic;
     }
 
-    public GridPane getPlayerLogicPane(){
-        return this.playerLogic;
+    public Button getSinglePlayerButton () {
+        return this.singlePlayer;
     }
-
-    public GridPane getPlayerShipPane(){
-        return this.playerShip;
-    }
-
-    public GridPane getMenuPane(){
-        return this.menu;
-    }
-
-    public GridPane getAllCarrierH(){
-        return this.allCarrierH;
-    }
-
-    public GridPane getAllCarrierV(){
-        return this.allCarrierV;
-    }
-
-    public GridPane getAllBattleshipH() {
-        return this.allBattleshipH;
-    }
-
-    public GridPane getAllBattleshipV() {
-        return this.allBattleshipV;
-    }
-
-    public GridPane getAllDestroyerH() {
-        return this.allDestroyerH;
-    }
-
-    public GridPane getAllDestroyerV(){
-        return this.allDestroyerV;
-    }
-
-    public Button getExplosion() {
-        return this.explosion;
+    public Button getMainButton () {
+        return this.main;
     }
 
 }

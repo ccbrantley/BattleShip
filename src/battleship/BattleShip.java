@@ -32,7 +32,6 @@ public class BattleShip extends Application {
         resourcePaths.add("views/FXMLPlay.fxml");
         resourcePaths.add("views/FXMLResume.fxml");
         resourcePaths.add("views/FXMLSettings.fxml");
-
         FXMLLoader loader;
         for (String path : resourcePaths) {
             // Initializing all loaders
@@ -59,6 +58,8 @@ public class BattleShip extends Application {
         // Passing stage and maincontroller to position children
         ControllerHandler controllerHandler = new ControllerHandler();
         controllerHandler.manageLayout(_stage, this.loaderGetter.getMainController().getLogic());
+        this.loaderGetter.setScreenHeight(_stage.getHeight());
+        this.loaderGetter.setScreenWidth(_stage.getWidth());
     }
 
     /**

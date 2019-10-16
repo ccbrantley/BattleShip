@@ -13,153 +13,90 @@ import battleship.models.LoaderGetter;
 import battleship.models.MapPane;
 import battleship.models.MappingPane;
 import battleship.models.ResourceGetter;
+import battleship.views.ShipSelectionPane;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
 
 public class PlayControllerLogic {
 
     public PlayControllerLogic (FXMLPlayController _controller) throws FileNotFoundException {
      this.playController = _controller;
-     this.explosionAnimation = new Animator("EXPLOSION");
+    }
+
+    public void initializeController(){
+        this.playController.getMainButton().setOnAction(event -> {try {
+            this.returnMainMenu(event);
+            } catch (IOException ex) {
+                Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        this.playController.getSinglePlayerButton().setOnAction(event -> {this.startShipSelectionPaneSequence(event);});
     }
 
     FXMLPlayController playController;
     private LoaderGetter loaderGetter;
     private final ResourceGetter resourceGetter = new ResourceGetter();
-    private final Animator explosionAnimation;
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
+    private final Animator explosionAnimation = new Animator("EXPLOSION");
 
-    public void initializeController(ArrayList<GridPane> _allShips){
-        this.playController.getExplosion().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent _event) {
-                try {
-                    PlayControllerLogic.this.displayExplosion(_event);
-                }catch (FileNotFoundException ex) {
-                    Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        _allShips.forEach(child -> {
-            child.setOnScroll((_event) -> {
-                try {
-                    this.rotateGridPaneEvent(_event);
-                } catch (NoSuchMethodException ex) {
-                    Logger.getLogger(FXMLPlayController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-        child.setOnKeyPressed(this::moveChildOfGridEvent);
-        });
+    public void returnMainMenu(ActionEvent _event) throws IOException {
+        this.loaderGetter.getMainController().getLogic().setScene(_event);
     }
 
-    public void returnMainMenu(ActionEvent event) throws IOException {
-        this.loaderGetter.getMainController().getLogic().setScene(event);
+    public void startShipSelectionPaneSequence(ActionEvent _event) {
+        double screenWidth = this.loaderGetter.getScreenWidth();
+        double screenHeight = this.loaderGetter.getScreenHeight();
+        AnchorPane mainPane = this.playController.getMainPane();
+        ShipSelectionPane shipSelectionPane = new ShipSelectionPane(screenWidth, screenHeight, mainPane);
+        shipSelectionPane.showTable();
+        shipSelectionPane.shipPopulate(0, 0, 0, 0);
+        shipSelectionPane.shipPopulate(1, 1, 4, 5);
+        shipSelectionPane.shipPopulate(3,0,3,4);
+        shipSelectionPane.shipPopulate(4,0,7,5);
     }
 
-    public void rotateGridPaneEvent (ScrollEvent _event) throws NoSuchMethodException {
-        GridPane rotatePane = (GridPane)_event.getSource();
-        int colIndex = GridPane.getColumnIndex(rotatePane);
-        int rowIndex = GridPane.getRowIndex(rotatePane);
-        int rotateSize = rotatePane.getChildren().size();
-        int colSpan = GridPane.getColumnSpan(rotatePane).equals(1) ? rotateSize : 1;
-        int rowSpan = (colSpan == 1) ? rotateSize : 1;
-        Method getShip;
-        String baseMethodString = ("get".concat(rotatePane.getId().substring(0,1).toUpperCase().concat(rotatePane.getId().substring(1,(rotatePane.getId().length()- 1)))));
-        if(rotatePane.getId().endsWith("V")) {
-            getShip = this.playController.getClass().getMethod(baseMethodString.concat("H"));
-        }
-        else {
-                getShip = this.playController.getClass().getMethod(baseMethodString.concat("V"));
-            }
-        if(this.gridBoundaryCheck(colIndex + rotateSize) && this.gridBoundaryCheck(rowIndex + rotateSize)){
-            try {
-                this.playController.getPlayerShipPane().getChildren().remove(rotatePane);
-                this.playController.getPlayerShipPane().add((Node)getShip.invoke(this.playController),colIndex,rowIndex,colSpan,rowSpan);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    public void moveChildOfGridEvent (KeyEvent event) {
-        GridPane eventPane = (GridPane)event.getSource();
-        int colIndex = GridPane.getColumnIndex(eventPane);
-        int rowIndex = GridPane.getRowIndex(eventPane);
-        int colSpan = GridPane.getColumnSpan(eventPane);
-        int rowSpan = GridPane.getRowSpan(eventPane);
-        switch (event.getText().toUpperCase()) {
-            case "D":
-                GridPane.setColumnIndex(eventPane, this.gridBoundaryCheck((colIndex+colSpan)+1) ? colIndex+1 : colIndex);
-                break;
-            case "A":
-                GridPane.setColumnIndex(eventPane, this.gridBoundaryCheck(colIndex-1) ? colIndex-1 : colIndex);
-                break;
-            case "W":
-                GridPane.setRowIndex(eventPane, this.gridBoundaryCheck(rowIndex-1) ? rowIndex-1 : rowIndex);
-                break;
-            case "S":
-                GridPane.setRowIndex(eventPane, this.gridBoundaryCheck((rowIndex+rowSpan)+1) ? rowIndex+1 : rowIndex);
-                break;
-        }
-    }
-
-    private Boolean gridBoundaryCheck (int _index) {
-        return !(_index < 0 | _index > this.BOARDROWSIZE | _index > this.BOARDCOLUMNSIZE);
-    }
 // Should allow this to take in x, y coordinates or use getSectorFromAlpha to get a button then receive it's position
     public void displayExplosion (ActionEvent _event) throws FileNotFoundException {
         ImageView explosionView = this.explosionAnimation.getImageView();
-        this.explosionAnimation.setImageViewScale(.5,.5);
-        this.explosionAnimation.setImageViewLayout(600, 600);
-        this.playController.getAnchorPane().getChildren().add(explosionView);
+        this.explosionAnimation.setImageViewScale(.2,.2);
+        this.explosionAnimation.setImageViewLayout(600, 610);
+        this.playController.getMainPane().getChildren().add(explosionView);
         this.explosionAnimation.playAnimation();
-        this.explosionAnimation.getTimeline().setOnFinished(event -> {this.playController.getAnchorPane().getChildren().remove(explosionView);});
+        this.explosionAnimation.getTimeline().setOnFinished(event -> {this.playController.getMainPane().getChildren().remove(explosionView);});
     }
+
+   public static Predicate<Node> isButton(){
+        return p -> (p instanceof Button);
+    }
+
 //*****************     GETTERS     *******************
 
     public MappingPane getChildren () {
         MappingPane mainPane = new MappingPane();
         //Pane passedPane, String relativePosition, double aspectWidth, double aspectHeight
-        mainPane.mapToPane(new MapPane(this.playController.getPlayerLogicPane(), "top", "center", 1, 1, false, false));
-        mainPane.mapToPane(new MapPane(this.playController.getPlayerShipPane(), "bottom","center", 1, 1, false, false));
-        mainPane.mapToPane(new MapPane(this.playController.getMenuPane(), "bottom", "right", 1, 1, false, false));
+        mainPane.mapToPane(new MapPane(this.playController.getMenuPane(), "middle", "center", 1, 1, true, false));
         return mainPane;
     }
 
-    public Button getSectorFromAlpha(String _sector) {
-        GridPane shipPane = this.playController.getPlayerShipPane();
-        Button actualSector;
-        ArrayList<Button> temporaryList = new ArrayList();
-        shipPane.getChildren().filtered(isButton()).forEach(child -> {temporaryList.add((Button)child);});
-        for(Button child : temporaryList){
-            if(child.getId().equals(_sector)){
-                return child;
-            }
-        }
-        return null;
+    public FXMLPlayController getPlayController() {
+        return this.playController;
     }
 
-    public static Predicate<Node> isButton(){
-        return p -> (p instanceof Button);
+    public LoaderGetter getLoaderGetter() {
+        return this.loaderGetter;
     }
 
 //*****************     SETTERS     *******************
-
+// Probably just update id's and have the css file manually update the style
     public void setButtonState(ActionEvent _event) {
         Button pressedButton = (Button)_event.getSource();
         String blueButtonstyleSheet = this.resourceGetter.getBlueButtonCSS();

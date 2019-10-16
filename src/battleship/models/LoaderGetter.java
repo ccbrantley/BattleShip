@@ -23,6 +23,8 @@ public class LoaderGetter {
     private Parent playRoot;
     private Parent resumeRoot;
     private Parent settingsRoot;
+    private double screenWidth;
+    private double screenHeight;
 
     public LoaderGetter() {
     }
@@ -105,4 +107,21 @@ public class LoaderGetter {
         return (FXMLSettingsController)this.settingsLoader.getController();
     }
 
+    public double getScreenHeight() {
+        return this.screenHeight;
+    }
+
+    public double getScreenWidth() {
+        return this.screenWidth;
+    }
+
+//*****************     SETTERS     *******************
+
+    public void setScreenHeight(double _screenHeight) {
+        this.screenHeight = _screenHeight;
+    }
+
+    public void setScreenWidth(double _screenWidth) {
+        this.screenWidth = _screenWidth;
+    }
 }

@@ -92,7 +92,9 @@ public class MainControllerLogic {
             default:
                 break;
         }
-        root.setEffect(this.mainController.getColorAdjust());
+        if(root!= null){
+            root.setEffect(this.mainController.getColorAdjust());
+        }
         mainStage.getScene().setRoot(root);
     }
 }
