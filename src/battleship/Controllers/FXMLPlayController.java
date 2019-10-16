@@ -5,13 +5,12 @@ package battleship.controllers;
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
- * Last Updated: 10/12/2019
+ * Last Updated: 10/15/2019
  */
 
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -41,11 +40,6 @@ public class FXMLPlayController implements Initializable {
     private Button main;
 
 //*****************     SETTERS     *******************
-
-    @FXML
-    private void setButtonState(ActionEvent _event) {
-        this.playControllerLogic.setButtonState(_event);
-    }
 
 //*****************     GETTERS     *******************
 

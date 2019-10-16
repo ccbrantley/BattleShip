@@ -5,7 +5,7 @@ package battleship.views;
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
- * Last Updated: 10/12/2019
+ * Last Updated: 10/15/2019
  */
 
 import battleship.models.ResourceGetter;
@@ -63,14 +63,19 @@ public class ShipSelectionPane {
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
     GridPane playerShipPane;
+    //Enumerations
+    public final int CARRIER = 0;
+    public final int BATTLESHIP = 1;
+    public final int CRUISER = 2;
+    public final int SUBMARINE = 3;
+    public final int DESTROYER = 4;
+    public final int HORIZONTAL = 0;
+    public final int VERTICAL = 1;
 
     public void gridOnDragOver (DragEvent _event) {
         Button curButton = (Button)_event.getSource();
-        // accept it only if it is  not dragged from the same node
-        //  and if it has a string data
         if (_event.getGestureSource() != curButton &&
                 _event.getDragboard().hasString()) {
-            // allow for both copying and moving, whatever user chooses
             _event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
         }
         _event.consume();
@@ -89,23 +94,62 @@ public class ShipSelectionPane {
         int type = 0;
         switch (_name) {
             case "carrier":
-                type = 0;
+                type = this.CARRIER;
                 break;
             case "battleship":
-                type = 1;
+                type = this.BATTLESHIP;
                 break;
             case "cruiser":
-                type = 2;
+                type = this.CRUISER;
                 break;
             case "submarine":
-                type = 3;
+                type = this.SUBMARINE;
                 break;
             case "destroyer":
-                type = 4;
+                type = this.DESTROYER;
                 break;
         }
         return type;
     }
+
+    public String determineShipId (int _type) {
+        if(_type == this.CARRIER) {
+            return "carrier";
+        }
+        else if (_type == this.BATTLESHIP) {
+            return "battleship";
+        }
+        else if (_type == this.CRUISER) {
+            return "cruiser";
+        }
+        else if (_type == this.SUBMARINE) {
+            return "submarine";
+        }
+        else if (_type == this.DESTROYER) {
+            return "destroyer";
+        }
+        return "error";
+    }
+
+    public int determineColumnRange (int _type) {
+        if(_type == this.CARRIER) {
+            return 5;
+        }
+        else if (_type == this.BATTLESHIP) {
+            return 4;
+        }
+        else if (_type == this.CRUISER) {
+            return 3;
+        }
+        else if (_type == this.SUBMARINE) {
+            return 3;
+        }
+        else if (_type == this.DESTROYER) {
+            return 2;
+        }
+        return -1;
+    }
+
 
     // 0 = horizontal, 1 = vertical
     public int determineShipOrientation (String _name) {
@@ -118,67 +162,25 @@ public class ShipSelectionPane {
         return 1;
     }
 
-    /*
-    *0 - Carrier
-    *1 - Battleship
-    *2 - Cruiser -> not implemented
-    *3 - Submarine
-    *4 - Destroyer
-    *
-    *0 - horizontal
-    *1 - vertical
-    */
+    private int shipPopulateFixRange (int _index, int _totalRange) {
+        if (!(this.gridBoundaryCheck(_index+_totalRange-1))) {
+            _index = (this.BOARDROWSIZE-1) - (_totalRange-1);
+        }
+        if (!(this.gridBoundaryCheck(_index))) {
+            _index =  0;
+        }
+        return _index;
+    }
+
     public void shipPopulate (int _type, int _orientation, int row, int column) {
-        String buttonId = "";
-        int columnRange = 0;
-        int rowRange = 0;
-        boolean rotateProperty = false;
-        switch (_type) {
-            case 0:
-                buttonId = buttonId.concat("carrier");
-                columnRange = 5;
-                rowRange = 1;
-                break;
-            case 1:
-                buttonId = buttonId.concat("battleship");
-                columnRange = 4;
-                rowRange = 1;
-                break;
-            case 2:
-                buttonId = buttonId.concat("cruiser");
-                columnRange = 3;
-                rowRange = 1;
-                break;
-            case 3:
-                buttonId = buttonId.concat("submarine");
-                columnRange = 3;
-                rowRange = 1;
-                break;
-            case 4:
-                buttonId = buttonId.concat("destroyer");
-                columnRange = 2;
-                rowRange = 1;
-                break;
-        }
-        switch(_orientation){
-            case 0:
-                break;
-            case 1:
-                int temporary = columnRange;
-                columnRange = rowRange;
-                rowRange = temporary;
-                rotateProperty = true;
-        }
-        // Minus one is imprtant, the row itself accounts for one index
-        if (!(this.gridBoundaryCheck(row+rowRange-1)) || !(this.gridBoundaryCheck(column+columnRange-1))) {
-            return;
-        }
-        if (!(this.gridBoundaryCheck(row))) {
-            row = 0;
-        }
-        if(!(this.gridBoundaryCheck(column))){
-            column = 0;
-        }
+        String buttonId = this.determineShipId(_type);
+        int columnRange = this.determineColumnRange(_type);
+        int rowRange = (_orientation == this.HORIZONTAL) ? 1: columnRange;
+        columnRange = (rowRange == 1) ? columnRange : 1;
+        boolean rotateProperty = (_orientation == this.VERTICAL);
+        row = this.shipPopulateFixRange(row,rowRange);
+        column = this.shipPopulateFixRange(column, columnRange);
+
         int counter = 1;
         if (this.allShipHashMap.containsKey(buttonId)) {
             ((ArrayList)this.allShipHashMap.get(buttonId)).forEach(new Consumer() {

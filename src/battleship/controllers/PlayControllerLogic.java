@@ -5,7 +5,7 @@ package battleship.controllers;
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
- * Last Updated: 10/12/2019
+ * Last Updated: 10/15/2019
  */
 
 import battleship.models.Animator;
@@ -58,10 +58,11 @@ public class PlayControllerLogic {
         AnchorPane mainPane = this.playController.getMainPane();
         ShipSelectionPane shipSelectionPane = new ShipSelectionPane(screenWidth, screenHeight, mainPane);
         shipSelectionPane.showTable();
-        shipSelectionPane.shipPopulate(0, 0, 0, 0);
-        shipSelectionPane.shipPopulate(1, 1, 4, 5);
-        shipSelectionPane.shipPopulate(3,0,3,4);
-        shipSelectionPane.shipPopulate(4,0,7,5);
+        shipSelectionPane.shipPopulate(shipSelectionPane.CARRIER, shipSelectionPane.HORIZONTAL, 0, 0);
+        shipSelectionPane.shipPopulate(shipSelectionPane.BATTLESHIP, shipSelectionPane.VERTICAL, 4, 5);
+        shipSelectionPane.shipPopulate(shipSelectionPane.CRUISER,shipSelectionPane.HORIZONTAL,3,4);
+        shipSelectionPane.shipPopulate(shipSelectionPane.SUBMARINE,shipSelectionPane.VERTICAL,7,5);
+        shipSelectionPane.shipPopulate(shipSelectionPane.DESTROYER,shipSelectionPane.HORIZONTAL,2,5);
     }
 
 // Should allow this to take in x, y coordinates or use getSectorFromAlpha to get a button then receive it's position
