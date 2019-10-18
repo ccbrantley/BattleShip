@@ -56,8 +56,8 @@ public class PlayControllerLogic {
         double screenWidth = this.loaderGetter.getScreenWidth();
         double screenHeight = this.loaderGetter.getScreenHeight();
         AnchorPane mainPane = this.playController.getMainPane();
-        ShipSelectionPane shipSelectionPane = new ShipSelectionPane(screenWidth, screenHeight, mainPane);
-        shipSelectionPane.showTable();
+        ShipSelectionPane shipSelectionPane = new ShipSelectionPane(this,screenWidth, screenHeight, mainPane);
+        shipSelectionPane.showPane();
         shipSelectionPane.shipPopulate(shipSelectionPane.CARRIER, shipSelectionPane.HORIZONTAL, 0, 0);
         shipSelectionPane.shipPopulate(shipSelectionPane.BATTLESHIP, shipSelectionPane.VERTICAL, 4, 5);
         shipSelectionPane.shipPopulate(shipSelectionPane.CRUISER,shipSelectionPane.HORIZONTAL,3,4);

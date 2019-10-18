@@ -8,11 +8,11 @@ package battleship.views;
  * Last Updated: 10/15/2019
  */
 
+import battleship.controllers.PlayControllerLogic;
 import battleship.models.ResourceGetter;
-import com.sun.glass.ui.Cursor;
-import com.sun.glass.ui.MenuItem.Callback;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
@@ -20,11 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.SnapshotResult;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -38,24 +36,40 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 
 public class ShipSelectionPane {
-    public ShipSelectionPane(double _screenWidth, double _screenHeight, AnchorPane mainPane) {
+    public ShipSelectionPane(PlayControllerLogic playLogic, double _screenWidth, double _screenHeight, AnchorPane mainPane) {
+        this.playLogic = playLogic;
         this.playPane = mainPane;
         this.screenHeight = _screenHeight;
         this.screenWidth = _screenWidth;
         this.initializeShipPane(_screenWidth, _screenHeight);
+        this.initializeBottomMenupane(_screenWidth, _screenHeight);
     }
 
-    public void initializeShipPane(double _screenWidth,double  _screenHeight) {
+    public void initializeBottomMenupane(double _width, double _height) {
+        Button main = this.playLogic.getPlayController().getMainButton();
+        Button mainMenuButton = this.buttonStylizer(new Button("Main Menu"), "main",_height*.05, _width*.05, 0);
+        Button shipSelectionButton = this.buttonStylizer(new Button("Confirm Layout"), "shipSelection", _height*.05, _width*.05, 0);
+        mainMenuButton.getStylesheets().add(this.resourceGetter.getMainMenuCSS());
+        shipSelectionButton.getStylesheets().add(this.resourceGetter.getMainMenuCSS());
+        mainMenuButton.setOnAction(event -> {
+            try {
+                this.playLogic.returnMainMenu(event);
+            }
+            catch (IOException ex) {
+                Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
+            }});
+        this.shipSelectionButton = shipSelectionButton;
+        this.mainMenuButton = mainMenuButton;
+    }
+
+
+    public void initializeShipPane(double _screenWidth, double  _screenHeight) {
         double newDimension = (_screenWidth < _screenHeight) ? _screenWidth : _screenHeight;
-        this.newDimension = newDimension;
+        this.gridScale = (newDimension/10)*.95;
         GridPane temporaryPane = new GridPane();
         for(int x = 0; x < 10; x++) {
             for(int y = 0; y < 10; y++) {
-                Button gridButton = new Button();
-                gridButton.setId("grid");
-                GridPane.setVgrow(gridButton, Priority.ALWAYS);
-                GridPane.setHgrow(gridButton, Priority.ALWAYS);
-                gridButton.setMinSize(newDimension/10, newDimension/10);
+                Button gridButton = this.buttonStylizer(new Button(), "grid", this.gridScale, this.gridScale, 0);
                 temporaryPane.add(gridButton, x, y);
                 gridButton.setOnDragOver(event -> {this.gridOnDragOver(event);});
                 gridButton.setOnDragDropped(event -> {this.gridOnDragDropped(event);});
@@ -64,17 +78,19 @@ public class ShipSelectionPane {
         temporaryPane.getStylesheets().add(this.resourceGetter.getBottomGridCSS());
         this.playerShipPane = temporaryPane;
     }
-
+    PlayControllerLogic playLogic;
     private AnchorPane playPane;
     private ResourceGetter resourceGetter = new ResourceGetter();
-    private double screenHeight;
-    private double screenWidth;
-    private double newDimension;
+    private double gridScale;
     private ArrayList<ArrayList> allShips;
     private HashMap allShipHashMap = new HashMap();
+    private double screenHeight;
+    private double screenWidth;
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
     GridPane playerShipPane;
+    Button shipSelectionButton;
+    Button mainMenuButton;
     //Enumerations
     public final int CARRIER = 0;
     public final int BATTLESHIP = 1;
@@ -83,6 +99,15 @@ public class ShipSelectionPane {
     public final int DESTROYER = 4;
     public final int HORIZONTAL = 0;
     public final int VERTICAL = 1;
+
+    public Button buttonStylizer(Button _button, String _id, double _width, double _height, double _rotate) {
+        _button.setId(_id);
+        GridPane.setVgrow(_button, Priority.ALWAYS);
+        GridPane.setHgrow(_button, Priority.ALWAYS);
+        _button.setMinSize(_width, _height);
+        _button.setRotate(_button.getRotate()+_rotate);
+        return _button;
+    }
 
     public void gridOnDragOver (DragEvent _event) {
         Button curButton = (Button)_event.getSource();
@@ -192,8 +217,6 @@ public class ShipSelectionPane {
         boolean rotateProperty = (_orientation == this.VERTICAL);
         row = this.shipPopulateFixRange(row,rowRange);
         column = this.shipPopulateFixRange(column, columnRange);
-
-        int counter = 1;
         if (this.allShipHashMap.containsKey(buttonId)) {
             ((ArrayList)this.allShipHashMap.get(buttonId)).forEach(new Consumer() {
                 @Override
@@ -204,29 +227,25 @@ public class ShipSelectionPane {
                 }
             });
         }
+        int counter = 1;
         ArrayList temporaryList = new ArrayList();
         for (int x = 0; x < rowRange; x++) {
             for (int y = 0; y < columnRange; y++) {
-                Button shipButton = new Button();
-                if (rotateProperty) {
-                    shipButton.setRotate(90);
-                }
-                shipButton.setId(buttonId.concat(String.valueOf(counter)));
-                GridPane.setVgrow(shipButton, Priority.ALWAYS);
-                GridPane.setHgrow(shipButton, Priority.ALWAYS);
-                shipButton.setMinSize(this.newDimension/10, this.newDimension/10);
+                Button shipButton = this.buttonStylizer(new Button(), buttonId.concat(String.valueOf(counter)), this.gridScale, this.gridScale, (rotateProperty) ? 90 : 0);
                 this.playerShipPane.add(shipButton, y + column, x + row);
                 counter++;
                 temporaryList.add(shipButton);
+                //counter++;
             }
         }
         this.allShipHashMap.put(buttonId, temporaryList);
         temporaryList.forEach(child->{((Button)child).setOnKeyPressed(event -> {this.shipMovementEvent(event);});});
-        temporaryList.forEach(child->{((Button)child).setOnDragDetected(event -> {try {
-            this.shipOnDragDetected(event);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        temporaryList.forEach(child->{((Button)child).setOnDragDetected(event -> {
+            try {
+                this.shipOnDragDetected(event);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });});
         temporaryList.forEach(child ->{((Button)child).setOnScroll(event -> {this.shipRotationEvent(event);});});
     }
@@ -289,8 +308,6 @@ public class ShipSelectionPane {
         content.putString(curId);
         db.setContent(content);
         _event.consume();
-        //int shipSize = this.getShipSize(curId);
-        //double imageDimension = (shipSize*(this.newDimension/10));
         ImageView cursorView = new ImageView(new Image(new FileInputStream("src\\assets\\images\\ship\\".concat(curId).concat(".png")), 100, 100, true, false));
         Image cursorImage = cursorView.getImage();
         cursorView.setOpacity(100);
@@ -331,19 +348,33 @@ public class ShipSelectionPane {
     }
 //*****************     GETTERS     *******************
 
+public AnchorPane getShipSelectionPane() {
+    return this.getShipSelectionPane();
+}
+    
 //*****************     SETTERS     *******************
 
 
-    public void showTable(){
+    public void showPane(){
         this.playPane.getChildren().clear();
         this.playPane.getChildren().add(this.playerShipPane);
-        this.playerShipPane.setLayoutX((this.screenWidth/2)-(this.newDimension/2));
-        this.playerShipPane.setLayoutY(0);
-         //this.playerShipPane.setMinSize(this.newDimension, this.newDimension);
-         //this.playerShipPane.setMaxSize(this.newDimension, this.newDimension);
+        this.playerShipPane.relocate((this.screenWidth/2)-((this.gridScale*this.BOARDROWSIZE)/2), this.screenHeight*.025);
+        this.playPane.getChildren().add(this.mainMenuButton);
+        this.playPane.getChildren().add(this.shipSelectionButton);
+        AnchorPane.setRightAnchor(this.shipSelectionButton, 10.0);
+        AnchorPane.setLeftAnchor(this.mainMenuButton, 10.0);
+        this.shipSelectionButton.setLayoutY(this.screenHeight/2);
+        this.mainMenuButton.setLayoutY(this.screenHeight/2);
     }
 
     public void printTable(){
         this.playerShipPane.getChildren().forEach(child -> {System.out.println(child.getId());});
     }
 }
+
+
+
+
+
+
+
