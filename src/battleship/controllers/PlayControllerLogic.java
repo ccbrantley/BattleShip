@@ -30,7 +30,7 @@ import javafx.scene.layout.GridPane;
 
 public class PlayControllerLogic {
 
-    public PlayControllerLogic (FXMLPlayController _controller) throws FileNotFoundException {
+    public PlayControllerLogic (FXMLPlayController _controller) throws IOException {
      this.playController = _controller;
     }
 
@@ -41,7 +41,12 @@ public class PlayControllerLogic {
                 Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        this.playController.getSinglePlayerButton().setOnAction(event -> {this.startShipSelectionPaneSequence(event);});
+        this.playController.getSinglePlayerButton().setOnAction(event -> {try {
+            this.startShipSelectionPaneSequence(event);
+            } catch (IOException ex) {
+                Logger.getLogger(PlayControllerLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+});
     }
 
     FXMLPlayController playController;
@@ -56,7 +61,7 @@ public class PlayControllerLogic {
         this.loaderGetter.getMainController().getLogic().setScene(_event);
     }
 
-    public void startShipSelectionPaneSequence(ActionEvent _event) {
+    public void startShipSelectionPaneSequence(ActionEvent _event) throws IOException {
         double screenWidth = this.loaderGetter.getScreenWidth();
         double screenHeight = this.loaderGetter.getScreenHeight();
         AnchorPane mainPane = this.playController.getMainPane();
@@ -65,7 +70,7 @@ public class PlayControllerLogic {
 
     }
 
-    public void startBattleShipGame(HashMap _battleShips, GridPane _playerShipPane){
+    public void startBattleShipGame(HashMap _battleShips, GridPane _playerShipPane) throws IOException{
         AnchorPane mainPane = this.playController.getMainPane();
         BattleShipGamePane battleShipGamePane = new BattleShipGamePane(this,this.getScreenWidth(), this.getScreenHeight(), _battleShips, _playerShipPane);
         battleShipGamePane.loadPane(mainPane);
