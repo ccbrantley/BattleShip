@@ -13,9 +13,11 @@ import battleship.models.LoaderGetter;
 import battleship.models.MapPane;
 import battleship.models.MappingPane;
 import battleship.models.ResourceGetter;
+import battleship.views.BattleShipGamePane;
 import battleship.views.ShipSelectionPane;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 public class PlayControllerLogic {
 
@@ -47,6 +50,7 @@ public class PlayControllerLogic {
     private final int BOARDCOLUMNSIZE = 10;
     private final int BOARDROWSIZE = 10;
     private final Animator explosionAnimation = new Animator("EXPLOSION");
+    private HashMap allShips = new HashMap();
 
     public void returnMainMenu(ActionEvent _event) throws IOException {
         this.loaderGetter.getMainController().getLogic().setScene(_event);
@@ -56,15 +60,17 @@ public class PlayControllerLogic {
         double screenWidth = this.loaderGetter.getScreenWidth();
         double screenHeight = this.loaderGetter.getScreenHeight();
         AnchorPane mainPane = this.playController.getMainPane();
-        ShipSelectionPane shipSelectionPane = new ShipSelectionPane(this,screenWidth, screenHeight, mainPane);
-        shipSelectionPane.showPane();
-        shipSelectionPane.shipPopulate(shipSelectionPane.CARRIER, shipSelectionPane.HORIZONTAL, 0, 0);
-        shipSelectionPane.shipPopulate(shipSelectionPane.BATTLESHIP, shipSelectionPane.VERTICAL, 4, 5);
-        shipSelectionPane.shipPopulate(shipSelectionPane.CRUISER,shipSelectionPane.HORIZONTAL,3,4);
-        shipSelectionPane.shipPopulate(shipSelectionPane.SUBMARINE,shipSelectionPane.VERTICAL,7,5);
-        shipSelectionPane.shipPopulate(shipSelectionPane.DESTROYER,shipSelectionPane.HORIZONTAL,2,5);
+        ShipSelectionPane shipSelectionPane = new ShipSelectionPane(this,screenWidth, screenHeight);
+        shipSelectionPane.loadPane(mainPane);
+
     }
 
+    public void startBattleShipGame(HashMap _battleShips, GridPane _playerShipPane){
+        AnchorPane mainPane = this.playController.getMainPane();
+        BattleShipGamePane battleShipGamePane = new BattleShipGamePane(this,this.getScreenWidth(), this.getScreenHeight(), _battleShips, _playerShipPane);
+        battleShipGamePane.loadPane(mainPane);
+    }
+// Probably allow this to take in grid pane row and coordinates and then display
 // Should allow this to take in x, y coordinates or use getSectorFromAlpha to get a button then receive it's position
     public void displayExplosion (ActionEvent _event) throws FileNotFoundException {
         ImageView explosionView = this.explosionAnimation.getImageView();
@@ -96,34 +102,15 @@ public class PlayControllerLogic {
         return this.loaderGetter;
     }
 
-//*****************     SETTERS     *******************
-// Probably just update id's and have the css file manually update the style
-    public void setButtonState(ActionEvent _event) {
-        Button pressedButton = (Button)_event.getSource();
-        String blueButtonstyleSheet = this.resourceGetter.getBlueButtonCSS();
-        String yellowButtonstyleSheet = this.resourceGetter.getYellowButtonCSS();
-        String redButtonStylesheet = this.resourceGetter.getRedButtonCSS();
-        if(pressedButton.getStylesheets().contains(blueButtonstyleSheet)){
-            setStyleSheet(pressedButton,blueButtonstyleSheet,yellowButtonstyleSheet);
-        }
-        else if (pressedButton.getStylesheets().contains(yellowButtonstyleSheet)){
-            setStyleSheet(pressedButton,yellowButtonstyleSheet,redButtonStylesheet);
-        }
-        else if (pressedButton.getStylesheets().contains(redButtonStylesheet)){
-            setStyleSheet(pressedButton,redButtonStylesheet,blueButtonstyleSheet);
-        }
-        else{
-            setStyleSheet(pressedButton,blueButtonstyleSheet,yellowButtonstyleSheet);
-        }
+    public double getScreenWidth() {
+        return this.loaderGetter.getScreenWidth();
     }
 
-    private void setStyleSheet(Object _node, String _oldStylesheet, String _newStylesheet) {
-        if(_node instanceof Button){
-            Button button = (Button)_node;
-            button.getStylesheets().remove(_oldStylesheet);
-            button.getStylesheets().add(_newStylesheet);
-        }
+    public double getScreenHeight() {
+        return this.loaderGetter.getScreenHeight();
     }
+
+//*****************     SETTERS     *******************
 
     public void setLoaderGetter(LoaderGetter _loaderGetter) {
         this.loaderGetter = _loaderGetter;

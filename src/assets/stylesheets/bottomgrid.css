@@ -41,7 +41,7 @@
     -fx-background-position: left;
 }
 #grid {
--fx-background-image: url("../images/grid/bottomSector.png");
+-fx-background-image: url("../images/grid/bottomsector.png");
 }
 #submarine1 {
     -fx-background-image: url("../images/ship/submarine1.png");

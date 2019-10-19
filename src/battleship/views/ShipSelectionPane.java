@@ -1,11 +1,8 @@
 package battleship.views;
 
 /* @author Area 51 Block Party:
- * Andrew Braswell
  * Christopher Brantley
- * Jacob Schumacher
- * Richard Abrams
- * Last Updated: 10/15/2019
+ * Last Updated: 10/19/2019
  */
 
 import battleship.controllers.PlayControllerLogic;
@@ -15,9 +12,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.function.Consumer;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
@@ -36,36 +35,29 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 
 public class ShipSelectionPane {
-    public ShipSelectionPane(PlayControllerLogic playLogic, double _screenWidth, double _screenHeight, AnchorPane mainPane) {
+    public ShipSelectionPane(PlayControllerLogic playLogic, double _screenWidth, double _screenHeight) throws IOException {
         this.playLogic = playLogic;
-        this.playPane = mainPane;
-        this.screenHeight = _screenHeight;
         this.screenWidth = _screenWidth;
+        this.screenHeight = _screenHeight;
+        this.gridScale = (((_screenWidth < _screenHeight) ? _screenWidth : _screenHeight)*.95)/10;
+        this.initializeGUI(_screenWidth, _screenHeight);
         this.initializeShipPane(_screenWidth, _screenHeight);
-        this.initializeBottomMenupane(_screenWidth, _screenHeight);
     }
 
-    public void initializeBottomMenupane(double _width, double _height) {
-        Button main = this.playLogic.getPlayController().getMainButton();
-        Button mainMenuButton = this.buttonStylizer(new Button("Main Menu"), "main",_height*.05, _width*.05, 0);
-        Button shipSelectionButton = this.buttonStylizer(new Button("Confirm Layout"), "shipSelection", _height*.05, _width*.05, 0);
+    private void initializeGUI(double _width, double _height) throws IOException {
+        double newWidth = ((_width-(this.gridScale*10))/2)*.95;
+        double newHeight = _height/4*.95;
+        Button mainMenuButton = this.buttonStylizer(new Button("Main Menu"), "main",newWidth, newHeight, 0);
+        Button shipSelectionButton = this.buttonStylizer(new Button("Confirm Layout"), "shipSelection", newWidth, newHeight, 0);
         mainMenuButton.getStylesheets().add(this.resourceGetter.getMainMenuCSS());
         shipSelectionButton.getStylesheets().add(this.resourceGetter.getMainMenuCSS());
-        mainMenuButton.setOnAction(event -> {
-            try {
-                this.playLogic.returnMainMenu(event);
-            }
-            catch (IOException ex) {
-                Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
-            }});
+        this.returnMainMenuEvent(mainMenuButton);
+        shipSelectionButton.setOnAction(event -> {this.shipSelectionButtonOnAction(event);});
         this.shipSelectionButton = shipSelectionButton;
         this.mainMenuButton = mainMenuButton;
     }
 
-
-    public void initializeShipPane(double _screenWidth, double  _screenHeight) {
-        double newDimension = (_screenWidth < _screenHeight) ? _screenWidth : _screenHeight;
-        this.gridScale = (newDimension/10)*.95;
+    private void initializeShipPane(double _screenWidth, double  _screenHeight) {
         GridPane temporaryPane = new GridPane();
         for(int x = 0; x < 10; x++) {
             for(int y = 0; y < 10; y++) {
@@ -75,14 +67,17 @@ public class ShipSelectionPane {
                 gridButton.setOnDragDropped(event -> {this.gridOnDragDropped(event);});
             }
         }
+        temporaryPane.setAlignment(Pos.BASELINE_CENTER);
         temporaryPane.getStylesheets().add(this.resourceGetter.getBottomGridCSS());
         this.playerShipPane = temporaryPane;
+        for(int x = 0; x < 5; x++){
+            this.shipPopulate(x, (int) (Math.random() * 2), (int) (Math.random() * 9), (int) (Math.random() * 9));
+        }
     }
+
     PlayControllerLogic playLogic;
-    private AnchorPane playPane;
     private ResourceGetter resourceGetter = new ResourceGetter();
     private double gridScale;
-    private ArrayList<ArrayList> allShips;
     private HashMap allShipHashMap = new HashMap();
     private double screenHeight;
     private double screenWidth;
@@ -100,34 +95,16 @@ public class ShipSelectionPane {
     public final int HORIZONTAL = 0;
     public final int VERTICAL = 1;
 
-    public Button buttonStylizer(Button _button, String _id, double _width, double _height, double _rotate) {
+    private Button buttonStylizer(Button _button, String _id, double _width, double _height, double _rotate) {
         _button.setId(_id);
-        GridPane.setVgrow(_button, Priority.ALWAYS);
-        GridPane.setHgrow(_button, Priority.ALWAYS);
+        GridPane.setVgrow(_button, Priority.NEVER);
+        GridPane.setHgrow(_button, Priority.NEVER);
         _button.setMinSize(_width, _height);
         _button.setRotate(_button.getRotate()+_rotate);
         return _button;
     }
 
-    public void gridOnDragOver (DragEvent _event) {
-        Button curButton = (Button)_event.getSource();
-        if (_event.getGestureSource() != curButton &&
-                _event.getDragboard().hasString()) {
-            _event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-        }
-        _event.consume();
-    }
-
-    public void gridOnDragDropped(DragEvent _event){
-        Button curButton = (Button)_event.getSource();
-        int rowIndex = GridPane.getRowIndex(curButton);
-        int columnIndex = GridPane.getColumnIndex(curButton);
-        String shipButtonType = _event.getDragboard().getString();
-        this.shipPopulate(this.determineShipType(shipButtonType), this.determineShipOrientation(shipButtonType), rowIndex, columnIndex);
-         _event.consume();
-    }
-
-    public int determineShipType (String _name) {
+    private int determineShipType (String _name) {
         int type = 0;
         switch (_name) {
             case "carrier":
@@ -149,7 +126,7 @@ public class ShipSelectionPane {
         return type;
     }
 
-    public String determineShipId (int _type) {
+    private String determineShipId (int _type) {
         if(_type == this.CARRIER) {
             return "carrier";
         }
@@ -168,7 +145,7 @@ public class ShipSelectionPane {
         return "error";
     }
 
-    public int determineColumnRange (int _type) {
+    private int determineColumnRange (int _type) {
         if(_type == this.CARRIER) {
             return 5;
         }
@@ -187,9 +164,8 @@ public class ShipSelectionPane {
         return -1;
     }
 
-
     // 0 = horizontal, 1 = vertical
-    public int determineShipOrientation (String _name) {
+    private int determineShipOrientation (String _name) {
         ArrayList ships = ((ArrayList)this.allShipHashMap.get(_name));
         int ship0RowIndex = GridPane.getRowIndex((Node)ships.get(0));
         int ship1RowIndex = GridPane.getRowIndex((Node)ships.get(1));
@@ -209,45 +185,131 @@ public class ShipSelectionPane {
         return _index;
     }
 
-    public void shipPopulate (int _type, int _orientation, int row, int column) {
+    private Boolean gridBoundaryCheck (int _index) {
+        return !(_index < 0 | _index > this.BOARDROWSIZE-1 );
+    }
+
+    private void shipPopulate (int _type, int _orientation, int row, int column) {
         String buttonId = this.determineShipId(_type);
         int columnRange = this.determineColumnRange(_type);
         int rowRange = (_orientation == this.HORIZONTAL) ? 1: columnRange;
         columnRange = (rowRange == 1) ? columnRange : 1;
-        boolean rotateProperty = (_orientation == this.VERTICAL);
         row = this.shipPopulateFixRange(row,rowRange);
         column = this.shipPopulateFixRange(column, columnRange);
         if (this.allShipHashMap.containsKey(buttonId)) {
-            ((ArrayList)this.allShipHashMap.get(buttonId)).forEach(new Consumer() {
-                @Override
-                public void accept(Object child) {
-                    Button curButton = (Button)child;
-                    curButton.removeEventFilter(KeyEvent.KEY_PRESSED, ShipSelectionPane.this::shipMovementEvent);
-                    ShipSelectionPane.this.playerShipPane.getChildren().remove((Button)child);
-                }
+            ((ArrayList)this.allShipHashMap.get(buttonId)).forEach((Object child) -> {
+                ShipSelectionPane.this.shipRemoveAllEvents((Button)child);
+                ShipSelectionPane.this.playerShipPane.getChildren().remove((Button)child);
             });
         }
         int counter = 1;
         ArrayList temporaryList = new ArrayList();
         for (int x = 0; x < rowRange; x++) {
             for (int y = 0; y < columnRange; y++) {
-                Button shipButton = this.buttonStylizer(new Button(), buttonId.concat(String.valueOf(counter)), this.gridScale, this.gridScale, (rotateProperty) ? 90 : 0);
+                Button shipButton = this.buttonStylizer(new Button(), buttonId.concat(String.valueOf(counter)), this.gridScale, this.gridScale, (_orientation == this.VERTICAL) ? 90 : 0);
                 this.playerShipPane.add(shipButton, y + column, x + row);
-                counter++;
                 temporaryList.add(shipButton);
-                //counter++;
+                counter++;
             }
         }
         this.allShipHashMap.put(buttonId, temporaryList);
-        temporaryList.forEach(child->{((Button)child).setOnKeyPressed(event -> {this.shipMovementEvent(event);});});
-        temporaryList.forEach(child->{((Button)child).setOnDragDetected(event -> {
+        temporaryList.forEach(child->{this.shipSetAllEvents((Button)child);});
+    }
+
+    public void loadPane(AnchorPane _anchorPane) {
+        _anchorPane.getChildren().clear();
+        _anchorPane.getChildren().addAll(this.playerShipPane, this.mainMenuButton, this.shipSelectionButton);
+        AnchorPane.setRightAnchor(this.shipSelectionButton, ((this.screenWidth-(this.gridScale*10))/2)*.025);
+        AnchorPane.setLeftAnchor(this.mainMenuButton, ((this.screenWidth-(this.gridScale*10))/2)*.025);
+        this.mainMenuButton.setLayoutY((this.screenHeight/2)-(this.mainMenuButton.getMinHeight()/2));
+        this.shipSelectionButton.setLayoutY((this.screenHeight/2)-(this.shipSelectionButton.getMinHeight()/2));
+        this.playerShipPane.relocate((this.screenWidth/2)-((this.gridScale*this.BOARDROWSIZE)/2), this.screenHeight*.025);
+    }
+
+    private void shipSetAllEvents(Button _button) {
+        _button.setOnKeyPressed(event -> {this.shipMovementEvent(event);});
+        _button.setOnDragDetected(event -> {
             try {
                 this.shipOnDragDetected(event);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });});
-        temporaryList.forEach(child ->{((Button)child).setOnScroll(event -> {this.shipRotationEvent(event);});});
+        });
+        _button.setOnScroll(event -> {this.shipOnScroll(event);});
+    }
+
+    private void shipRemoveAllEvents(Button _button) {
+        _button.setOnScroll(null);
+        _button.setOnDragDetected(null);
+        _button.setOnKeyPressed(null);
+    }
+
+//*****************     EVENTS     *******************
+
+    private void shipSelectionButtonOnAction(ActionEvent _event) {
+        Set hashSet = this.allShipHashMap.keySet();
+        hashSet.forEach(key -> {
+            ArrayList<Button> ship = (ArrayList)this.allShipHashMap.get(key);
+            ship.forEach(shipPiece -> this.shipRemoveAllEvents(shipPiece));
+        });
+        this.playLogic.startBattleShipGame(this.allShipHashMap, this.playerShipPane);
+    }
+
+    private void gridOnDragOver (DragEvent _event) {
+        Button curButton = (Button)_event.getSource();
+        if (_event.getGestureSource() != curButton &&
+                _event.getDragboard().hasString()) {
+            _event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+        _event.consume();
+    }
+
+    private void gridOnDragDropped(DragEvent _event){
+        Button curButton = (Button)_event.getSource();
+        int rowIndex = GridPane.getRowIndex(curButton);
+        int columnIndex = GridPane.getColumnIndex(curButton);
+        String shipButtonType = _event.getDragboard().getString();
+        this.shipPopulate(this.determineShipType(shipButtonType), this.determineShipOrientation(shipButtonType), rowIndex, columnIndex);
+         _event.consume();
+    }
+
+    private void shipOnScroll(ScrollEvent _event){
+        String buttonId = ((Button)_event.getSource()).getId();
+        buttonId = buttonId.substring(0,buttonId.length()-1);
+        ArrayList allOfShip = (ArrayList)this.allShipHashMap.get(buttonId);
+        int arraySize = allOfShip.size();
+        Button beginningShip = (Button)allOfShip.get(0);
+        double curRotation = beginningShip.getRotate();
+        int begColumnIndex = GridPane.getColumnIndex(beginningShip);
+        int begRowIndex = GridPane.getRowIndex(beginningShip);
+        int shipType = this.determineShipType(buttonId);
+        int shipOrientation = this.determineShipOrientation(buttonId) == 1 ? 0 : 1;
+        if (curRotation > -1 && curRotation < 1) {
+            this.shipPopulate(shipType, shipOrientation, begRowIndex-(arraySize-1), begColumnIndex+(arraySize-1));
+        }
+        else {
+            this.shipPopulate(shipType, shipOrientation, begRowIndex+(arraySize-1), begColumnIndex-(arraySize-1));
+        }
+    }
+
+    private void shipOnDragDetected(MouseEvent _event) throws FileNotFoundException{
+        Button curButton = (Button)_event.getSource();
+        String curId = curButton.getId().substring(0,curButton.getId().length()-1);
+        Dragboard db = curButton.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent content = new ClipboardContent();
+        content.putString(curId);
+        db.setContent(content);
+        _event.consume();
+        ImageView cursorView = new ImageView(new Image(new FileInputStream("src\\assets\\images\\ship\\".concat(curId).concat(".png")), 100, 100, true, false));
+        Image cursorImage = cursorView.getImage();
+        cursorView.setOpacity(100);
+        if((this.determineShipOrientation(curId)) == 1){
+            cursorView.setRotate(90);
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(Color.TRANSPARENT);
+            cursorImage = cursorView.snapshot(params, null);
+        }
+        db.setDragView(cursorImage,0,0);
     }
 
     private void shipMovementEvent (KeyEvent _event) {
@@ -297,84 +359,33 @@ public class ShipSelectionPane {
                     });
                 }
                 break;
-    }
-}
-
-    private void shipOnDragDetected(MouseEvent _event) throws FileNotFoundException{
-        Button curButton = (Button)_event.getSource();
-        String curId = curButton.getId().substring(0,curButton.getId().length()-1);
-        Dragboard db = curButton.startDragAndDrop(TransferMode.ANY);
-        ClipboardContent content = new ClipboardContent();
-        content.putString(curId);
-        db.setContent(content);
-        _event.consume();
-        ImageView cursorView = new ImageView(new Image(new FileInputStream("src\\assets\\images\\ship\\".concat(curId).concat(".png")), 100, 100, true, false));
-        Image cursorImage = cursorView.getImage();
-        cursorView.setOpacity(100);
-        if((this.determineShipOrientation(curId)) == 1){
-            cursorView.setRotate(90);
-            SnapshotParameters params = new SnapshotParameters();
-            params.setFill(Color.TRANSPARENT);
-            cursorImage = cursorView.snapshot(params, null);
         }
-        db.setDragView(cursorImage,0,0);
+    }
+
+    private void returnMainMenuEvent (Button _button) throws IOException {
+        _button.setOnAction(event -> {
+            try {
+                this.playLogic.returnMainMenu(event);
+            } catch (IOException ex) {
+                Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+
+//*****************     GETTERS     *******************
+
+    public HashMap getAllBattleShips() {
+        return this.allShipHashMap;
+    }
+
+    public GridPane getPlayerShipPane() {
+        return this.playerShipPane;
     }
 
     private int getShipSize(String _name) {
         return ((ArrayList)this.allShipHashMap.get(_name)).size();
     }
 
-    private void shipRotationEvent(ScrollEvent _event){
-        String buttonId = ((Button)_event.getSource()).getId();
-        buttonId = buttonId.substring(0,buttonId.length()-1);
-        ArrayList allOfShip = (ArrayList)this.allShipHashMap.get(buttonId);
-        int arraySize = allOfShip.size();
-        Button beginningShip = (Button)allOfShip.get(0);
-        double curRotation = beginningShip.getRotate();
-        int begColumnIndex = GridPane.getColumnIndex(beginningShip);
-        int begRowIndex = GridPane.getRowIndex(beginningShip);
-        int shipType = this.determineShipType(buttonId);
-        int shipOrientation = this.determineShipOrientation(buttonId) == 1 ? 0 : 1;
-        if (curRotation > -1 && curRotation < 1) {
-            this.shipPopulate(shipType, shipOrientation, begRowIndex-(arraySize-1), begColumnIndex+(arraySize-1));
-        }
-        else {
-            this.shipPopulate(shipType, shipOrientation, begRowIndex+(arraySize-1), begColumnIndex-(arraySize-1));
-        }
-    }
-
-    private Boolean gridBoundaryCheck (int _index) {
-        return !(_index < 0 | _index > this.BOARDROWSIZE-1 );
-    }
-//*****************     GETTERS     *******************
-
-public AnchorPane getShipSelectionPane() {
-    return this.getShipSelectionPane();
-}
-    
 //*****************     SETTERS     *******************
 
-
-    public void showPane(){
-        this.playPane.getChildren().clear();
-        this.playPane.getChildren().add(this.playerShipPane);
-        this.playerShipPane.relocate((this.screenWidth/2)-((this.gridScale*this.BOARDROWSIZE)/2), this.screenHeight*.025);
-        this.playPane.getChildren().add(this.mainMenuButton);
-        this.playPane.getChildren().add(this.shipSelectionButton);
-        AnchorPane.setRightAnchor(this.shipSelectionButton, 10.0);
-        AnchorPane.setLeftAnchor(this.mainMenuButton, 10.0);
-        this.shipSelectionButton.setLayoutY(this.screenHeight/2);
-        this.mainMenuButton.setLayoutY(this.screenHeight/2);
-    }
-
-    public void printTable(){
-        this.playerShipPane.getChildren().forEach(child -> {System.out.println(child.getId());});
-    }
 }
-
-
-
-
-
-
-
