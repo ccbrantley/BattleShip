@@ -52,7 +52,7 @@ public class ShipSelectionPane {
         mainMenuButton.getStylesheets().add(this.resourceGetter.getMainMenuCSS());
         shipSelectionButton.getStylesheets().add(this.resourceGetter.getMainMenuCSS());
         this.returnMainMenuEvent(mainMenuButton);
-        shipSelectionButton.setOnAction(event -> {this.shipSelectionButtonOnAction(event);});
+        this.shipSelectionButtonOnAction(shipSelectionButton);
         this.shipSelectionButton = shipSelectionButton;
         this.mainMenuButton = mainMenuButton;
     }
@@ -246,13 +246,19 @@ public class ShipSelectionPane {
 
 //*****************     EVENTS     *******************
 
-    private void shipSelectionButtonOnAction(ActionEvent _event) {
-        Set hashSet = this.allShipHashMap.keySet();
-        hashSet.forEach(key -> {
-            ArrayList<Button> ship = (ArrayList)this.allShipHashMap.get(key);
-            ship.forEach(shipPiece -> this.shipRemoveAllEvents(shipPiece));
+    private void shipSelectionButtonOnAction(Button _button) throws IOException {
+        _button.setOnAction(event -> {
+            Set hashSet = this.allShipHashMap.keySet();
+            hashSet.forEach(key -> {
+                ArrayList<Button> ship = (ArrayList)this.allShipHashMap.get(key);
+                ship.forEach(shipPiece -> this.shipRemoveAllEvents(shipPiece));
+            });
+            try {
+                this.playLogic.startBattleShipGame(ShipSelectionPane.this.allShipHashMap, ShipSelectionPane.this.playerShipPane);
+            } catch (IOException ex) {
+                Logger.getLogger(ShipSelectionPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
-        this.playLogic.startBattleShipGame(this.allShipHashMap, this.playerShipPane);
     }
 
     private void gridOnDragOver (DragEvent _event) {
