@@ -1,0 +1,24 @@
+.button {
+    -fx-background-color: black;
+    -fx-background-repeat:no-repeat;
+    -fx-background-size: 100% 100%;
+}
+#blue{
+    -fx-background-image: url("../images/led/ledblue.gif");
+}
+#blueActive{
+    -fx-background-image: url("../images/led/ledblueblinking.gif");
+}
+#yellow{
+    -fx-background-image: url("../images/led/ledyellow.gif");
+}
+#yellowActive{
+    -fx-background-image: url("../images/led/ledyellowblinking.gif");
+}
+#red{
+    -fx-background-image: url("../images/led/ledred.gif");
+}
+#redActive{
+    -fx-background-image: url("../images/led/ledredblinking.gif");
+}
+

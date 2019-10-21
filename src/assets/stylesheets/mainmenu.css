@@ -2,19 +2,14 @@
  -fx-background-image: url("../images/water/Ocean2.gif");
  -fx-background-size: 100% 100%;
 }
-#signInButton{
-    -fx-text-fill: white;
-    -fx-text-size: 20;
-    -fx-scale-y: 1;
-    -fx-scale-x: 1;
-    -fx-alignment: center;
-}
+
 .button{
     -fx-border-color: black;
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-opacity: .6;
 }
+
 .label{
     -fx-text-fill: black;
 }

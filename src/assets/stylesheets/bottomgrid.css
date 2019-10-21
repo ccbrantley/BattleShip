@@ -1,9 +1,75 @@
-.button{
-    -fx-alignment: center;
+.button {
     -fx-background-color: transparent;
-    -fx-background-image: url("../images/grid/bottomSector.png");
     -fx-background-repeat:no-repeat;
-    -fx-background-size: 100%;
-    -fx-max-width: infinity;
-    -fx-max-height: infinity;
+    -fx-background-size: 100% 100%;
+}
+#battleship1 {
+    -fx-background-image: url("../images/ship/battleship1.png");
+}
+#battleship2 {
+    -fx-background-image: url("../images/ship/battleship2.png");
+}
+#battleship3 {
+    -fx-background-image: url("../images/ship/battleship3.png");
+}
+#battleship4 {
+    -fx-background-image: url("../images/ship/battleship4.png");
+}
+#carrier1 {
+    -fx-background-image: url("../images/ship/carrier1.png");
+}
+#carrier2 {
+    -fx-background-image: url("../images/ship/carrier2.png");
+}
+#carrier3 {
+    -fx-background-image: url("../images/ship/carrier3.png");
+}
+#carrier4 {
+    -fx-background-image: url("../images/ship/carrier4.png");
+}
+#carrier5 {
+    -fx-background-image: url("../images/ship/carrier5.png");
+}
+#cruiser1 {
+    -fx-background-image: url("../images/ship/cruiser1.png");
+    -fx-background-size: 95% 50%;
+    -fx-background-position: right;
+}
+#cruiser2 {
+    -fx-background-image: url("../images/ship/cruiser2.png");
+    -fx-background-size: 100% 50%;
+    -fx-background-position: left;
+}
+#cruiser3 {
+    -fx-background-image: url("../images/ship/cruiser3.png");
+    -fx-background-size: 95% 50%;
+    -fx-background-position: left;
+}
+#destroyer1 {
+    -fx-background-image: url("../images/ship/destroyer1.png");
+    -fx-background-size: 95% 50%;
+    -fx-background-position: right;
+}
+#destroyer2 {
+    -fx-background-image: url("../images/ship/destroyer2.png");
+    -fx-background-size: 95% 50%;
+    -fx-background-position: left;
+}
+#grid {
+-fx-background-image: url("../images/grid/bottomsector.png");
+}
+#submarine1 {
+    -fx-background-image: url("../images/ship/submarine1.png");
+    -fx-background-size: 95% 50%;
+    -fx-background-position: right;
+}
+#submarine2 {
+    -fx-background-image: url("../images/ship/submarine2.png");
+    -fx-background-size: 100% 50%;
+    -fx-background-position: left;
+}
+#submarine3 {
+    -fx-background-image: url("../images/ship/submarine3.png");
+    -fx-background-size: 95% 50%;
+    -fx-background-position: left;
 }
