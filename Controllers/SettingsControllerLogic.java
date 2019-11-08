@@ -33,13 +33,13 @@ public class SettingsControllerLogic {
 
 
     public void initializeMusicSelection() {
-        File musicFolder = new File("src/assets/music");
+        File musicFolder = new File("src/battleship/assets/music");
         File[] musicFiles = musicFolder.listFiles();
         Map musicMap = new HashMap();
         ObservableList<String> observableMusic = FXCollections.observableArrayList();
         for(File file : musicFiles ){
-            musicMap.put(file.getPath().substring(17), file.getPath());
-            observableMusic.add(file.getPath().substring(17));
+            musicMap.put(file.getPath().substring(28), file.getPath());
+            observableMusic.add(file.getPath().substring(28));
             }
         this.settingsController.getMusicMap().putAll(musicMap);
         this.settingsController.setPlayList(observableMusic);

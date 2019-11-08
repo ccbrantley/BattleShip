@@ -33,7 +33,7 @@ public class MainControllerLogic {
     private LoaderGetter loaderGetter;
 
     private void startMusic() {
-        String musicFile = "src/assets/music/The Planets, Op. 32_ Jupiter, the Bringer of Jollity.mp3";
+        String musicFile = "src/battleship/assets/music/The Planets, Op. 32_ Jupiter, the Bringer of Jollity.mp3";
         Media soundFile = new Media(new File(musicFile).toURI().toString());
         this.mainController.setMediaPlayer(new MediaPlayer(soundFile));
         this.mainController.getMediaPlayer().play();
