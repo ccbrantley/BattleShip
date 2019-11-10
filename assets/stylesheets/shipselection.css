@@ -89,40 +89,40 @@
 
 #cruiser1 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/cruiser1.png");
-    -fx-background-position: right;
+    -fx-background-position: center, right;
 }
 
 #cruiser2 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/cruiser2.png");
-    -fx-background-position: left;
+    -fx-background-position: center, left;
 }
 
 #cruiser3 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/cruiser3.png");
-    -fx-background-position: left;
+    -fx-background-position: center, left;
 }
 
 #destroyer1 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/destroyer1.png");
-    -fx-background-position: right;
+    -fx-background-position: center, right;
 }
 
 #destroyer2 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/destroyer2.png");
-    -fx-background-position: left;
+    -fx-background-position: center, left;
 }
 
 #submarine1 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine1.png");
-    -fx-background-position: right;
+    -fx-background-position: center, right;
 }
 
 #submarine2 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine2.png");
-    -fx-background-position: left;
+    -fx-background-position: center, left;
 }
 
 #submarine3 {
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine3.png");
-    -fx-background-position: left;
+    -fx-background-position: center, left;
 }

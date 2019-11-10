@@ -10,6 +10,7 @@ package battleship.tools;
  *
  */
 import battleship.tools.ViewAssets;
+import battleship.views.ShipSelectionView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -95,14 +96,26 @@ public class ViewAssets {
     }
 
     public GridPane createRowByColumnPane(int _row, int _column, String _buttonId, String _buttonText, double _paneWidth, double _paneHeight) {
+        int paneWidth = (int) _paneWidth;
+        int paneHeight = (int) _paneHeight;
         GridPane curPane = new GridPane();
         for (int row = 0; row < _row; row ++) {
             for (int column = 0; column < _column; column++) {
                 curPane.add(ViewAssets.createGridButton(_buttonId, 0 , ""), row, column);
             }
         }
-        curPane.setMinWidth(_paneWidth);
-        curPane.setMinHeight(_paneHeight);
+        while((paneWidth % 10) != 0) {
+           --paneWidth;
+        }
+        while((paneHeight % 10) != 0) {
+           --paneHeight;
+        }
+        System.out.println(paneWidth);
+        System.out.println(paneHeight);
+        curPane.setMinWidth(paneWidth);
+        curPane.setMinHeight(paneHeight);
+        curPane.setMaxWidth(paneWidth);
+        curPane.setMaxHeight(paneHeight);
         this.addToLiveAssets(curPane);
         return curPane;
     }
