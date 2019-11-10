@@ -1,0 +1,12 @@
+#settingsMenuPane {
+ -fx-background-image: url("../images/water/Ocean2.gif");
+ -fx-background-size: 100% 100%;
+}
+.button{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: large;
+    -fx-alignment:center;
+}

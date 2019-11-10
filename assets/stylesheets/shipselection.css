@@ -1,0 +1,128 @@
+#shipSelectionPane {
+ -fx-background-image: url("../images/water/Ocean2.gif");
+ -fx-background-size: 100% 100%;
+}
+
+.label{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: xx-large;
+    -fx-alignment:center;
+}
+
+#main, #game, #random{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-size: x-large;
+    -fx-text-align: center;
+}
+
+#grid {
+    -fx-background-image: url("../images/grid/bottomsector.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center;
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-repeat:no-repeat;
+    -fx-rotate: 0.0;
+}
+
+#battleship1, #battleship2, #battleship3, #battleship4,
+#carrier1, #carrier2, #carrier3, #carrier4, #carrier5 {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-repeat:no-repeat;
+    -fx-background-size: 100% 100%, 100% 100%;
+    -fx-opacity: 1;
+}
+
+#cruiser1, #cruiser2, #cruiser3,
+#destroyer1, #destroyer2,
+#submarine1, #submarine2, #submarine3 {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-repeat:no-repeat;
+    -fx-background-size: 100% 100%, 100% 50%;
+    -fx-opacity: 1;
+}
+
+#battleship1 {
+    -fx-background-image:  url("../images/grid/bottomsector.png"), url("../images/ship/battleship1.png");
+}
+
+#battleship2 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/battleship2.png");
+}
+
+#battleship3 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/battleship3.png");
+}
+
+#battleship4 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/battleship4.png");
+}
+
+#carrier1 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/carrier1.png");
+    -fx-background-size: 100% 100%, 100% 100%;
+}
+
+#carrier2 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/carrier2.png");
+    -fx-background-size: 100% 100%, 100% 100%;
+}
+
+#carrier3 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/carrier3.png");
+    -fx-background-size: 100% 100%, 100% 100%;
+}
+
+#carrier4 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/carrier4.png");
+    -fx-background-size: 100% 100%, 100% 100%;
+}
+
+#carrier5 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/carrier5.png");
+    -fx-background-size: 100% 100%, 100% 100%;
+}
+
+#cruiser1 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/cruiser1.png");
+    -fx-background-position: right;
+}
+
+#cruiser2 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/cruiser2.png");
+    -fx-background-position: left;
+}
+
+#cruiser3 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/cruiser3.png");
+    -fx-background-position: left;
+}
+
+#destroyer1 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/destroyer1.png");
+    -fx-background-position: right;
+}
+
+#destroyer2 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/destroyer2.png");
+    -fx-background-position: left;
+}
+
+#submarine1 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine1.png");
+    -fx-background-position: right;
+}
+
+#submarine2 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine2.png");
+    -fx-background-position: left;
+}
+
+#submarine3 {
+    -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine3.png");
+    -fx-background-position: left;
+}

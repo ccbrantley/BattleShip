@@ -1,4 +1,4 @@
-package battleship.models;
+package battleship.tools;
 
 import java.io.File;
 
@@ -14,8 +14,12 @@ public class ResourceGetter {
 
     public ResourceGetter(){}
 
-    public String getBlueButtonCSS() {
+    public String getChatBoxCSS() {
+        File styleSheet = new File("src/battleship/assets/stylesheets/chatbox.css");
+        return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
+    }
 
+    public String getBlueButtonCSS() {
         File styleSheet = new File("src/battleship/assets/stylesheets/bluebutton.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
@@ -50,23 +54,29 @@ public class ResourceGetter {
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 
-    public String getFxmlGoogleSignInCSS() {
-        File styleSheet = new File("src/battleship/assets/stylesheets/fxmlgooglesign.css");
-        return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
-    }
 
-    public String getFxmlPlayCSS() {
+    public String getPlayMenuCSS() {
         File styleSheet = new File("src/battleship/assets/stylesheets/fxmlplay.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 
-    public String getFxmlResumeCSS() {
-        File styleSheet = new File("src/battleship/assets/stylesheets/fxmlresume.css");
+    public String getShipSelectionCSS() {
+        File styleSheet = new File("src/battleship/assets/stylesheets/shipselection.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 
-    public String getFxmlSettingsCSS() {
-        File styleSheet = new File("src/battleship/assets/stylesheets/fxmlsettings.css");
+    public String getSettingsMenuCSS() {
+        File styleSheet = new File("src/battleship/assets/stylesheets/settingsmenu.css");
+        return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
+    }
+
+    public String getMusicPlayerCSS() {
+        File styleSheet = new File("src/battleship/assets/stylesheets/musicplayer.css");
+        return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
+    }
+
+    public String getGraphicEffectCSS() {
+        File styleSheet = new File("src/battleship/assets/stylesheets/graphiceffect.css");
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 

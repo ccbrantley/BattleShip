@@ -1,0 +1,31 @@
+.scroll-pane {
+    -fx-background-color: black;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:black;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: gray;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: black;
+}
+#parentPane {
+    -fx-background-color: black;
+}
+#messageArea {
+    -fx-background-color: black;
+}
+
+#inputBox {
+    -fx-background-color: black;
+}
+
+.label {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}

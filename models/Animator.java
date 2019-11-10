@@ -1,13 +1,13 @@
 package battleship.models;
 
-/* This class serves to take a controller and readjust its children
- * on the stage to allow proper graphic display.
+/*
  * @author Area 51 Block Party:
  * Andrew Braswell
  * Christopher Brantley
  * Jacob Schumacher
  * Richard Abrams
  * Last Updated 09/30/2019
+ * Animator class serves as a an accessor for pre made animations.
  */
 
 import java.io.FileInputStream;
@@ -20,10 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-/**
- *
- * @author chris
- */
 public final class Animator {
 
     public Animator (String _type) throws FileNotFoundException {
@@ -36,46 +32,46 @@ public final class Animator {
     private Timeline timeLine;
 
     public void createExplosionAnimation() throws FileNotFoundException {
-        Image smoke = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke1.png"));
-        Image smoke2 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke2.png"));
-        Image smoke3 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke3.png"));
-        Image smoke4 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke4.png"));
-        Image smoke5 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke5.png"));
-        Image smoke6 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke6.png"));
-        Image smoke7 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke7.png"));
-        Image smoke8 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke8.png"));
-        Image smoke9 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke9.png"));
-        Image smoke10 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke10.png"));
-        Image smoke11 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke11.png"));
-        Image smoke12 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke12.png"));
-        Image smoke13 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke13.png"));
-        Image smoke14 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke14.png"));
-        Image smoke15 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke15.png"));
-        Image smoke16 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke16.png"));
-        Image smoke17 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke17.png"));
-        Image smoke18 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke18.png"));
-        Image smoke19 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke19.png"));
-        Image smoke20 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke20.png"));
-        Image smoke21 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke21.png"));
-        Image smoke22 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke22.png"));
-        Image smoke23 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke23.png"));
-        Image smoke24 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke24.png"));
-        Image smoke25 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke25.png"));
-        Image smoke26 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke26.png"));
-        Image smoke27 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke27.png"));
-        Image smoke28 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke28.png"));
-        Image smoke29 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke29.png"));
-        Image smoke30 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke30.png"));
-        Image smoke31 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke31.png"));
-        Image smoke32 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke32.png"));
-        Image smoke33 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke33.png"));
-        Image smoke34 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke34.png"));
-        Image smoke35 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke35.png"));
-        Image smoke36 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke36.png"));
-        Image smoke37 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke37.png"));
-        Image smoke38 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke38.png"));
-        Image smoke39 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke39.png"));
-        Image smoke40 = new Image(new FileInputStream("src\\assets\\images\\explosion\\smoke40.png"));
+        Image smoke = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke1.png"));
+        Image smoke2 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke2.png"));
+        Image smoke3 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke3.png"));
+        Image smoke4 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke4.png"));
+        Image smoke5 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke5.png"));
+        Image smoke6 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke6.png"));
+        Image smoke7 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke7.png"));
+        Image smoke8 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke8.png"));
+        Image smoke9 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke9.png"));
+        Image smoke10 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke10.png"));
+        Image smoke11 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke11.png"));
+        Image smoke12 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke12.png"));
+        Image smoke13 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke13.png"));
+        Image smoke14 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke14.png"));
+        Image smoke15 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke15.png"));
+        Image smoke16 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke16.png"));
+        Image smoke17 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke17.png"));
+        Image smoke18 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke18.png"));
+        Image smoke19 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke19.png"));
+        Image smoke20 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke20.png"));
+        Image smoke21 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke21.png"));
+        Image smoke22 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke22.png"));
+        Image smoke23 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke23.png"));
+        Image smoke24 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke24.png"));
+        Image smoke25 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke25.png"));
+        Image smoke26 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke26.png"));
+        Image smoke27 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke27.png"));
+        Image smoke28 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke28.png"));
+        Image smoke29 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke29.png"));
+        Image smoke30 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke30.png"));
+        Image smoke31 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke31.png"));
+        Image smoke32 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke32.png"));
+        Image smoke33 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke33.png"));
+        Image smoke34 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke34.png"));
+        Image smoke35 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke35.png"));
+        Image smoke36 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke36.png"));
+        Image smoke37 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke37.png"));
+        Image smoke38 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke38.png"));
+        Image smoke39 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke39.png"));
+        Image smoke40 = new Image(new FileInputStream("src\\battleship\\assets\\images\\explosion\\smoke40.png"));
         ImageView smokeView = new ImageView();
         final Timeline timeline = new Timeline();
         timeline.getKeyFrames().addAll(

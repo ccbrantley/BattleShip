@@ -1,0 +1,74 @@
+#musicPlayerPane {
+    -fx-background-color: transparent;
+}
+
+.label{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: xx-large;
+    -fx-alignment:center;
+}
+
+.button{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: large;
+    -fx-alignment:center;
+}
+.combo-box {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: small;
+    -fx-alignment:center;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: small;
+    -fx-alignment:center;
+}
+.combo-box .list-view {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: small;
+    -fx-alignment:center;
+}
+.combo-box .menu-item:focused {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: small;
+    -fx-alignment:center;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: small;
+    -fx-alignment:center;
+}
+
+.thumb {
+    -fx-background-color: white;
+    -fx-opacity: .8;
+    -fx-alignment:center;
+}
+
+.track{
+    -fx-background-color: black;
+    -fx-opacity: .8;
+    -fx-alignment:center;
+}

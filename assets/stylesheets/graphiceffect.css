@@ -1,6 +1,5 @@
-#mainMenuPane{
- -fx-background-image: url("../images/water/Ocean2.gif");
- -fx-background-size: 100% 100%;
+#graphicEffectPane {
+    -fx-background-color: transparent;
 }
 
 .label{
@@ -16,9 +15,19 @@
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-opacity: .8;
-    -fx-font-size: x-large;
+    -fx-font-weight: bold;
+    -fx-font-size: large;
     -fx-alignment:center;
-    -fx-text-align: center;
 }
 
+.thumb {
+    -fx-background-color: white;
+    -fx-opacity: .8;
+    -fx-alignment:center;
+}
 
+.track{
+    -fx-background-color: black;
+    -fx-opacity: .8;
+    -fx-alignment:center;
+}
