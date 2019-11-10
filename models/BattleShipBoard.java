@@ -2,7 +2,9 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/03/2019
+ * Last Updated: 11/10/2019
+ * BattleShipBoard will contain various methods
+ * and attributes that generically define a Battle Ship Board.
  */
 
 public class BattleShipBoard {

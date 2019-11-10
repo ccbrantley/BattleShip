@@ -7,10 +7,8 @@ package battleship.tools;
  * ViewAssets is used to force consistency in creation of nodes by allowing consistent property changes.
  * ViewAssetse purpose is to also maintain commonly used assets so that they may be
  * recreated with consistency.
- *
  */
-import battleship.tools.ViewAssets;
-import battleship.views.ShipSelectionView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -104,14 +102,12 @@ public class ViewAssets {
                 curPane.add(ViewAssets.createGridButton(_buttonId, 0 , ""), row, column);
             }
         }
-        while((paneWidth % 10) != 0) {
+        while((paneWidth % _row) != 0) {
            --paneWidth;
         }
-        while((paneHeight % 10) != 0) {
+        while((paneHeight % _column) != 0) {
            --paneHeight;
         }
-        System.out.println(paneWidth);
-        System.out.println(paneHeight);
         curPane.setMinWidth(paneWidth);
         curPane.setMinHeight(paneHeight);
         curPane.setMaxWidth(paneWidth);

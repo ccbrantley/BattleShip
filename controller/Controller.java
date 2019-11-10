@@ -60,16 +60,16 @@ public class Controller implements Initializable {
             switch (_sceneType) {
                 case "play":
                     ShipSelectionView selectionPane = new ShipSelectionView(this);
-                    this.views.put("play", selectionPane);
+                    Controller.views.put("play", selectionPane);
                     this.initializeGame();
                     return selectionPane.getParentPane();
                 case "settings":
                     SettingsMenuView settingsPane = new SettingsMenuView(this);
-                    this.views.put("settings", settingsPane);
+                    Controller.views.put("settings", settingsPane);
                     return settingsPane.getParentPane();
                 case "main":
                     MainMenuView mainePane = new MainMenuView(this);
-                    this.views.put("main", mainePane);
+                    Controller.views.put("main", mainePane);
                     return mainePane.getParentPane();
                 default:
                     return null;
@@ -222,7 +222,7 @@ public class Controller implements Initializable {
 
     public void setOnMousePressRandomizeShips(Node _node) {
         _node.setOnMousePressed(event -> {
-            this.battleShipGame.getPlayer1().randomizeShips();
+            Controller.battleShipGame.getPlayer1().getBattleShipFleet().randomizeShips();
         });
     }
 

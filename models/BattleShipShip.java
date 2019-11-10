@@ -2,7 +2,10 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/03/2019
+ * Last Updated: 11/10/2019
+ * BattleShipShip serves to define a ship object. A ship object will contain
+ * attributes such as the type, id, orientation, length, and the ship pieces.
+ * Procedures required to move ship are located here.
  */
 
 import battleship.tools.events.*;
@@ -18,29 +21,37 @@ public class BattleShipShip {
             shipPieces.add(new BattleShipShipPiece((x+1), _orientation, this.shipId));
         }
     }
+
     private int shipType;
     private int shipOrientation;
     private int shipLength;
     private String shipId;
     private ArrayList<BattleShipShipPiece> shipPieces = new ArrayList();
-    //Enumerations
-    //Ship Type
+
+   /*
+    *Enumerators.
+    *Ship Type.
+    */
     private static final int ERROR = -1;
     public static final int CARRIER = 0;
     public static final int BATTLESHIP = 1;
     public static final int CRUISER = 2;
     public static final int SUBMARINE = 3;
     public static final int DESTROYER = 4;
-    //Orientation
+    //Orientation.
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
-    //Movement Direction
+    //Movement Direction.
     public static final int RANDOM = -1;
     public static final int UP = 0;
     public static final int RIGHT = 1;
     public static final int DOWN = 2;
     public static final int LEFT = 3;
 
+    /**Determine ship's enumerated value from its Id.
+     * @param _id
+     * @return ship's enumerated value.
+     */
     public static int convertShipIdToType (String _id) {
         switch (_id) {
             case "carrier":
@@ -58,6 +69,10 @@ public class BattleShipShip {
         }
     }
 
+    /**Determines ship's string Id from its enumerated value.
+     * @param _type
+     * @return ship's string Id.
+     */
     private String convertShipTypeToId (int _type) {
         switch (_type) {
             case BattleShipShip.CARRIER:
@@ -75,6 +90,10 @@ public class BattleShipShip {
         }
     }
 
+    /**Determines a ships length from its enumerated value.
+     * @param _type
+     * @return Ships length.
+     */
     private int determineShipLength (int _type) {
         switch (_type) {
             case BattleShipShip.CARRIER:
@@ -93,6 +112,11 @@ public class BattleShipShip {
         return -1;
     }
 
+    /**Sums two numbers and normalizes their value with respect to board size.
+     * @param _index
+     * @param _totalRange
+     * @return A value within board boundary.
+     */
     private int normalizeRange (int _index, int _totalRange) {
         if (!(this.gridBoundaryCheck(_index+_totalRange-1))) {
             _index = (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
@@ -102,11 +126,20 @@ public class BattleShipShip {
         }
         return _index;
     }
-
+    /**Takes a value and checks if it is within the range of the board.
+     * @param _index
+     * @return Boolean value of whether the value lies within the board size.
+     */
     public Boolean gridBoundaryCheck (int _index) {
         return !(_index < 0 | _index > BattleShipBoard.BOARDSIZE-1 );
     }
 
+    /**Takes a coordinate and returns a list of coordinates of where the ship
+     * would occupy if moved to that coordinate.
+     * @param _row
+     * @param _column
+     * @return An ArrayList of predictive coordinates based on starting sector.
+     */
     public ArrayList<Coordinate> generatePossibleCoordinates(int _row, int _column) {
         int rowRange = (this.shipOrientation == BattleShipShip.HORIZONTAL) ? 1 : this.shipLength;
         int columnRange = (this.shipOrientation == BattleShipShip.HORIZONTAL) ? this.shipLength : 1;
@@ -127,9 +160,13 @@ public class BattleShipShip {
         return possibleMoves;
     }
 
-    // This method moves a ship to a position or coordinate, does not work for
-    // incremental values or advance by. A ships leftmost/topmost piece is placed
-    // at the row and column followed by the rest of the ship.
+    /**Moves a ship to a row and column. A ships leftmost/topmost
+     * piece is placed at the row and column and then succeeded
+     * by the remaining pieces.
+     * @param _row
+     * @param _column
+     * @return Boolean value of whether the ship has or has not been moved.
+     */
     public boolean moveShip(int _row, int _column ) {
         if(_row == BattleShipShip.RANDOM &&(_row == _column)) {
             Coordinate randomCoordinate = this.generateRandomUniqueCoordinate();
@@ -171,12 +208,17 @@ public class BattleShipShip {
         return true;
     }
 
-    // Procedure used to move a ship by a set amount of spaces
+    /**Moves ship by its current position and some increment.
+     * @param _rowInc
+     * @param _columnInc
+     */
     public void moveShipIncrementally (int _rowInc, int _columnInc) {
         BattleShipShipPiece firstPiece = this.shipPieces.get(0);
         this.moveShip(_rowInc + firstPiece.getRowIndex(),  _columnInc + firstPiece.getColumnIndex());
     }
 
+    /**Rotates the ship by setting orientation and moving the ship.
+     */
     public void rotateShip() {
         int oldRotation = this.shipOrientation;
         int newRotation = (this.shipOrientation == BattleShipShip.HORIZONTAL) ? BattleShipShip.VERTICAL : BattleShipShip.HORIZONTAL;
@@ -193,6 +235,9 @@ public class BattleShipShip {
         }
     }
 
+    /**
+     * @return All Coordinates of a BattleShipShip
+     */
     public ArrayList<Coordinate> getBattleShipCoordinates() {
         ArrayList<Coordinate> coordinates = new ArrayList();
         this.shipPieces.forEach(piece -> {
@@ -201,7 +246,10 @@ public class BattleShipShip {
         return coordinates;
     }
 
-    //This operates off an arraylist of predictive coordinates
+    /** Determines whether an array list of coordinates is free of ships.
+     * @param _coordinate
+     * @return Whether or not an array list of coordinates is free of ships.
+     */
     private boolean isUniquePosition(ArrayList<Coordinate> _coordinate) {
         int coordinateRow;
         int coordinateColumn;
@@ -225,7 +273,10 @@ public class BattleShipShip {
         }
         return true;
     }
-    // Generates Random and Unique Coordinates
+
+    /**
+     * @return Generates Random and Unique Coordinates
+     */
     public Coordinate generateRandomUniqueCoordinate() {
         int randomRow = (int)(Math.random() * 10);
         int randomColumn = (int)(Math.random() * 10);
@@ -236,6 +287,9 @@ public class BattleShipShip {
         return new Coordinate(randomRow, randomColumn);
     }
 
+    /**
+     * @return Generates random orientation.
+     */
     public static int generateRandomOrientation() {
         return (int)(Math.random() * 2);
     }
@@ -315,5 +369,4 @@ public class BattleShipShip {
     public void setShipPieces(ArrayList<BattleShipShipPiece> shipPieces) {
         this.shipPieces = shipPieces;
     }
-
 }
