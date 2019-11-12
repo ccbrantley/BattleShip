@@ -255,16 +255,18 @@ public class BattleShipShip {
         int coordinateColumn;
         int pieceRow;
         int pieceColumn;
-        for(BattleShipShip ship : BattleShipFleet.getFleetOfShips()) {
-            if(ship == this) {continue;}
-            for(BattleShipShipPiece piece : ship.getShipPieces()) {
+        for (BattleShipShip ship : BattleShipFleet.getFleetOfShips()) {
+            if(ship == this) {
+                continue;
+            }
+            for (BattleShipShipPiece piece : ship.getShipPieces()) {
                 pieceRow = piece.getRowIndex();
                 pieceColumn = piece.getColumnIndex();
-                for(Coordinate coordinate : _coordinate) {
+                for (Coordinate coordinate : _coordinate) {
                     coordinateRow = coordinate.getRow();
                     coordinateColumn = coordinate.getColumn();
-                    if(pieceRow == coordinateRow) {
-                        if(pieceColumn == coordinateColumn){
+                    if (pieceRow == coordinateRow) {
+                        if (pieceColumn == coordinateColumn){
                             return false;
                         }
                     }
@@ -275,7 +277,7 @@ public class BattleShipShip {
     }
 
     /**
-     * @return Generates Random and Unique Coordinates
+     * @return Generates Random and Unique Coordinates.
      */
     public Coordinate generateRandomUniqueCoordinate() {
         int randomRow = (int)(Math.random() * 10);

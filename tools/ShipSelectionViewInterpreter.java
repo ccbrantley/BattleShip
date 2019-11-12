@@ -1,9 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship.tools;
+
+/* @author Area 51 Block Party:
+ * Christopher Brantley
+ * Last Updated: 11/11/2019
+ * This class is the interpreter for the event bus and the shipselectionview.
+ * This class will define the protocol behind what happens when an event is
+ * meant to be thrown to the ship selection view.
+ */
 
 import battleship.tools.events.*;
 import battleship.views.ShipSelectionView;
@@ -11,11 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-/**
- *
- * @author Christopher
- */
 public class ShipSelectionViewInterpreter {
+    public ShipSelectionViewInterpreter(ShipSelectionView shipSelectionView) {
+        this.shipSelectionView = shipSelectionView;
+    }
+    private final ShipSelectionView shipSelectionView;
 
     public void catchEvent(Object _event) {
         if(_event instanceof UpdateSectorEvent) {
@@ -26,30 +29,30 @@ public class ShipSelectionViewInterpreter {
             String newId = event.getNewId();
             int rowIndex;
             int columnIndex;
-            for(Node curNode : ShipSelectionView.getShipSelectionPane().getChildren()) {
+            for(Node curNode : this.shipSelectionView.getShipSelectionPane().getChildren()) {
                 rowIndex = GridPane.getRowIndex(curNode);
                 columnIndex = GridPane.getColumnIndex(curNode);
                 if((rowIndex == row) && (columnIndex == column)) {
                     Button newButton = ViewAssets.createGridButton(newId, rotation, "");
                     if(!("grid".equals(newId))) {
-                        ShipSelectionView.setShipSelectionPaneShipEvents(newButton);
+                        this.shipSelectionView.setShipSelectionPaneShipEvents(newButton);
                     } else {
-                        ShipSelectionView.setShipSelectionPaneGridEvents(newButton);
+                        this.shipSelectionView.setShipSelectionPaneGridEvents(newButton);
                     }
-                    ShipSelectionView.getShipSelectionPane().getChildren().remove(curNode);
-                    ShipSelectionView.getShipSelectionPane().add(newButton, columnIndex, rowIndex);
+                    this.shipSelectionView.getShipSelectionPane().getChildren().remove(curNode);
+                     this.shipSelectionView.getShipSelectionPane().add(newButton, columnIndex, rowIndex);
                     return;
                 }
             }
         }
 
         if(_event instanceof ClearGridEvent) {
-            for(Node curNode : ShipSelectionView.getShipSelectionPane().getChildren()) {
+             this.shipSelectionView.getShipSelectionPane().getChildren().forEach((curNode) -> {
                 Button gridButton = new Button();
                 gridButton.setId("grid");
-                ShipSelectionView.setShipSelectionPaneGridEvents(gridButton);
+                this.shipSelectionView.setShipSelectionPaneGridEvents(gridButton);
                 curNode = gridButton;
-            }
+            });
         }
     }
 

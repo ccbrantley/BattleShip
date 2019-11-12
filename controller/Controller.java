@@ -49,7 +49,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL _url, ResourceBundle _rb) {}
     private Stage stage;
-    private static BattleShipGame battleShipGame;
+    private BattleShipGame battleShipGame;
     private static HashMap views = new HashMap();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
     private GraphicEffect graphicsEffect = new GraphicEffect();
@@ -78,31 +78,31 @@ public class Controller implements Initializable {
 
     // Will take a game type and instantiate BattleShipGame with the correct game type
     private void initializeGame () {
-        Controller.battleShipGame = new BattleShipGame(BattleShipGame.PVPGAME);
+        this.battleShipGame = new BattleShipGame(BattleShipGame.PVPGAME);
     }
 
 //*****************     EVENTS     *******************
 
-    public static void shipMovementEvent (KeyEvent _event) {
+    public void shipMovementEvent (KeyEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
         switch (_event.getText().toUpperCase()) {
             case "D":
-                Controller.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(0, +1, type);
+                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(0, +1, type);
                 break;
             case "A":
-                Controller.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(0, -1, type);
+                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(0, -1, type);
                 break;
             case "W":
-                Controller.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(-1, 0, type);
+                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(-1, 0, type);
                 break;
             case "S":
-                Controller.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(+1, 0, type);
+                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(+1, 0, type);
                 break;
         }
     }
 
-    public static void shipOnDragDetectedEvent (MouseEvent _event) {
+    public void shipOnDragDetectedEvent (MouseEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
         Dragboard db = shipButton.startDragAndDrop(TransferMode.ANY);
@@ -115,7 +115,7 @@ public class Controller implements Initializable {
             cursorView = new ImageView(new Image(new FileInputStream("src\\battleship\\assets\\images\\ship\\".concat(type).concat(".png")), 100, 100, true, false));
             Image cursorImage = cursorView.getImage();
             cursorView.setOpacity(100);
-            int orientation = BattleShipFleet.getFleetOfShips().get(BattleShipShip.convertShipIdToType(type)).getShipOrientation();
+            int orientation = this.battleShipGame.getPlayer1().getBattleShipFleet().getFleetOfShips().get(BattleShipShip.convertShipIdToType(type)).getShipOrientation();
             if(orientation == BattleShipShip.VERTICAL){
                 cursorView.setRotate(90);
                 SnapshotParameters params = new SnapshotParameters();
@@ -128,7 +128,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public static void gridOnDragOverEvent (DragEvent _event) {
+    public void gridOnDragOverEvent (DragEvent _event) {
         Button curButton = (Button)_event.getSource();
         if (_event.getGestureSource() != curButton &&
                 _event.getDragboard().hasString()) {
@@ -137,19 +137,19 @@ public class Controller implements Initializable {
         _event.consume();
     }
 
-    public static void gridOnDragDroppedEvent (DragEvent _event) {
+    public void gridOnDragDroppedEvent (DragEvent _event) {
         Button curButton = (Button)_event.getSource();
         int rowIndex = GridPane.getRowIndex(curButton);
         int columnIndex = GridPane.getColumnIndex(curButton);
         String shipType = _event.getDragboard().getString();
-        Controller.battleShipGame.getPlayer1().getBattleShipFleet().moveShip(rowIndex, columnIndex, shipType);
+        this.battleShipGame.getPlayer1().getBattleShipFleet().moveShip(rowIndex, columnIndex, shipType);
          _event.consume();
     }
 
-    public static void shipOnScrollEvent (ScrollEvent _event) {
+    public void shipOnScrollEvent (ScrollEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
-        BattleShipFleet.getFleetOfShips().forEach(ship -> {
+        this.battleShipGame.getPlayer1().getBattleShipFleet().getFleetOfShips().forEach(ship -> {
             if(ship.getShipId().equals(type)) {
                 ship.rotateShip();
             }
@@ -222,7 +222,7 @@ public class Controller implements Initializable {
 
     public void setOnMousePressRandomizeShips(Node _node) {
         _node.setOnMousePressed(event -> {
-            Controller.battleShipGame.getPlayer1().getBattleShipFleet().randomizeShips();
+            this.battleShipGame.getPlayer1().getBattleShipFleet().randomizeShips();
         });
     }
 

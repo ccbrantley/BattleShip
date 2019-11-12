@@ -2,13 +2,14 @@ package battleship.views;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 10/31/2019
- *
+ * Last Updated: 11/11/2019
  * ShipSelectionView is the definition of the visual for the ship selection view.
  */
 
 import battleship.controller.Controller;
+import battleship.models.BattleShipGame;
 import battleship.tools.ResourceGetter;
+import battleship.tools.ShipSelectionViewInterpreter;
 import battleship.tools.ViewAssets;
 import java.awt.GraphicsEnvironment;
 import javafx.scene.Node;
@@ -27,57 +28,57 @@ public class ShipSelectionView {
         this.randomshipLayoutButton = this.viewAssets.createButton("random", "Random Layout", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.confirmLayoutButton = this.viewAssets.createButton("game", "Confirm Layout", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position
-        this.parentPane.getChildren().addAll(ShipSelectionView.shipSelectionPane, this.mainMenuButton, this.randomshipLayoutButton, this.confirmLayoutButton);
+        this.parentPane.getChildren().addAll(this.shipSelectionPane, this.mainMenuButton, this.randomshipLayoutButton, this.confirmLayoutButton);
         this.mainMenuButton.relocate(0, ((this.screenHeight)-(this.screenSize * this.buttonHeightRatio))/2);
         this.randomshipLayoutButton.relocate(0, ((this.screenHeight)-(this.screenSize * this.buttonHeightRatio)));
-        ShipSelectionView.shipSelectionPane.relocate(((this.screenWidth)-(this.screenSize * .90))/2, ((this.screenHeight)-(this.screenSize * .90))/2);
+        this.shipSelectionPane.relocate(((this.screenWidth)-(this.screenSize * .90))/2, ((this.screenHeight)-(this.screenSize * .90))/2);
         this.confirmLayoutButton.relocate((this.screenWidth-(this.screenSize * this.buttonWidthRatio)), ((this.screenHeight)-(this.screenSize * this.buttonWidthRatio))/2);
         // Initialize childrens events
         this.controller.setSceneOnActionEvent(this.mainMenuButton);
-        ShipSelectionView.shipSelectionPane.getChildren().forEach(grid -> {
-            ShipSelectionView.setShipSelectionPaneGridEvents(grid);
+        this.shipSelectionPane.getChildren().forEach(grid -> {
+            this.setShipSelectionPaneGridEvents(grid);
         });
         this.controller.setOnMousePressRandomizeShips(this.randomshipLayoutButton);
+        BattleShipGame.getEventBus().addListener(this.interpreter);
     }
-    private Controller controller;
+    private final Controller controller;
     private final double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
     private final double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
     private final double screenSize = (this.screenWidth > this.screenHeight) ? this.screenHeight : this.screenWidth;
-    private double buttonWidthRatio = .10;
-    private double buttonHeightRatio = .10;
-    private ResourceGetter resources = new ResourceGetter();
-    private ViewAssets viewAssets = new ViewAssets();
-    private AnchorPane parentPane;
-    private static GridPane shipSelectionPane;
-    private Button mainMenuButton;
-    private Button confirmLayoutButton;
-    private Button randomshipLayoutButton;
+    private final double buttonWidthRatio = .10;
+    private final double buttonHeightRatio = .10;
+    private final ResourceGetter resources = new ResourceGetter();
+    private final ViewAssets viewAssets = new ViewAssets();
+    private final AnchorPane parentPane;
+    private final GridPane shipSelectionPane;
+    private final Button mainMenuButton;
+    private final Button confirmLayoutButton;
+    private final Button randomshipLayoutButton;
+    private final ShipSelectionViewInterpreter interpreter = new ShipSelectionViewInterpreter(this);
 
-    public static void setShipSelectionPaneShipEvents(Node _curNode) {
+    public void setShipSelectionPaneShipEvents(Node _curNode) {
         _curNode.setOnKeyPressed(event -> {
-            Controller.shipMovementEvent(event);
+            this.controller.shipMovementEvent(event);
         });
         _curNode.setOnDragDetected(event -> {
-            Controller.shipOnDragDetectedEvent(event);
+            this.controller.shipOnDragDetectedEvent(event);
         });
         _curNode.setOnScroll(event -> {
-            Controller.shipOnScrollEvent(event);
+            this.controller.shipOnScrollEvent(event);
         });
     }
 
-    public static void setShipSelectionPaneGridEvents(Node _curNode) {
+    public void setShipSelectionPaneGridEvents(Node _curNode) {
         _curNode.setOnDragOver(event ->{
-            Controller.gridOnDragOverEvent(event);
+            this.controller.gridOnDragOverEvent(event);
         });
 
         _curNode.setOnDragDropped(event -> {
-            Controller.gridOnDragDroppedEvent(event);
+            this.controller.gridOnDragDroppedEvent(event);
         });
     }
 
 //*****************     GETTERS     *******************
-
-//*****************     SETTERS     *******************
 
     public Controller getController() {
         return controller;
@@ -115,7 +116,7 @@ public class ShipSelectionView {
         return parentPane;
     }
 
-    public static GridPane getShipSelectionPane() {
+    public GridPane getShipSelectionPane() {
         return shipSelectionPane;
     }
 
@@ -126,5 +127,7 @@ public class ShipSelectionView {
     public Button getConfirmLayoutButton() {
         return confirmLayoutButton;
     }
+
+//*****************     SETTERS     *******************
 
 }

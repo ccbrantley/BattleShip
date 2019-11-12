@@ -20,11 +20,12 @@ public class BattleShipFleet {
         for (int shipType = 0; shipType < 5; shipType++) {
             BattleShipShip curShip = new BattleShipShip(shipType, (int)(Math.random() * 2));
             curShip.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
-            BattleShipFleet.fleetOfShips.add(shipType, curShip);
+            this.fleetOfShips.add(shipType, curShip);
         }
     }
 
     // fleetOfShips serves as an reference to all ships of a fleet.
+    // Note: Find way to make this nonstatic.
     private static final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
 
     /**Moves ship to a row/column based on current position plus increment.
@@ -33,7 +34,7 @@ public class BattleShipFleet {
      * @param _type ship type
      */
     public void moveShipIncrementally (int _rowInc, int _columnInc, String _type) {
-        BattleShipShip battleShip = BattleShipFleet.fleetOfShips.get(BattleShipShip.convertShipIdToType(_type));
+        BattleShipShip battleShip = this.fleetOfShips.get(BattleShipShip.convertShipIdToType(_type));
         battleShip.moveShipIncrementally(_rowInc, _columnInc);
     }
 
@@ -43,14 +44,14 @@ public class BattleShipFleet {
      * @param _type ship type
      */
     public void moveShip (int _row, int _column, String _type) {
-        BattleShipShip battleShip = BattleShipFleet.fleetOfShips.get(BattleShipShip.convertShipIdToType(_type));
+        BattleShipShip battleShip = this.fleetOfShips.get(BattleShipShip.convertShipIdToType(_type));
         battleShip.moveShip(_row, _column);
     }
 
     /** Moves all ships to a new location.
      */
     public void randomizeShips() {
-        BattleShipFleet.getFleetOfShips().forEach(ship -> {
+        this.getFleetOfShips().forEach(ship -> {
             ship.setShipOrientation(BattleShipShip.generateRandomOrientation());
             ship.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
         });

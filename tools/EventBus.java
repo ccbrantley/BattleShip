@@ -11,22 +11,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class EventBus {
-    public EventBus(){
-        this.listeners.add(new ShipSelectionViewInterpreter());
-    }
+    public EventBus() {}
     private ArrayList listeners = new ArrayList();
-    ShipSelectionViewInterpreter interpreter = new ShipSelectionViewInterpreter();
 
     public final void throwEvent(Object _event) {
-        this.interpreter.catchEvent(_event);
-        /*this.listeners.forEach(child -> {
+        this.listeners.forEach(child -> {
             try {
                 Method catchEvent = child.getClass().getMethod("catchEvent", Object.class);
                 catchEvent.invoke(child, _event);
             } catch (Exception e) {
                 Logger.getLogger(EventBus.class.getName()).log(Level.SEVERE, null, e);
             }
-        });*/
+        });
+    }
+
+    public final void addListener (Object _listener) {
+        this.listeners.add(_listener);
     }
 
 //*****************     GETTERS     *******************
