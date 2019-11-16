@@ -7,6 +7,7 @@ package battleship.views;
  * MainMenuView is the visual definition of the main menu.
  */
 import battleship.controller.Controller;
+import battleship.models.GraphicEffect;
 import battleship.tools.ViewAssets;
 import battleship.tools.ResourceGetter;
 import java.awt.GraphicsEnvironment;
@@ -22,17 +23,17 @@ public class MainMenuView {
         // Adding controller for access to events
         this.controller = _controller;
         // Creating pane and children of the pane
-        this.parentPane = this.viewAssets.createAnchorPane("mainMenuPane", this.resources.getMainMenuCSS());
-        this.gameLogo = this.viewAssets.createLabel("battleShipLabel", "Battleship", this.screenSize * this.buttonWidthRatio, this.screenSize * .30, false);
-        this.playButton = this.viewAssets.createButton("play", "Play", this.screenSize * this.buttonHeightRatio);
-        this.settingButton = this.viewAssets.createButton("settings", "Settings", this.screenSize * this.buttonHeightRatio);
-        this.quitButton = this.viewAssets.createButton("quit", "Quit", this.screenSize * this.buttonHeightRatio);
+        this.parentPane = ViewAssets.createAnchorPane("mainMenuPane", ResourceGetter.getMainMenuCSS());
+        this.gameLogo = ViewAssets.createLabel("battleShipLabel", "Battleship", this.screenSize * this.buttonWidthRatio, this.screenSize * .30, false);
+        this.playButton = ViewAssets.createButton("play", "Play", this.screenSize * this.buttonHeightRatio);
+        this.settingButton = ViewAssets.createButton("settings", "Settings", this.screenSize * this.buttonHeightRatio);
+        this.quitButton = ViewAssets.createButton("quit", "Quit", this.screenSize * this.buttonHeightRatio);
         // Adding all children to array, then using array to populate VBox
         this.menuButtonArray.add(this.gameLogo);
         this.menuButtonArray.add(this.playButton);
         this.menuButtonArray.add(this.settingButton);
         this.menuButtonArray.add(this.quitButton);
-        this.mainMenuVBox = this.viewAssets.createVBox(this.menuButtonArray, (.25/8) * this.screenSize, "mainMenuVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
+        this.mainMenuVBox = ViewAssets.createVBox(this.menuButtonArray, (.25/8) * this.screenSize, "mainMenuVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position
         this.parentPane.getChildren().addAll(this.mainMenuVBox);
         this.mainMenuVBox.relocate((this.screenWidth - this.screenSize * this.buttonWidthRatio)/2-(.25/8) * this.screenSize, 0);
@@ -43,14 +44,12 @@ public class MainMenuView {
     }
 
     Controller controller;
-    private final double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
-    private final double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
+    private final double screenWidth = GraphicEffect.getScreenWidth();
+    private final double screenHeight = GraphicEffect.getScreenHeight();
     // Choosing the smallest 1:1 ratio to display our program on
     private double screenSize = (this.screenWidth > this.screenHeight) ? this.screenHeight : this.screenWidth;
     private double buttonWidthRatio = .80;
     private double buttonHeightRatio = .15;
-    private ResourceGetter resources = new ResourceGetter();
-    private ViewAssets viewAssets = new ViewAssets();
     private AnchorPane parentPane;
     private VBox mainMenuVBox;
     private ArrayList<Node> menuButtonArray = new ArrayList<Node>();
@@ -75,14 +74,6 @@ public class MainMenuView {
 
     public double getButtonHeightRatio() {
         return buttonHeightRatio;
-    }
-
-    public ResourceGetter getResources() {
-        return resources;
-    }
-
-    public ViewAssets getViewAssets() {
-        return viewAssets;
     }
 
     public AnchorPane getParentPane() {
@@ -129,14 +120,6 @@ public class MainMenuView {
 
     public void setButtonHeightRatio(double buttonHeightRatio) {
         this.buttonHeightRatio = buttonHeightRatio;
-    }
-
-    public void setResources(ResourceGetter resources) {
-        this.resources = resources;
-    }
-
-    public void setViewAssets(ViewAssets viewAssets) {
-        this.viewAssets = viewAssets;
     }
 
     public void setParentPane(AnchorPane parentPane) {

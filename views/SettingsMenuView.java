@@ -8,6 +8,7 @@ package battleship.views;
  */
 
 import battleship.controller.Controller;
+import battleship.models.GraphicEffect;
 import battleship.tools.ResourceGetter;
 import battleship.tools.ViewAssets;
 import java.awt.GraphicsEnvironment;
@@ -24,12 +25,12 @@ public class SettingsMenuView {
         this.MusicPlayerView = new MusicPlayerView(_controller);
         this.graphicEffectView = new GraphicEffectView(_controller);
         // Creating panes and children of the panes
-        this.parentPane = this.viewAssets.createAnchorPane("settingsMenuPane", this.resources.getSettingsMenuCSS());
+        this.parentPane = ViewAssets.createAnchorPane("settingsMenuPane", ResourceGetter.getSettingsMenuCSS());
         this.musicPlayerParentPane = this.MusicPlayerView.getParentPane();
         this.graphicEffectParentPane = this.graphicEffectView.getParentPane();
-        this.mainButton = this.viewAssets.createButton("main", "Main Menu", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
+        this.mainButton = ViewAssets.createButton("main", "Main Menu", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         this.menuVBoxArray.add(this.mainButton);
-        this.menuVBox = this.viewAssets.createVBox(this.menuVBoxArray, 20, "menuVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
+        this.menuVBox = ViewAssets.createVBox(this.menuVBoxArray, 20, "menuVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position
         this.parentPane.getChildren().addAll(this.musicPlayerParentPane, this.mainButton, this.graphicEffectParentPane);
         AnchorPane.setTopAnchor(this.musicPlayerParentPane, 0.0);
@@ -47,13 +48,11 @@ public class SettingsMenuView {
     private Controller controller;
     private MusicPlayerView MusicPlayerView;
     private GraphicEffectView graphicEffectView;
-    private final double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
-    private final double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
+    private final double screenWidth = GraphicEffect.getScreenWidth();
+    private final double screenHeight = GraphicEffect.getScreenHeight();
     private double screenSize = (this.screenWidth > this.screenHeight) ? this.screenHeight : this.screenWidth;
     private double buttonWidthRatio = .3;
     private double buttonHeightRatio = .2;
-    private ResourceGetter resources = new ResourceGetter();
-    private ViewAssets viewAssets = new ViewAssets();
     private AnchorPane parentPane;
     private AnchorPane musicPlayerParentPane;
     private AnchorPane graphicEffectParentPane;
@@ -93,14 +92,6 @@ public class SettingsMenuView {
 
     public double getButtonHeightRatio() {
         return buttonHeightRatio;
-    }
-
-    public ResourceGetter getResources() {
-        return resources;
-    }
-
-    public ViewAssets getViewAssets() {
-        return viewAssets;
     }
 
     public AnchorPane getParentPane() {
@@ -151,14 +142,6 @@ public class SettingsMenuView {
 
     public void setButtonHeightRatio(double buttonHeightRatio) {
         this.buttonHeightRatio = buttonHeightRatio;
-    }
-
-    public void setResources(ResourceGetter resources) {
-        this.resources = resources;
-    }
-
-    public void setViewAssets(ViewAssets viewAssets) {
-        this.viewAssets = viewAssets;
     }
 
     public void setParentPane(AnchorPane parentPane) {

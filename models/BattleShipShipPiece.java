@@ -50,6 +50,10 @@ public class BattleShipShipPiece {
         return id;
     }
 
+    public String getFullId() {
+        return id + piece;
+    }
+
     public EventBus getEventBus() {
         return eventBus;
     }

@@ -296,10 +296,22 @@ public class BattleShipShip {
         return (int)(Math.random() * 2);
     }
 
+    public ArrayList<UpdateSectorEvent> getAllSectorUpdateEvents () {
+        ArrayList<UpdateSectorEvent> events = new ArrayList();
+        this.shipPieces.forEach(piece -> {
+            events.add(new UpdateSectorEvent(piece.getRowIndex(), piece.getColumnIndex(), this.getShipRotation(), piece.getFullId()));
+        });
+        return events;
+    }
+
 //*****************     GETTERS     *******************
 
     public int getShipType() {
         return shipType;
+    }
+
+    public int getShipRotation() {
+        return (this.shipOrientation == BattleShipShip.HORIZONTAL) ? 0 : 90;
     }
 
     public int getShipOrientation() {
@@ -316,38 +328,6 @@ public class BattleShipShip {
 
     public ArrayList<BattleShipShipPiece> getShipPieces() {
         return shipPieces;
-    }
-
-    public static int getERROR() {
-        return ERROR;
-    }
-
-    public static int getCARRIER() {
-        return CARRIER;
-    }
-
-    public static int getBATTLESHIP() {
-        return BATTLESHIP;
-    }
-
-    public static int getCRUISER() {
-        return CRUISER;
-    }
-
-    public static int getSUBMARINE() {
-        return SUBMARINE;
-    }
-
-    public static int getDESTROYER() {
-        return DESTROYER;
-    }
-
-    public static int getHORIZONTAL() {
-        return HORIZONTAL;
-    }
-
-    public static int getVERTICAL() {
-        return VERTICAL;
     }
 
 //*****************     SETTERS     *******************

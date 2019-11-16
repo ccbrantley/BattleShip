@@ -51,9 +51,17 @@ public class BattleShipFleet {
     /** Moves all ships to a new location.
      */
     public void randomizeShips() {
-        this.getFleetOfShips().forEach(ship -> {
+        BattleShipFleet.getFleetOfShips().forEach(ship -> {
             ship.setShipOrientation(BattleShipShip.generateRandomOrientation());
             ship.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
+        });
+    }
+
+    public void throwAllPositionUpdateEvents () {
+        BattleShipFleet.getFleetOfShips().forEach(ship -> {
+            ship.getAllSectorUpdateEvents().forEach(event -> {
+                BattleShipGame.getEventBus().throwEvent(event);
+            });
         });
     }
 

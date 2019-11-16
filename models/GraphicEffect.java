@@ -5,17 +5,27 @@ package battleship.models;
  * Last Updated: 10/30/2019
  */
 
+import java.awt.GraphicsEnvironment;
 import javafx.scene.effect.ColorAdjust;
 
 public class GraphicEffect {
 
     public GraphicEffect() {}
     private ColorAdjust colorAdjust = new ColorAdjust();
-
+    private static double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
+    private static double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
 //*****************     GETTERS     *******************
 
     public ColorAdjust getColorAdjust() {
         return colorAdjust;
+    }
+
+    public static double getScreenWidth() {
+        return screenWidth;
+    }
+
+    public static double getScreenHeight() {
+        return screenHeight;
     }
 
 //*****************     SETTERS     *******************
@@ -34,6 +44,18 @@ public class GraphicEffect {
 
     public void setHueLevel(Number _hueLevel) {
         this.colorAdjust.setHue(_hueLevel.doubleValue());
+    }
+
+    public void setColorAdjust(ColorAdjust colorAdjust) {
+        this.colorAdjust = colorAdjust;
+    }
+
+    public static void setScreenWidth(double screenWidth) {
+        GraphicEffect.screenWidth = screenWidth;
+    }
+
+    public static void setScreenHeight(double screenHeight) {
+        GraphicEffect.screenHeight = screenHeight;
     }
 
 }

@@ -50,39 +50,72 @@ public class Controller implements Initializable {
     public void initialize(URL _url, ResourceBundle _rb) {}
     private Stage stage;
     private BattleShipGame battleShipGame;
-    private static HashMap views = new HashMap();
+    private HashMap views = new HashMap();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
-    private GraphicEffect graphicsEffect = new GraphicEffect();
+    private final GraphicEffect graphicsEffect = new GraphicEffect();
     private final EventBus eventBus = BattleShipGame.eventBus;
 
     //Creates and returns a view based on the _sceneType argument
     private Pane createView (String _sceneType){
             switch (_sceneType) {
+                case "game":
+                    BattleShipGameView gamePane = new BattleShipGameView(this);
+                    this.views.put("game", gamePane);
+                    this.battleShipGame.getPlayer1().getBattleShipFleet().throwAllPositionUpdateEvents();
+                    return gamePane.getParentPane();
                 case "play":
                     ShipSelectionView selectionPane = new ShipSelectionView(this);
-                    Controller.views.put("play", selectionPane);
+                    this.views.put("play", selectionPane);
                     this.initializeGame();
                     return selectionPane.getParentPane();
                 case "settings":
                     SettingsMenuView settingsPane = new SettingsMenuView(this);
-                    Controller.views.put("settings", settingsPane);
+                    this.views.put("settings", settingsPane);
                     return settingsPane.getParentPane();
                 case "main":
                     MainMenuView mainePane = new MainMenuView(this);
-                    Controller.views.put("main", mainePane);
+                    this.views.put("main", mainePane);
                     return mainePane.getParentPane();
                 default:
                     return null;
             }
     }
 
-    // Will take a game type and instantiate BattleShipGame with the correct game type
+    // Will take a game type and instantiate BattleShipGame with the game type.
     private void initializeGame () {
         this.battleShipGame = new BattleShipGame(BattleShipGame.PVPGAME);
     }
 
 //*****************     EVENTS     *******************
 
+    // Event for switching led button colors.
+    public void ledButtonSetOnAction(Button _button) {
+        _button.setOnAction(event -> {
+            Button curButton = ((Button)event.getSource());
+            String buttonId = curButton.getId();
+            String newId = "";
+            switch (buttonId) {
+                case "blue":
+                    newId = newId.concat("redActive");
+                    break;
+                case "redActive":
+                    newId = newId.concat("yellow");
+                    break;
+                case "yellow":
+                    newId = newId.concat("red");
+                    break;
+                case "red":
+                    newId = newId.concat("blue");
+                    break;
+                default:
+                    newId = newId.concat("error");
+                    break;
+            }
+            curButton.setId(newId);
+        });
+    }
+
+    // Event for w,a,s,d key presses to move ship.
     public void shipMovementEvent (KeyEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
@@ -102,6 +135,7 @@ public class Controller implements Initializable {
         }
     }
 
+    // Event upon dragging ship.
     public void shipOnDragDetectedEvent (MouseEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
@@ -128,6 +162,7 @@ public class Controller implements Initializable {
         }
     }
 
+    // Event upon dragging ship over a grid.
     public void gridOnDragOverEvent (DragEvent _event) {
         Button curButton = (Button)_event.getSource();
         if (_event.getGestureSource() != curButton &&
@@ -137,6 +172,7 @@ public class Controller implements Initializable {
         _event.consume();
     }
 
+    // Event upon dragging and then dropping ship.
     public void gridOnDragDroppedEvent (DragEvent _event) {
         Button curButton = (Button)_event.getSource();
         int rowIndex = GridPane.getRowIndex(curButton);
@@ -146,6 +182,7 @@ public class Controller implements Initializable {
          _event.consume();
     }
 
+    // Event to rotate the ship.
     public void shipOnScrollEvent (ScrollEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
@@ -156,7 +193,7 @@ public class Controller implements Initializable {
         });
     }
 
-    // Event to close program
+    // Event to close program.
     public void setcloseGuiOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
             Platform.exit();
@@ -164,56 +201,56 @@ public class Controller implements Initializable {
         });
     }
 
-    // Event to change views
+    // Event to change views.
     public void setSceneOnActionEvent(Button _button) {
         _button.setOnAction(event -> {
             this.setScene(_button.getId());
         });
     }
 
-    // Event to pause/play music
+    // Event to pause/play music.
     public void setMediaPlayerStateOnActionEvent(Button _button) {
         _button.setOnAction(event -> {
             this.musicPlayer.setMediaPlayerState();
         });
     }
 
-    // Event to set listener to volume slider
+    // Event to set listener to volume slider.
     public void setMediaPlayerVolumeListener(Slider _slider) {
         _slider.valueProperty().addListener((observable, oldValue, newValue)-> {
             this.musicPlayer.setVolumeLevel(newValue);
         });
     }
 
-    // Event to set listener to music selection
+    // Event to set listener to music selection.
     public void setMediaPlayerSelectionListener(ComboBox _comboBox) {
         _comboBox.valueProperty().addListener((observable,oldValue,newValue)->{
             this.musicPlayer.setSong(newValue);
         });
     }
 
-    // Event to set listener to brigthness slider
+    // Event to set listener to brigthness slider.
     public void setGraphicEffectBrightnessListener(Slider _slider) {
         _slider.valueProperty().addListener((observable,oldValue,newValue)->{
             this.graphicsEffect.setBrightnessLevel(newValue);
         });
     }
 
-    // Event to set listener to contrast slider
+    // Event to set listener to contrast slider.
     public void setGraphicEffectContrastsListener(Slider _slider) {
         _slider.valueProperty().addListener((observable,oldValue,newValue)->{
             this.graphicsEffect.setContrastLevel(newValue);
         });
     }
 
-    // Event to set listener to saturation slider
+    // Event to set listener to saturation slider.
     public void setGraphicEffectSaturationListener(Slider _slider) {
         _slider.valueProperty().addListener((observable,oldValue,newValue)->{
             this.graphicsEffect.setSaturationLevel(newValue);
         });
     }
 
-    // Event to set listener to hue slider
+    // Event to set listener to hue slider.
     public void setGraphicEffectHueListener(Slider _slider) {
        _slider.valueProperty().addListener((observable,oldValue,newValue)->{
            this.graphicsEffect.setHueLevel(newValue);
@@ -258,9 +295,9 @@ public class Controller implements Initializable {
         this.musicPlayer = musicPlayer;
     }
 
-    // Loads view based on _sceneType argument
-    // If view is not in HashMap, view is created and added to Hashmap
-    // Graphics Effect is also applied here
+    // Loads view based on _sceneType argument.
+    // If view is not in HashMap, view is created and added to Hashmap.
+    // Graphics Effect is also applied here.
     public void setScene(String _sceneType) {
         Pane parentPane;
         try {

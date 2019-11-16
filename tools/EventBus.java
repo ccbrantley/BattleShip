@@ -29,6 +29,9 @@ public final class EventBus {
         this.listeners.add(_listener);
     }
 
+    public final void removeListener (Object _listener) {
+        this.listeners.remove(_listener);
+    }
 //*****************     GETTERS     *******************
 
     public final ArrayList getListeners() {

@@ -1,4 +1,4 @@
-#shipSelectionPane {
+#battleShipGamePane {
  -fx-background-image: url("../images/water/Ocean2.gif");
  -fx-background-size: 100% 100%;
 }
@@ -20,7 +20,7 @@
     -fx-alignment:center;
 }
 
-#main, #game, #random{
+#switch, #fire, #main{
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-opacity: .8;
@@ -134,3 +134,34 @@
     -fx-background-image: url("../images/grid/bottomsector.png"), url("../images/ship/submarine3.png");
     -fx-background-position: center, left;
 }
+
+#blue, #blueActive, #yellow, #yellowActive, #red, #redActive {
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center;
+    -fx-background-repeat:no-repeat;
+}
+
+#blue {
+    -fx-background-image: url("../images/led/ledblue.gif");
+}
+
+#blueActive {
+    -fx-background-image: url("../images/led/ledblueblinking.gif");
+}
+
+#yellow {
+    -fx-background-image: url("../images/led/ledyellow.gif");
+}
+
+#yellowActive {
+    -fx-background-image: url("../images/led/ledyellowblinking.gif");
+}
+
+#red {
+    -fx-background-image: url("../images/led/ledred.gif");
+}
+
+#redActive {
+    -fx-background-image: url("../images/led/ledredblinking.gif");
+}
+

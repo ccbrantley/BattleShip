@@ -8,6 +8,7 @@ package battleship.views;
  */
 
 import battleship.controller.Controller;
+import battleship.models.GraphicEffect;
 import battleship.tools.ViewAssets;
 import battleship.tools.ResourceGetter;
 import java.awt.GraphicsEnvironment;
@@ -26,19 +27,19 @@ public class MusicPlayerView {
         // Adding controller for access to events
         this.controller = _controller;
         // Creating pane and children of the pane
-        this.parentPane = this.viewAssets.createAnchorPane("musicPlayerPane", this.resources.getMusicPlayerCSS());
-        this.soundSettingsLabel = this.viewAssets.createLabel("soundSettingsLabel", "Sound Settings", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, true);
-        this.soundOffOnButton = this.viewAssets.createButton("soundOffOnButton", "Sound Off/On", this.screenSize * this.buttonHeightRatio);
-        this.volumeLevelLabel = this.viewAssets.createLabel("volumeLevelLabel", "Volume Level", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, true);
-        this.volumeLevelSlider = this.viewAssets.createSlider("volumeLevelSlider", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, 0.0, .5, .25, .05, .1, 2, true);
-        this.musicSelectionBox = this.viewAssets.createComboBox("musicSelectionComboBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, "intro.mp3", this.controller.getMusicPlayer().getObservableMusic());
+        this.parentPane = ViewAssets.createAnchorPane("musicPlayerPane", ResourceGetter.getMusicPlayerCSS());
+        this.soundSettingsLabel = ViewAssets.createLabel("soundSettingsLabel", "Sound Settings", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, true);
+        this.soundOffOnButton = ViewAssets.createButton("soundOffOnButton", "Sound Off/On", this.screenSize * this.buttonHeightRatio);
+        this.volumeLevelLabel = ViewAssets.createLabel("volumeLevelLabel", "Volume Level", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, true);
+        this.volumeLevelSlider = ViewAssets.createSlider("volumeLevelSlider", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, 0.0, .5, .25, .05, .1, 2, true);
+        this.musicSelectionBox = ViewAssets.createComboBox("musicSelectionComboBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, "intro.mp3", this.controller.getMusicPlayer().getObservableMusic());
         // Adding all children to array, then using array to populate VBox
         this.soundMenuArray.add(soundSettingsLabel);
         this.soundMenuArray.add(soundOffOnButton);
         this.soundMenuArray.add(volumeLevelLabel);
         this.soundMenuArray.add(volumeLevelSlider);
         this.soundMenuArray.add(musicSelectionBox);
-        this.soundMenuVBox = this.viewAssets.createVBox(this.soundMenuArray, (.25/10) * this.screenSize, "soundMenuVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
+        this.soundMenuVBox = ViewAssets.createVBox(this.soundMenuArray, (.25/10) * this.screenSize, "soundMenuVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position
         this.parentPane.getChildren().addAll(this.soundMenuVBox);
         // Initialize childrens events
@@ -48,13 +49,11 @@ public class MusicPlayerView {
     }
 
     private Controller controller;
-    private final double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
-    private final double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
+    private final double screenWidth = GraphicEffect.getScreenWidth();
+    private final double screenHeight = GraphicEffect.getScreenHeight();
     private double screenSize = (this.screenWidth > this.screenHeight) ? this.screenHeight : this.screenWidth;
     private double buttonWidthRatio = 1/3;
     private double buttonHeightRatio = .15;
-    private ResourceGetter resources = new ResourceGetter();
-    private ViewAssets viewAssets = new ViewAssets();
     private AnchorPane parentPane;
     private VBox soundMenuVBox;
     private ArrayList<Node> soundMenuArray = new ArrayList<Node>();
@@ -89,14 +88,6 @@ public class MusicPlayerView {
 
     public double getButtonHeightRatio() {
         return buttonHeightRatio;
-    }
-
-    public ResourceGetter getResources() {
-        return resources;
-    }
-
-    public ViewAssets getViewAssets() {
-        return viewAssets;
     }
 
     public AnchorPane getParentPane() {
@@ -151,14 +142,6 @@ public class MusicPlayerView {
 
     public void setButtonHeightRatio(double buttonHeightRatio) {
         this.buttonHeightRatio = buttonHeightRatio;
-    }
-
-    public void setResources(ResourceGetter resources) {
-        this.resources = resources;
-    }
-
-    public void setViewAssets(ViewAssets viewAssets) {
-        this.viewAssets = viewAssets;
     }
 
     public void setParentPane(AnchorPane parentPane) {
