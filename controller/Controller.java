@@ -5,12 +5,14 @@ package battleship.controller;
  * Last Updated: 11/03/2019
  */
 
-import battleship.models.BattleShipFleet;
 import battleship.models.BattleShipGame;
+import battleship.models.BattleShipPlayer;
 import battleship.models.BattleShipShip;
+import battleship.models.Coordinate;
 import battleship.tools.EventBus;
 import battleship.models.GraphicEffect;
 import battleship.models.MusicPlayer;
+import battleship.tools.events.*;
 import battleship.views.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,7 +62,7 @@ public class Controller implements Initializable {
             switch (_sceneType) {
                 case "game":
                     BattleShipGameView gamePane = new BattleShipGameView(this);
-                    this.views.put("game", gamePane);
+                    this.views.put("play", gamePane);
                     this.battleShipGame.getPlayer1().getBattleShipFleet().throwAllPositionUpdateEvents();
                     return gamePane.getParentPane();
                 case "play":
@@ -83,10 +85,17 @@ public class Controller implements Initializable {
 
     // Will take a game type and instantiate BattleShipGame with the game type.
     private void initializeGame () {
-        this.battleShipGame = new BattleShipGame(BattleShipGame.PVPGAME);
+        this.battleShipGame = new BattleShipGame(BattleShipGame.PVBGAME);
     }
 
 //*****************     EVENTS     *******************
+
+    // Throws event for firing at a ship.
+    public void fireEvent(Button _button) {
+        _button.setOnAction(event ->{
+            BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(BattleShipPlayer.AWAY));
+        });
+    }
 
     // Event for switching led button colors.
     public void ledButtonSetOnAction(Button _button) {
@@ -96,6 +105,10 @@ public class Controller implements Initializable {
             String newId = "";
             switch (buttonId) {
                 case "blue":
+                    BattleShipGame.getEventBus().throwEvent(new RemoveAllRedLedEvent());
+                    int row = GridPane.getRowIndex(_button);
+                    int column = GridPane.getColumnIndex(_button);
+                    BattleShipGame.getEventBus().throwEvent(new SetTargetEvent(new Coordinate(row, column)));
                     newId = newId.concat("redActive");
                     break;
                 case "redActive":
@@ -121,16 +134,16 @@ public class Controller implements Initializable {
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
         switch (_event.getText().toUpperCase()) {
             case "D":
-                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(0, +1, type);
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(0, +1, type));
                 break;
             case "A":
-                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(0, -1, type);
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(0, -1, type));
                 break;
             case "W":
-                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(-1, 0, type);
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(-1, 0, type));
                 break;
             case "S":
-                this.battleShipGame.getPlayer1().getBattleShipFleet().moveShipIncrementally(+1, 0, type);
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(+1, 0, type));
                 break;
         }
     }
@@ -178,7 +191,7 @@ public class Controller implements Initializable {
         int rowIndex = GridPane.getRowIndex(curButton);
         int columnIndex = GridPane.getColumnIndex(curButton);
         String shipType = _event.getDragboard().getString();
-        this.battleShipGame.getPlayer1().getBattleShipFleet().moveShip(rowIndex, columnIndex, shipType);
+        BattleShipGame.getEventBus().throwEvent(new MoveShipEvent(rowIndex, columnIndex, shipType));
          _event.consume();
     }
 
@@ -186,11 +199,7 @@ public class Controller implements Initializable {
     public void shipOnScrollEvent (ScrollEvent _event) {
         Node shipButton = (Node)_event.getSource();
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
-        this.battleShipGame.getPlayer1().getBattleShipFleet().getFleetOfShips().forEach(ship -> {
-            if(ship.getShipId().equals(type)) {
-                ship.rotateShip();
-            }
-        });
+        BattleShipGame.getEventBus().throwEvent(new RotateShipEvent(type));
     }
 
     // Event to close program.
@@ -257,9 +266,18 @@ public class Controller implements Initializable {
        });
     }
 
+    // Throws event to randomize ship locations.
     public void setOnMousePressRandomizeShips(Node _node) {
         _node.setOnMousePressed(event -> {
-            this.battleShipGame.getPlayer1().getBattleShipFleet().randomizeShips();
+            BattleShipGame.getEventBus().throwEvent(new RandomizeShipsEvent());
+        });
+    }
+
+    // Used to remove current game.
+    public void setSceneAndRemoveGame(Node _node) {
+        _node.setOnMousePressed(event ->{
+           this.views.remove("play");
+           this.setSceneOnActionEvent((Button)_node);
         });
     }
 

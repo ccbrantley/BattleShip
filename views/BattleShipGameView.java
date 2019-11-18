@@ -30,9 +30,11 @@ public class BattleShipGameView {
         this.switchPaneButton = ViewAssets.createButton("switch", "Switch view", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.fireButton = ViewAssets.createButton("fire", "Fire", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.mainMenuButton = ViewAssets.createButton("main", "Main Menu", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
+        this.quitGameButton = ViewAssets.createButton("main", "Quit Game", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.menuBarHBoxArray.add(switchPaneButton);
         this.menuBarHBoxArray.add(fireButton);
         this.menuBarHBoxArray.add(mainMenuButton);
+        this.menuBarHBoxArray.add(quitGameButton);
         this.menuBarHBox = ViewAssets.createHBox(menuBarHBoxArray, 50, "menuBar",  this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position.
         this.parentPane.getChildren().addAll(this.shipPane, this.menuBarHBox);
@@ -47,6 +49,8 @@ public class BattleShipGameView {
         this.pinPane.getChildren().forEach(ledButton -> {
             this.controller.ledButtonSetOnAction((Button)ledButton);
         });
+        this.controller.fireEvent(fireButton);
+        this.controller.setSceneAndRemoveGame(quitGameButton);
         // Adding our interpreter to the event bus.
         BattleShipGame.getEventBus().addListener(interpreter);
     }
@@ -67,6 +71,7 @@ public class BattleShipGameView {
     private final Button switchPaneButton;
     private final Button fireButton;
     private final Button mainMenuButton;
+    private final Button quitGameButton;
     private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
     /** Graphical Event for switching between the ship and the pin pane.
      */

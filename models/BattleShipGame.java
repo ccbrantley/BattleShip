@@ -1,5 +1,6 @@
 package battleship.models;
 
+import battleship.tools.BattleShipGameInterpreter;
 import battleship.tools.EventBus;
 
 /* @author Area 51 Block Party:
@@ -19,17 +20,19 @@ public class BattleShipGame {
     public BattleShipGame(int _type){
         switch (_type) {
             case BattleShipGame.PVPGAME:
-                this.player1 = new BattleShipPlayer(BattleShipPlayer.LOCAL);
+                this.player1 = new BattleShipPlayer(BattleShipPlayer.HUMAN, BattleShipPlayer.LOCAL);
                 break;
             case BattleShipGame.PVBGAME:
-                this.player1 = new BattleShipPlayer(BattleShipPlayer.LOCAL);
-                //this.player2 = new BattleShipPlayer(BattleShipBot.OPPONENT);
+                this.player1 = new BattleShipPlayer(BattleShipPlayer.HUMAN, BattleShipPlayer.LOCAL);
+                this.player2 = new BattleShipPlayer(BattleShipPlayer.BOT, BattleShipPlayer.AWAY);
                 break;
             case BattleShipGame.BVBGAME:
-                //this.player1 = new BattleShipPlayer(BattleShipBot.LOCAL);
-                //this.player2 = new BattleShipPlayer(BattleShipBot.OPPONENT);
+                this.player1 = new BattleShipPlayer(BattleShipPlayer.BOT, BattleShipPlayer.LOCAL);
+                this.player2 = new BattleShipPlayer(BattleShipPlayer.BOT, BattleShipPlayer.AWAY);
                 break;
         }
+        this.player1.getBattleShipFleet().throwAllPositionUpdateEvents();
+        BattleShipGame.getEventBus().addListener(new BattleShipGameInterpreter(this));
     }
 
     // Player 1 must be OPPONENT, variation of either Player or Bot.

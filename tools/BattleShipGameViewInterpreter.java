@@ -8,8 +8,7 @@ package battleship.tools;
  * meant to be thrown to the ship selection view.
  */
 
-import battleship.tools.events.ClearGridEvent;
-import battleship.tools.events.UpdateSectorEvent;
+import battleship.tools.events.*;
 import battleship.views.BattleShipGameView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -50,6 +49,13 @@ public class BattleShipGameViewInterpreter {
                 Button gridButton = new Button();
                 gridButton.setId("grid");
                 curNode = gridButton;
+            });
+        }
+
+        if(_event instanceof RemoveAllRedLedEvent) {
+             this.battleShipGameView.getPinPane().getChildren().forEach((curNode) -> {
+                 if(curNode.getId().equals("redActive"))
+                curNode.setId("blue");
             });
         }
     }

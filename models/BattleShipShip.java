@@ -12,9 +12,10 @@ import battleship.tools.events.*;
 import java.util.ArrayList;
 
 public class BattleShipShip {
-    public BattleShipShip(int _shipType, int _orientation) {
+    public BattleShipShip(int _shipType, int _orientation, ArrayList<BattleShipShip> _battleShipFleet) {
         this.shipType = _shipType;
         this.shipOrientation = _orientation;
+        this.battleShipFleet = _battleShipFleet;
         this.shipId = this.convertShipTypeToId(_shipType);
         this.shipLength = this.determineShipLength(_shipType);
         for(int x = 0; x < this.shipLength; x++) {
@@ -27,6 +28,7 @@ public class BattleShipShip {
     private int shipLength;
     private String shipId;
     private ArrayList<BattleShipShipPiece> shipPieces = new ArrayList();
+    private ArrayList<BattleShipShip> battleShipFleet;
 
    /*
     *Enumerators.
@@ -43,10 +45,6 @@ public class BattleShipShip {
     public static final int VERTICAL = 1;
     //Movement Direction.
     public static final int RANDOM = -1;
-    public static final int UP = 0;
-    public static final int RIGHT = 1;
-    public static final int DOWN = 2;
-    public static final int LEFT = 3;
 
     /**Determine ship's enumerated value from its Id.
      * @param _id
@@ -167,7 +165,7 @@ public class BattleShipShip {
      * @param _column
      * @return Boolean value of whether the ship has or has not been moved.
      */
-    public boolean moveShip(int _row, int _column ) {
+    public boolean moveShip(int _row, int _column) {
         if(_row == BattleShipShip.RANDOM &&(_row == _column)) {
             Coordinate randomCoordinate = this.generateRandomUniqueCoordinate();
             _row = randomCoordinate.getRow();
@@ -185,13 +183,9 @@ public class BattleShipShip {
         int column = this.normalizeRange(_column, columnRange);
         int rowCounter = 0;
         int columnCounter = 0;
-        ArrayList<UpdateSectorEvent> clearSectorEvents = new ArrayList();
-        ArrayList<UpdateSectorEvent> setSectorEvents = new ArrayList();
         for(BattleShipShipPiece piece : this.shipPieces) {
-            clearSectorEvents.add(new UpdateSectorEvent(piece.getRowIndex(), piece.getColumnIndex(), 0, "grid"));
             piece.setIndexes((row + rowCounter), (column + columnCounter));
             int shipRotation = (this.getShipOrientation() == BattleShipShip.HORIZONTAL) ? 0 : 90;
-            setSectorEvents.add(new UpdateSectorEvent(piece.getRowIndex(), piece.getColumnIndex(), shipRotation, (piece.getId() + String.valueOf(piece.getPiece()))));
             if (this.shipOrientation == BattleShipShip.HORIZONTAL) {
                 columnCounter++;
             }
@@ -199,12 +193,6 @@ public class BattleShipShip {
                 rowCounter++;
             }
         }
-        clearSectorEvents.forEach(sector -> {
-            BattleShipGame.getEventBus().throwEvent(sector);
-        });
-        setSectorEvents.forEach(sector -> {
-            BattleShipGame.getEventBus().throwEvent(sector);
-        });
         return true;
     }
 
@@ -255,7 +243,7 @@ public class BattleShipShip {
         int coordinateColumn;
         int pieceRow;
         int pieceColumn;
-        for (BattleShipShip ship : BattleShipFleet.getFleetOfShips()) {
+        for (BattleShipShip ship : this.battleShipFleet) {
             if(ship == this) {
                 continue;
             }

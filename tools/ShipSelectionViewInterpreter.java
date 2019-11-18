@@ -40,18 +40,15 @@ public class ShipSelectionViewInterpreter {
                         this.shipSelectionView.setShipSelectionPaneGridEvents(newButton);
                     }
                     this.shipSelectionView.getShipSelectionPane().getChildren().remove(curNode);
-                     this.shipSelectionView.getShipSelectionPane().add(newButton, columnIndex, rowIndex);
+                    this.shipSelectionView.getShipSelectionPane().add(newButton, columnIndex, rowIndex);
                     return;
                 }
             }
         }
 
         if(_event instanceof ClearGridEvent) {
-             this.shipSelectionView.getShipSelectionPane().getChildren().forEach((curNode) -> {
-                Button gridButton = new Button();
-                gridButton.setId("grid");
-                this.shipSelectionView.setShipSelectionPaneGridEvents(gridButton);
-                curNode = gridButton;
+            this.shipSelectionView.getShipSelectionPane().getChildren().forEach(child -> {
+                child.setId("grid");
             });
         }
     }

@@ -8,6 +8,7 @@ package battleship.models;
  * require finding a specific ship.
  */
 
+import battleship.tools.events.*;
 import java.util.ArrayList;
 
 public class BattleShipFleet {
@@ -18,7 +19,7 @@ public class BattleShipFleet {
      */
     public BattleShipFleet() {
         for (int shipType = 0; shipType < 5; shipType++) {
-            BattleShipShip curShip = new BattleShipShip(shipType, (int)(Math.random() * 2));
+            BattleShipShip curShip = new BattleShipShip(shipType, (int)(Math.random() * 2), this.fleetOfShips);
             curShip.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
             this.fleetOfShips.add(shipType, curShip);
         }
@@ -26,7 +27,7 @@ public class BattleShipFleet {
 
     // fleetOfShips serves as an reference to all ships of a fleet.
     // Note: Find way to make this nonstatic.
-    private static final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
+    private final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
 
     /**Moves ship to a row/column based on current position plus increment.
      * @param _rowInc
@@ -51,24 +52,37 @@ public class BattleShipFleet {
     /** Moves all ships to a new location.
      */
     public void randomizeShips() {
-        BattleShipFleet.getFleetOfShips().forEach(ship -> {
+        this.getFleetOfShips().forEach(ship -> {
             ship.setShipOrientation(BattleShipShip.generateRandomOrientation());
             ship.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
         });
     }
 
     public void throwAllPositionUpdateEvents () {
-        BattleShipFleet.getFleetOfShips().forEach(ship -> {
+        this.getFleetOfShips().forEach(ship -> {
             ship.getAllSectorUpdateEvents().forEach(event -> {
                 BattleShipGame.getEventBus().throwEvent(event);
             });
         });
     }
 
+    public void fireAt(Coordinate _coordinate) {
+        int fireRow = _coordinate.getRow();
+        int fireColumn = _coordinate.getColumn();
+        this.fleetOfShips.forEach(ship -> {
+            ship.getShipPieces().forEach(piece -> {
+                if(fireRow == piece.getRowIndex()) {
+                    if (fireColumn == piece.getColumnIndex()) {
+                        piece.setHit(true);
+                    }
+                }
+            });
+        });
+    }
 //*****************     GETTERS     *******************
 
-    public static ArrayList<BattleShipShip> getFleetOfShips() {
-        return BattleShipFleet.fleetOfShips;
+    public ArrayList<BattleShipShip> getFleetOfShips() {
+        return this.fleetOfShips;
     }
 
 //*****************     SETTERS     *******************
