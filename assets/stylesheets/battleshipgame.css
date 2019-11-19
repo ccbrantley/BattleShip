@@ -2,6 +2,7 @@
  -fx-background-image: url("../images/water/Ocean2.gif");
  -fx-background-size: 100% 100%;
 }
+
 .scroll-pane {
     -fx-focus-color: transparent;
     -fx-border-color: transparent;
