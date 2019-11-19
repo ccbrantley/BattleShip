@@ -31,7 +31,6 @@ public class BattleShipGame {
                 this.player2 = new BattleShipPlayer(BattleShipPlayer.BOT, BattleShipPlayer.AWAY);
                 break;
         }
-        this.player1.getBattleShipFleet().throwAllPositionUpdateEvents();
         BattleShipGame.getEventBus().addListener(new BattleShipGameInterpreter(this));
     }
 

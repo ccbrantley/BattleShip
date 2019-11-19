@@ -4,9 +4,9 @@ import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.tools.events.*;
 
-public class BattleShipHumanInterpreter{
+public class BattleShipLocalViewInterpreter{
 
-    public BattleShipHumanInterpreter(BattleShipPlayer _player) {
+    public BattleShipLocalViewInterpreter(BattleShipPlayer _player) {
         this.player = _player;
     }
 

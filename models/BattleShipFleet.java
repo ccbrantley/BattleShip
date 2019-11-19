@@ -8,7 +8,6 @@ package battleship.models;
  * require finding a specific ship.
  */
 
-import battleship.tools.events.*;
 import java.util.ArrayList;
 
 public class BattleShipFleet {
@@ -58,7 +57,7 @@ public class BattleShipFleet {
         });
     }
 
-    public void throwAllPositionUpdateEvents () {
+    public final void throwAllPositionUpdateEvents () {
         this.getFleetOfShips().forEach(ship -> {
             ship.getAllSectorUpdateEvents().forEach(event -> {
                 BattleShipGame.getEventBus().throwEvent(event);

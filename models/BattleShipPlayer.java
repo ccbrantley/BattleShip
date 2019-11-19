@@ -10,32 +10,40 @@ package battleship.models;
  * to update the GUI.
  */
 
-import battleship.tools.BattleShipBotInterpreter;
-import battleship.tools.BattleShipHumanInterpreter;
+import battleship.tools.BattleShipLocalViewInterpreter;
 import battleship.tools.EventBus;
 
 public class BattleShipPlayer {
-    /**
-     * _playerType will either instantiate BattleShipPlayer with
-     * _playerType 0 for the HUMAN player
-     * _playerType 1 for the BOT player
-     * @param _playerType
-     * @param _playerTeam
+    /** This constructor is for human players only.
+     *  It throws the event to update local view.
+     * @param _playerType -> bot or human.
+     * @param _playerTeam -> local or away.
      */
-    public BattleShipPlayer(int _playerType, int _playerTeam){
+    public BattleShipPlayer(int _playerType, int _playerTeam) {
         this.playerType = _playerType;
         this.playerTeam = _playerTeam;
-        if (_playerType == BattleShipPlayer.HUMAN) {
-            BattleShipGame.getEventBus().addListener(new BattleShipHumanInterpreter(this));
-        }
-        else {
-            BattleShipGame.getEventBus().addListener(new BattleShipBotInterpreter(this));
-        }
         this.battleShipFleet = new BattleShipFleet();
+        if (playerTeam == BattleShipPlayer.LOCAL) {
+            BattleShipGame.getEventBus().addListener(new BattleShipLocalViewInterpreter(this));
+            this.battleShipFleet.throwAllPositionUpdateEvents();
+        }
+    }
+
+    /** This constructor is for bot players only.
+     *  This constructor creates a bot AI.
+     * @param _playerType -> bot or human.
+     * @param _playerTeam -> local or away.
+     * @param _difficulty -> AI difficulty.
+     */
+    public BattleShipPlayer(int _playerType, int _playerTeam, int _difficulty) {
+        this(_playerType, _playerTeam);
+        this.difficulty = _difficulty;
+        BattleShipGame.getEventBus().addListener(new BattleShipBotAiInterpreter(_difficulty));
     }
 
     private final int playerType;
     private final int playerTeam;
+    private int difficulty = BattleShipPlayer.NULL;
     private BattleShipFleet battleShipFleet;
     private final EventBus eventBus = BattleShipGame.eventBus;
     private Coordinate currentTarget = new Coordinate(0,0);
@@ -48,6 +56,11 @@ public class BattleShipPlayer {
     // Location
     public static final int LOCAL = 0;
     public static final int AWAY = 1;
+    // Difficulty
+    public static final int NULL = -1;
+    public static final int EASY = 0;
+    public static final int NORMAL = 1;
+    public static final int HARD = 2;
 
 //*****************     GETTERS     *******************
 
@@ -59,8 +72,8 @@ public class BattleShipPlayer {
         return playerTeam;
     }
 
-    public boolean isTurn() {
-        return turn;
+    public int getDifficulty() {
+        return difficulty;
     }
 
     public BattleShipFleet getBattleShipFleet() {
@@ -75,18 +88,26 @@ public class BattleShipPlayer {
         return currentTarget;
     }
 
+    public boolean isTurn() {
+        return turn;
+    }
+
 //*****************     SETTERS     *******************
 
-    public void setBattleShipFleet(BattleShipFleet _battleShipFleet) {
-        this.battleShipFleet = _battleShipFleet;
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public void setTurn(boolean _turn) {
-        this.turn = _turn;
+    public void setBattleShipFleet(BattleShipFleet battleShipFleet) {
+        this.battleShipFleet = battleShipFleet;
     }
 
-    public void setCurrentTarget(Coordinate _currentTarget) {
-        this.currentTarget = _currentTarget;
+    public void setCurrentTarget(Coordinate currentTarget) {
+        this.currentTarget = currentTarget;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 
 }
