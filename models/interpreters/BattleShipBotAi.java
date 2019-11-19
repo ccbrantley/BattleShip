@@ -1,8 +1,8 @@
 package battleship.models.interpreters;
 
-public class BattleShipBotAiInterpreter {
+public class BattleShipBotAi {
 
-    public BattleShipBotAiInterpreter(int _difficulty) {
+    public BattleShipBotAi(int _difficulty) {
     }
     public void catchEvent(Object _event) {
     }

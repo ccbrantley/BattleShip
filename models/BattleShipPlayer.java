@@ -10,7 +10,7 @@ package battleship.models;
  * to update the GUI.
  */
 
-import battleship.models.interpreters.BattleShipBotAiInterpreter;
+import battleship.models.interpreters.BattleShipBotAi;
 import battleship.models.interpreters.BattleShipFleetLocalInterpreter;
 import battleship.tools.EventBus;
 
@@ -39,7 +39,7 @@ public class BattleShipPlayer {
     public BattleShipPlayer(int _playerType, int _playerTeam, int _difficulty) {
         this(_playerType, _playerTeam);
         this.difficulty = _difficulty;
-        BattleShipGame.getEventBus().addListener(new BattleShipBotAiInterpreter(_difficulty));
+        BattleShipGame.getEventBus().addListener(new BattleShipBotAi(_difficulty));
     }
 
     private final int playerType;
