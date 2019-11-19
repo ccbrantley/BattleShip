@@ -65,18 +65,20 @@ public class BattleShipFleet {
         });
     }
 
-    public void fireAt(Coordinate _coordinate) {
+    public boolean fireAt(Coordinate _coordinate) {
         int fireRow = _coordinate.getRow();
         int fireColumn = _coordinate.getColumn();
-        this.fleetOfShips.forEach(ship -> {
-            ship.getShipPieces().forEach(piece -> {
+        for (BattleShipShip  ship : this.fleetOfShips) {
+            for(BattleShipShipPiece piece : ship.getShipPieces()){
                 if(fireRow == piece.getRowIndex()) {
                     if (fireColumn == piece.getColumnIndex()) {
                         piece.setHit(true);
+                        return true;
                     }
                 }
-            });
-        });
+            }
+        }
+        return false;
     }
 //*****************     GETTERS     *******************
 

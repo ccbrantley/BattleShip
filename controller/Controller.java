@@ -276,8 +276,9 @@ public class Controller implements Initializable {
     // Used to remove current game.
     public void setSceneAndRemoveGame(Node _node) {
         _node.setOnMousePressed(event ->{
-           this.views.remove("play");
-           this.setSceneOnActionEvent((Button)_node);
+            BattleShipGame.eventBus.resetListeners();
+            this.views.remove("play");
+            this.setSceneOnActionEvent((Button)_node);
         });
     }
 

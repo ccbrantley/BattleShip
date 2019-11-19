@@ -5,6 +5,7 @@ package battleship.tools.events;
  * Last Updated: 11/17/2019
  * Event to throw when firing at a player.
  */
+
 public class FireAwayEvent {
 
     /**

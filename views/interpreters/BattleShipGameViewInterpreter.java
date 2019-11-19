@@ -13,6 +13,7 @@ import battleship.tools.events.*;
 import battleship.views.BattleShipGameView;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class BattleShipGameViewInterpreter {
@@ -58,6 +59,13 @@ public class BattleShipGameViewInterpreter {
                  if(curNode.getId().equals("redActive"))
                 curNode.setId("blue");
             });
+        }
+
+        if(_event instanceof GameUpdateUserMessage) {
+            GameUpdateUserMessage event = (GameUpdateUserMessage)_event;
+            String message = event.getMessage();
+            Label messageLabel = ViewAssets.createLabel("message", message, true);
+            this.battleShipGameView.getMessageBox().getChildren().add(messageLabel);
         }
     }
 

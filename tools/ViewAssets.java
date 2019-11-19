@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -27,6 +28,14 @@ public class ViewAssets {
     public ViewAssets() {}
 
     private int GRIDSIZE = BattleShipBoard.BOARDSIZE;
+
+    public static Label createLabel(String _id, String _text, boolean _wrapText) {
+        Label curLabel = new Label();
+        curLabel.setId(_id);
+        curLabel.setText(_text);
+        curLabel.setWrapText(true);
+        return curLabel;
+    }
 
     public static Label createLabel(String _id, String _text, double _width, double _height, boolean _wrapText) {
         Label curLabel = new Label();
@@ -74,6 +83,12 @@ public class ViewAssets {
         return curButton;
     }
 
+    public static VBox createVBox(String id) {
+        VBox curVBox = new VBox();
+        curVBox.setId(id);
+        return curVBox;
+    }
+
     public static VBox createVBox(ArrayList<Node> _children, double _inset, String _id, double _boxWidth, double _boxHeight) {
         VBox curVBox = new VBox();
         _children.forEach(child -> {
@@ -86,6 +101,7 @@ public class ViewAssets {
         curVBox.setMinHeight(_boxHeight);
         return curVBox;
     }
+
     public static HBox createHBox(ArrayList<Node> _children, double _inset, String _id, double _boxWidth, double _boxHeight) {
         HBox curVBox = new HBox();
         _children.forEach(child -> {
@@ -152,6 +168,17 @@ public class ViewAssets {
         curComboBox.setPromptText(_prompt);
         curComboBox.setItems(_items);
         return curComboBox;
+    }
+
+    public static ScrollPane createMessageScrollPane(VBox messageArea, double _width, double _height) {
+        ScrollPane scrollPane = new ScrollPane();
+        messageArea.setPrefHeight(0);
+        scrollPane.setMinWidth(_width);
+        scrollPane.setMinHeight(_height);
+        scrollPane.setContent(messageArea);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        messageArea.heightProperty().addListener(obs -> scrollPane.setVvalue(1D));
+        return scrollPane;
     }
 
 //*****************     GETTERS     *******************

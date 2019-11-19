@@ -9,6 +9,7 @@ import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
 import battleship.tools.events.FireAwayEvent;
+import battleship.tools.events.*;
 
 /**
  *
@@ -25,9 +26,15 @@ public class BattleShipGameInterpreter {
             FireAwayEvent event = (FireAwayEvent)_event;
             int destination = event.getDestination();
             if (destination == BattleShipPlayer.AWAY) {
-                System.out.println("shotsfired");
                 Coordinate selectedCoordinate = this.battleShipGame.getPlayer1().getCurrentTarget();
-                this.battleShipGame.getPlayer2().getBattleShipFleet().fireAt(selectedCoordinate);
+                GameUpdateUserMessage messageEvent;
+                if (this.battleShipGame.getPlayer2().getBattleShipFleet().fireAt(selectedCoordinate)) {
+                    messageEvent = new GameUpdateUserMessage("Ship Hit.");
+                }
+                else {
+                    messageEvent = new GameUpdateUserMessage("Shot Missed.");
+                }
+                BattleShipGame.getEventBus().throwEvent(messageEvent);
                 this.battleShipGame.getPlayer1().setTurn(true);
                 this.battleShipGame.getPlayer2().setTurn(true);
             }

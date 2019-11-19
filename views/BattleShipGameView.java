@@ -15,9 +15,11 @@ import battleship.tools.ViewAssets;
 import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class BattleShipGameView {
     public BattleShipGameView(Controller _controller) {
@@ -27,6 +29,8 @@ public class BattleShipGameView {
         this.parentPane = ViewAssets.createAnchorPane("battleShipGamePane", ResourceGetter.getBattleShipGameCSS());
         this.shipPane = ViewAssets.createRowByColumnPane(10, 10, "grid", "", this.screenSize * this.gridWidthRatio , this.screenSize * this.gridHeightRatio);
         this.pinPane = ViewAssets.createRowByColumnPane(10, 10, "blue", "", this.screenSize * this.gridWidthRatio , this.screenSize * this.gridHeightRatio);
+        this.messageBox = ViewAssets.createVBox("messageArea");
+        this.gameUpdatesScrollPane = ViewAssets.createMessageScrollPane(this.messageBox,this.shipPane.getMinWidth(), this.screenSize * this.buttonHeightRatio);
         this.switchPaneButton = ViewAssets.createButton("switch", "Switch view", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.fireButton = ViewAssets.createButton("fire", "Fire", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.mainMenuButton = ViewAssets.createButton("main", "Main Menu", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
@@ -37,8 +41,9 @@ public class BattleShipGameView {
         this.menuBarHBoxArray.add(quitGameButton);
         this.menuBarHBox = ViewAssets.createHBox(menuBarHBoxArray, 50, "menuBar",  this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position.
-        this.parentPane.getChildren().addAll(this.shipPane, this.menuBarHBox);
+        this.parentPane.getChildren().addAll(this.shipPane, this.gameUpdatesScrollPane, this.menuBarHBox);
         this.shipPane.relocate(0, 0);
+        this.gameUpdatesScrollPane.relocate(0, this.screenHeight - (2 * (this.screenSize * this.buttonHeightRatio)));
         this.menuBarHBox.relocate(0, this.screenHeight - (this.screenSize * this.buttonHeightRatio));
         // Initialize childrens events.
         this.controller.setSceneOnActionEvent(this.mainMenuButton);
@@ -66,6 +71,8 @@ public class BattleShipGameView {
     private final AnchorPane parentPane;
     private final GridPane shipPane;
     private final GridPane pinPane;
+    private final ScrollPane gameUpdatesScrollPane;
+    private final VBox messageBox;
     private final HBox menuBarHBox;
     private ArrayList<Node> menuBarHBoxArray = new ArrayList();
     private final Button switchPaneButton;
@@ -73,6 +80,7 @@ public class BattleShipGameView {
     private final Button mainMenuButton;
     private final Button quitGameButton;
     private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
+
     /** Graphical Event for switching between the ship and the pin pane.
      */
     private void switchShipPinPaneEvent () {
@@ -98,6 +106,10 @@ public class BattleShipGameView {
         return gridHeightRatio;
     }
 
+    public VBox getMessageBox() {
+        return messageBox;
+    }
+
     public BattleShipGameViewInterpreter getInterpreter() {
         return interpreter;
     }
@@ -108,6 +120,14 @@ public class BattleShipGameView {
 
     public double getScreenWidth() {
         return screenWidth;
+    }
+
+    public ScrollPane getGameUpdatesScrollPane() {
+        return gameUpdatesScrollPane;
+    }
+
+    public Button getQuitGameButton() {
+        return quitGameButton;
     }
 
     public double getScreenHeight() {

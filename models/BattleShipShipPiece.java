@@ -66,7 +66,6 @@ public class BattleShipShipPiece {
     }
 
     public void setHit(boolean _hit) {
-        System.out.println("Piece hit");
         this.hit = _hit;
     }
 
