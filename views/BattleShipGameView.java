@@ -9,7 +9,7 @@ package battleship.views;
 import battleship.controller.Controller;
 import battleship.models.BattleShipGame;
 import battleship.models.GraphicEffect;
-import battleship.tools.BattleShipGameViewInterpreter;
+import battleship.views.interpreters.BattleShipGameViewInterpreter;
 import battleship.tools.ResourceGetter;
 import battleship.tools.ViewAssets;
 import java.util.ArrayList;

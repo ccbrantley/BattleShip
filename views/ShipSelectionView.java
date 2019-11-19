@@ -10,7 +10,7 @@ import battleship.controller.Controller;
 import battleship.models.BattleShipGame;
 import battleship.models.GraphicEffect;
 import battleship.tools.ResourceGetter;
-import battleship.tools.ShipSelectionViewInterpreter;
+import battleship.views.interpreters.ShipSelectionViewInterpreter;
 import battleship.tools.ViewAssets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

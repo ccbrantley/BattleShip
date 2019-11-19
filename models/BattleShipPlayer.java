@@ -10,7 +10,8 @@ package battleship.models;
  * to update the GUI.
  */
 
-import battleship.tools.BattleShipLocalViewInterpreter;
+import battleship.models.interpreters.BattleShipBotAiInterpreter;
+import battleship.models.interpreters.BattleShipFleetLocalInterpreter;
 import battleship.tools.EventBus;
 
 public class BattleShipPlayer {
@@ -24,7 +25,7 @@ public class BattleShipPlayer {
         this.playerTeam = _playerTeam;
         this.battleShipFleet = new BattleShipFleet();
         if (playerTeam == BattleShipPlayer.LOCAL) {
-            BattleShipGame.getEventBus().addListener(new BattleShipLocalViewInterpreter(this));
+            BattleShipGame.getEventBus().addListener(new BattleShipFleetLocalInterpreter(this));
             this.battleShipFleet.throwAllPositionUpdateEvents();
         }
     }

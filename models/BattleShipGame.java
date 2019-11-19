@@ -1,6 +1,6 @@
 package battleship.models;
 
-import battleship.tools.BattleShipGameInterpreter;
+import battleship.models.interpreters.BattleShipGameInterpreter;
 import battleship.tools.EventBus;
 
 /* @author Area 51 Block Party:

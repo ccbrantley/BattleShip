@@ -1,12 +1,12 @@
-package battleship.tools;
+package battleship.models.interpreters;
 
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.tools.events.*;
 
-public class BattleShipLocalViewInterpreter{
+public class BattleShipFleetLocalInterpreter{
 
-    public BattleShipLocalViewInterpreter(BattleShipPlayer _player) {
+    public BattleShipFleetLocalInterpreter(BattleShipPlayer _player) {
         this.player = _player;
     }
 
