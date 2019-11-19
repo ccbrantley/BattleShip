@@ -9,7 +9,7 @@ package battleship.tools.events;
 
 public class GameUpdateUserMessage {
     public GameUpdateUserMessage(String _message) {
-        this.message = _message;
+        this.message = "[Game Update]: " + _message;
     }
     private final String message;
 
