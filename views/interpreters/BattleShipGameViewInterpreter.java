@@ -46,14 +46,6 @@ public class BattleShipGameViewInterpreter {
             }
         }
 
-        if(_event instanceof ClearGridEvent) {
-             this.battleShipGameView.getShipPane().getChildren().forEach((curNode) -> {
-                Button gridButton = new Button();
-                gridButton.setId("grid");
-                curNode = gridButton;
-            });
-        }
-
         if(_event instanceof RemoveAllRedLedEvent) {
              this.battleShipGameView.getPinPane().getChildren().forEach((curNode) -> {
                  if(curNode.getId().equals("redActive"))

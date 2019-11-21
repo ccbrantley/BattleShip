@@ -42,6 +42,7 @@ public class ShipSelectionView {
         this.controller.setSceneOnActionEvent(this.confirmLayoutButton);
         // Adding our interpreter to the event bus.
         BattleShipGame.getEventBus().addListener(this.interpreter);
+
     }
     private final Controller controller;
     private final double screenWidth = GraphicEffect.getScreenWidth();
@@ -50,7 +51,7 @@ public class ShipSelectionView {
     private final double buttonWidthRatio = .10;
     private final double buttonHeightRatio = .10;
     private final AnchorPane parentPane;
-    private final GridPane shipSelectionPane;
+    public GridPane shipSelectionPane;
     private final Button mainMenuButton;
     private final Button confirmLayoutButton;
     private final Button randomshipLayoutButton;
@@ -71,6 +72,15 @@ public class ShipSelectionView {
         });
     }
 
+    public void removeShipSelectionPaneShipEvents(Node _curNode) {
+        _curNode.setOnKeyPressed(event -> {
+        });
+        _curNode.setOnDragDetected(event -> {
+        });
+        _curNode.setOnScroll(event -> {
+        });
+    }
+
     /** Sets the events for the grid button.
      * @param _curNode
      */
@@ -81,6 +91,14 @@ public class ShipSelectionView {
 
         _curNode.setOnDragDropped(event -> {
             this.controller.gridOnDragDroppedEvent(event);
+        });
+    }
+
+    public void removeShipSelectionPaneGridEvents(Node _curNode) {
+        _curNode.setOnDragOver(event ->{
+        });
+
+        _curNode.setOnDragDropped(event -> {
         });
     }
 
@@ -127,5 +145,9 @@ public class ShipSelectionView {
     }
 
 //*****************     SETTERS     *******************
+
+    public void setShipSelectionPane(GridPane shipSelectionPane) {
+        this.shipSelectionPane = shipSelectionPane;
+    }
 
 }

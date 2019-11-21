@@ -34,14 +34,15 @@ public class ShipSelectionViewInterpreter {
                 rowIndex = GridPane.getRowIndex(curNode);
                 columnIndex = GridPane.getColumnIndex(curNode);
                 if((rowIndex == row) && (columnIndex == column)) {
-                    Button newButton = ViewAssets.createGridButton(newId, rotation, "");
                     if(!("grid".equals(newId))) {
-                        this.shipSelectionView.setShipSelectionPaneShipEvents(newButton);
+                        this.shipSelectionView.removeShipSelectionPaneGridEvents(curNode);
+                        this.shipSelectionView.setShipSelectionPaneShipEvents(curNode);
                     } else {
-                        this.shipSelectionView.setShipSelectionPaneGridEvents(newButton);
+                        this.shipSelectionView.removeShipSelectionPaneShipEvents(curNode);
+                        this.shipSelectionView.setShipSelectionPaneGridEvents(curNode);
                     }
-                    this.shipSelectionView.getShipSelectionPane().getChildren().remove(curNode);
-                    this.shipSelectionView.getShipSelectionPane().add(newButton, columnIndex, rowIndex);
+                    curNode.setId(newId);
+                    curNode.setRotate(rotation);
                     return;
                 }
             }
@@ -50,6 +51,8 @@ public class ShipSelectionViewInterpreter {
         if(_event instanceof ClearGridEvent) {
             this.shipSelectionView.getShipSelectionPane().getChildren().forEach(child -> {
                 child.setId("grid");
+                this.shipSelectionView.removeShipSelectionPaneShipEvents(child);
+                this.shipSelectionView.setShipSelectionPaneGridEvents(child);
             });
         }
     }
