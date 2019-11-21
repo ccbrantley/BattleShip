@@ -162,7 +162,7 @@ public class Controller implements Initializable {
         _event.consume();
         ImageView cursorView;
         try {
-            cursorView = new ImageView(new Image(new FileInputStream("src\\battleship\\assets\\images\\ship\\".concat(type).concat(".png")), 100, 100, true, false));
+            cursorView = new ImageView(new Image(new FileInputStream("src/battleship/assets/images/ship/".concat(type).concat(".png")), 100, 100, true, false));
             Image cursorImage = cursorView.getImage();
             cursorView.setOpacity(100);
             int orientation = this.battleShipGame.getPlayer1().getBattleShipFleet().getFleetOfShips().get(BattleShipShip.convertShipIdToType(type)).getShipOrientation();
