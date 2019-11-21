@@ -1,16 +1,27 @@
 package battleship.models;
 
-import battleship.models.interpreters.BattleShipGameInterpreter;
-import battleship.tools.EventBus;
-
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/03/2019
- * BattleShipGame is used to reference the generic things
+ * Last Updated: 11/20/2019
+ * BattleShipGame is used to hold the various things
  * that compose a battleship game.
  */
 
+import battleship.models.interpreters.BattleShipGameInterpreter;
+import battleship.tools.EventBus;
+
 public class BattleShipGame {
+
+    // Player 1 must be LOCAL, variation of either Player or Bot.
+    private BattleShipPlayer player1;
+    // Player 2 must be AWAY, variation of either Player or Bot.
+    private BattleShipPlayer player2;
+    // Throw events to this EventBus.
+    public static EventBus eventBus = new EventBus();
+    //Enumerators for Game Type.
+    public static final int PVPGAME = 0;
+    public static final int PVBGAME = 1;
+    public static final int BVBGAME = 2;
 
     /**
      * BattleShipGame constructor used to create BattleShipGame
@@ -33,17 +44,6 @@ public class BattleShipGame {
         }
         BattleShipGame.getEventBus().addListener(new BattleShipGameInterpreter(this));
     }
-
-    // Player 1 must be OPPONENT, variation of either Player or Bot.
-    private BattleShipPlayer player1;
-    // Player 2 must be OPPONENT, variation of either Player or Bot.
-    private BattleShipPlayer player2;
-    // Throw events to this EventBus.
-    public static EventBus eventBus = new EventBus();
-    //Enumerators for Game Type.
-    public static final int PVPGAME = 0;
-    public static final int PVBGAME = 1;
-    public static final int BVBGAME = 2;
 
 //*****************     GETTERS     *******************
 

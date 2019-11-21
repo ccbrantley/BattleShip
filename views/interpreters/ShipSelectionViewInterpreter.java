@@ -8,11 +8,9 @@ package battleship.views.interpreters;
  * meant to be thrown to the ship selection view.
  */
 
-import battleship.tools.ViewAssets;
 import battleship.tools.events.*;
 import battleship.views.ShipSelectionView;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class ShipSelectionViewInterpreter {

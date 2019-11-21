@@ -2,7 +2,7 @@ package battleship.controller;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/03/2019
+ * Last Updated: 11/20/2019
  */
 
 import battleship.models.BattleShipGame;
@@ -45,17 +45,20 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller implements Initializable {
-    public Controller (Stage _stage) {
-        this.stage = _stage;
-    }
-    @Override
-    public void initialize(URL _url, ResourceBundle _rb) {}
+
     private Stage stage;
     private BattleShipGame battleShipGame;
     private HashMap views = new HashMap();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
     private final EventBus eventBus = BattleShipGame.eventBus;
+
+    public Controller (Stage _stage) {
+        this.stage = _stage;
+    }
+
+    @Override
+    public void initialize(URL _url, ResourceBundle _rb) {}
 
     //Creates and returns a view based on the _sceneType argument
     private Pane createView (String _sceneType){

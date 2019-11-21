@@ -1,16 +1,21 @@
 package battleship.models.interpreters;
 
+/* @author Area 51 Block Party:
+ * Christopher Brantley
+ * Last Updated: 11/20/2019
+ */
+
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.tools.events.*;
 
 public class BattleShipFleetLocalInterpreter{
 
+    BattleShipPlayer player;
+
     public BattleShipFleetLocalInterpreter(BattleShipPlayer _player) {
         this.player = _player;
     }
-
-    BattleShipPlayer player;
 
     public void catchEvent(Object _event) {
         if (_event instanceof MoveShipIncrementEvent) {
@@ -49,12 +54,12 @@ public class BattleShipFleetLocalInterpreter{
         }
 
         if (_event instanceof SetTargetEvent) {
-            BattleShipGame.getEventBus().throwEvent(new ClearGridEvent());
             SetTargetEvent event = (SetTargetEvent)_event;
-            this.refreshGame();
+            this.player.setCurrentTarget(event.getCoordinate());
         }
 
     }
+
     private void refreshGame() {
         BattleShipGame.getEventBus().throwEvent(new ClearGridEvent());
         this.player.getBattleShipFleet().throwAllPositionUpdateEvents();
