@@ -65,7 +65,7 @@ public class BattleShipFleet {
         });
     }
 
-    public boolean fireAt(Coordinate _coordinate) {
+    public boolean receiveFire(Coordinate _coordinate) {
         int fireRow = _coordinate.getRow();
         int fireColumn = _coordinate.getColumn();
         for (BattleShipShip  ship : this.fleetOfShips) {

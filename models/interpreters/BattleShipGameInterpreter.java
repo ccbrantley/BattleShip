@@ -28,7 +28,7 @@ public class BattleShipGameInterpreter {
             if (destination == BattleShipPlayer.AWAY) {
                 Coordinate selectedCoordinate = this.battleShipGame.getPlayer1().getCurrentTarget();
                 GameUpdateUserMessage messageEvent;
-                if (this.battleShipGame.getPlayer2().getBattleShipFleet().fireAt(selectedCoordinate)) {
+                if (this.battleShipGame.getPlayer2().getBattleShipFleet().receiveFire(selectedCoordinate)) {
                     messageEvent = new GameUpdateUserMessage("Ship Hit.");
                 }
                 else {
