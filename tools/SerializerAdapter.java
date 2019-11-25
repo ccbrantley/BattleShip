@@ -13,10 +13,13 @@ public class SerializerAdapter {
      * @param _searchDemarkerIndex
      * Takes in an integer and retrieves the data in a string from the settings file via the serializer.
      * After which it will loop through the string and identify the correct demarker by the number
-     * then loop from that position back to get appropriate data
+     * then loop from that position back to get appropriate data.
      * @return saveData
      */
+<<<<<<< HEAD
 
+=======
+>>>>>>> cb5f58647e3c5d7be86d95c7f44b6f6c7936d0ad
     public String extractData(int _searchDemarkerIndex) {
         int x = 0;
         String saveData = this.serializer.deserialize();
@@ -40,6 +43,7 @@ public class SerializerAdapter {
 
 //*****************     SAVING METHODS     *******************
 
+<<<<<<< HEAD
     public void saveString(String _dataToBeSaved){
         this.serializer.serialize(_dataToBeSaved);
     }
@@ -57,6 +61,25 @@ public class SerializerAdapter {
     }
 
     public void saveBoolean(boolean _dataToBeSaved){
+=======
+    public void saveString(String _dataToBeSaved) {
+        this.serializer.serialize(_dataToBeSaved);
+    }
+
+    public void saveDouble(double _dataToBeSaved) {
+        this.serializer.serialize(String.valueOf(_dataToBeSaved));
+    }
+
+    public void saveInt(int _dataToBeSaved) {
+        this.serializer.serialize(String.valueOf(_dataToBeSaved));
+    }
+
+    public void saveFloat(float _dataToBeSaved) {
+        this.serializer.serialize(String.valueOf(_dataToBeSaved));
+    }
+
+    public void saveBoolean(boolean _dataToBeSaved) {
+>>>>>>> cb5f58647e3c5d7be86d95c7f44b6f6c7936d0ad
         this.serializer.serialize(String.valueOf(_dataToBeSaved));
     }
 
@@ -70,5 +93,10 @@ public class SerializerAdapter {
 
     public void setSerializer(Serializer serializer) {
         this.serializer = serializer;
+<<<<<<< HEAD
     }
 }
+=======
+    }   
+}
+>>>>>>> cb5f58647e3c5d7be86d95c7f44b6f6c7936d0ad

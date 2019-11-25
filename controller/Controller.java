@@ -93,8 +93,8 @@ public class Controller implements Initializable {
     private void initializeGame () {
         this.battleShipGame = new BattleShipGame(BattleShipGame.PVBGAME);
     }
-    
-    //loads all the values from the settings file
+
+    //loads all the values from the settings file.
     private void loadSettings () {
         if (serialzierAdapter.extractData(this.graphicsEffect.CONTRAST) != " ") {
                 this.graphicsEffect.setContrastLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.CONTRAST)));
@@ -112,8 +112,8 @@ public class Controller implements Initializable {
                 this.musicPlayer.setVolumeLevel(Double.parseDouble(serialzierAdapter.extractData(this.musicPlayer.VOLUME)));
         }
     }
-    
-    //saves saves various settings to the settings file
+
+    //saves saves various settings to the settings file.
     private void saveSettings () {
         serialzierAdapter.saveDouble(GraphicEffect.getScreenWidth());
         serialzierAdapter.saveDouble(GraphicEffect.getScreenHeight());
@@ -123,9 +123,6 @@ public class Controller implements Initializable {
         serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getSaturation());
         serialzierAdapter.saveDouble(this.musicPlayer.getMediaPlayer().getVolume());
     }
-    
-    
-    
 
 //*****************     EVENTS     *******************
 
