@@ -1,8 +1,8 @@
 package battleship.controller;
 
 /* @author Area 51 Block Party:
- * Christopher Brantley
- * Last Updated: 11/20/2019
+ * Christopher Brantley, Richard Abrams
+ * Last Updated: 11/25/2019
  */
 
 import battleship.models.BattleShipGame;
@@ -12,6 +12,7 @@ import battleship.models.Coordinate;
 import battleship.tools.EventBus;
 import battleship.models.GraphicEffect;
 import battleship.models.MusicPlayer;
+import battleship.tools.SerializerAdapter;
 import battleship.tools.events.*;
 import battleship.views.*;
 import java.io.FileInputStream;
@@ -49,12 +50,14 @@ public class Controller implements Initializable {
     private Stage stage;
     private BattleShipGame battleShipGame;
     private HashMap views = new HashMap();
+    private SerializerAdapter serialzierAdapter = new SerializerAdapter();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
     private final EventBus eventBus = BattleShipGame.eventBus;
-
+    
     public Controller (Stage _stage) {
         this.stage = _stage;
+        loadSettings();
     }
 
     @Override
@@ -89,6 +92,36 @@ public class Controller implements Initializable {
     // Will take a game type and instantiate BattleShipGame with the game type.
     private void initializeGame () {
         this.battleShipGame = new BattleShipGame(BattleShipGame.PVBGAME);
+    }
+
+    //loads all the values from the settings file.
+    private void loadSettings () {
+        if (serialzierAdapter.extractData(this.graphicsEffect.CONTRAST) != " ") {
+                this.graphicsEffect.setContrastLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.CONTRAST)));
+        }
+        if (serialzierAdapter.extractData(this.graphicsEffect.BRIGHTNESS) != " ") {
+                this.graphicsEffect.setBrightnessLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.BRIGHTNESS)));
+        }
+        if (serialzierAdapter.extractData(this.graphicsEffect.HUE) != " ") {
+                this.graphicsEffect.setHueLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.HUE)));
+        }
+        if (serialzierAdapter.extractData(this.graphicsEffect.SATURATION) != " ") {
+                this.graphicsEffect.setSaturationLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.SATURATION)));
+        }
+        if (serialzierAdapter.extractData(this.musicPlayer.VOLUME) != " ") {
+                this.musicPlayer.setVolumeLevel(Double.parseDouble(serialzierAdapter.extractData(this.musicPlayer.VOLUME)));
+        }
+    }
+
+    //saves saves various settings to the settings file.
+    private void saveSettings () {
+        serialzierAdapter.saveDouble(GraphicEffect.getScreenWidth());
+        serialzierAdapter.saveDouble(GraphicEffect.getScreenHeight());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getContrast());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getBrightness());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getHue());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getSaturation());
+        serialzierAdapter.saveDouble(this.musicPlayer.getMediaPlayer().getVolume());
     }
 
 //*****************     EVENTS     *******************
@@ -205,9 +238,10 @@ public class Controller implements Initializable {
         BattleShipGame.getEventBus().throwEvent(new RotateShipEvent(type));
     }
 
-    // Event to close program.
+    // Event to close program and save last values of certain settings.
     public void setcloseGuiOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
+            saveSettings();
             Platform.exit();
             System.exit(0);
         });

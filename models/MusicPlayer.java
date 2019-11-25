@@ -1,7 +1,7 @@
 package battleship.models;
 
 /* @author Area 51 Block Party:
- * Christopher Brantley
+ * Christopher Brantley, Richard Abrams
  * Last Updated: 10/28/2019
  */
 
@@ -15,6 +15,13 @@ import javafx.scene.media.MediaPlayer;
 
 public class MusicPlayer {
 
+    private MediaPlayer mediaPlayer;
+    private ObservableList<String> observableMusic =  FXCollections.observableArrayList();
+    private Map musicMap = new HashMap();
+
+    // Enumerators
+    public final int VOLUME = 7;
+
     public MusicPlayer (double _volumeLevel, boolean _autoPlay) {
         this.initializeMusicSelection();
         this.initializePlayer();
@@ -23,10 +30,6 @@ public class MusicPlayer {
             this.setStatePlay();
         }
     }
-
-    private MediaPlayer mediaPlayer;
-    private ObservableList<String> observableMusic =  FXCollections.observableArrayList();
-    private Map musicMap = new HashMap();
 
     private void initializeMusicSelection() {
         File musicFolder = new File("src/battleship/assets/music");
