@@ -13,7 +13,7 @@ import battleship.models.Coordinate;
 import battleship.tools.EventBus;
 import battleship.models.GraphicEffect;
 import battleship.models.MusicPlayer;
-import battleship.tools.SerializerInterface;
+import battleship.tools.SerializerAdapter;
 import battleship.tools.events.*;
 import battleship.views.*;
 import java.io.FileInputStream;
@@ -51,38 +51,14 @@ public class Controller implements Initializable {
     private Stage stage;
     private BattleShipGame battleShipGame;
     private HashMap views = new HashMap();
-    private SerializerInterface serialzierInterface = new SerializerInterface();
+    private SerializerAdapter serialzierAdapter = new SerializerAdapter();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
     private final EventBus eventBus = BattleShipGame.eventBus;
     
-    //enumerated values for save elements
-    public final int SCREENWIDTH = 1;
-    public final int SCREELENGTH = 2;
-    public final int CONTRAST = 3;
-    public final int BRIGHTNESS = 4;
-    public final int HUE = 5;
-    public final int SATRUATION = 6;
-    public final int VOLUME = 7;
-    public final int MUTE = 8;
-
     public Controller (Stage _stage) {
         this.stage = _stage;
-        if (serialzierInterface.extractData(CONTRAST) != " ") {
-                this.graphicsEffect.setContrastLevel(Double.parseDouble(serialzierInterface.extractData(CONTRAST)));
-        }
-        if (serialzierInterface.extractData(BRIGHTNESS) != " ") {
-                this.graphicsEffect.setBrightnessLevel(Double.parseDouble(serialzierInterface.extractData(BRIGHTNESS)));
-        }
-        if (serialzierInterface.extractData(HUE) != " ") {
-                this.graphicsEffect.setHueLevel(Double.parseDouble(serialzierInterface.extractData(HUE)));
-        }
-        if (serialzierInterface.extractData(SATRUATION) != " ") {
-                this.graphicsEffect.setSaturationLevel(Double.parseDouble(serialzierInterface.extractData(SATRUATION)));
-        }
-        if (serialzierInterface.extractData(VOLUME) != " ") {
-                this.musicPlayer.setVolumeLevel(Double.parseDouble(serialzierInterface.extractData(VOLUME)));
-        }
+        loadSettings();
     }
 
     @Override
@@ -118,6 +94,39 @@ public class Controller implements Initializable {
     private void initializeGame () {
         this.battleShipGame = new BattleShipGame(BattleShipGame.PVBGAME);
     }
+    
+    //loads all the values from the settings file
+    private void loadSettings () {
+        if (serialzierAdapter.extractData(this.graphicsEffect.CONTRAST) != " ") {
+                this.graphicsEffect.setContrastLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.CONTRAST)));
+        }
+        if (serialzierAdapter.extractData(this.graphicsEffect.BRIGHTNESS) != " ") {
+                this.graphicsEffect.setBrightnessLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.BRIGHTNESS)));
+        }
+        if (serialzierAdapter.extractData(this.graphicsEffect.HUE) != " ") {
+                this.graphicsEffect.setHueLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.HUE)));
+        }
+        if (serialzierAdapter.extractData(this.graphicsEffect.SATURATION) != " ") {
+                this.graphicsEffect.setSaturationLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.SATURATION)));
+        }
+        if (serialzierAdapter.extractData(this.musicPlayer.VOLUME) != " ") {
+                this.musicPlayer.setVolumeLevel(Double.parseDouble(serialzierAdapter.extractData(this.musicPlayer.VOLUME)));
+        }
+    }
+    
+    //saves saves various settings to the settings file
+    private void saveSettings () {
+        serialzierAdapter.saveDouble(GraphicEffect.getScreenWidth());
+        serialzierAdapter.saveDouble(GraphicEffect.getScreenHeight());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getContrast());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getBrightness());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getHue());
+        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getSaturation());
+        serialzierAdapter.saveDouble(this.musicPlayer.getMediaPlayer().getVolume());
+    }
+    
+    
+    
 
 //*****************     EVENTS     *******************
 
@@ -236,14 +245,7 @@ public class Controller implements Initializable {
     // Event to close program and save last values of certain settings.
     public void setcloseGuiOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
-            serialzierInterface.saveDouble(GraphicEffect.getScreenWidth());
-            serialzierInterface.saveDouble(GraphicEffect.getScreenHeight());
-            serialzierInterface.saveDouble(this.graphicsEffect.getColorAdjust().getContrast());
-            serialzierInterface.saveDouble(this.graphicsEffect.getColorAdjust().getBrightness());
-            serialzierInterface.saveDouble(this.graphicsEffect.getColorAdjust().getHue());
-            serialzierInterface.saveDouble(this.graphicsEffect.getColorAdjust().getSaturation());
-            serialzierInterface.saveDouble(this.musicPlayer.getMediaPlayer().getVolume());
-            serialzierInterface.saveBoolean(this.musicPlayer.getMediaPlayer().isMute());
+            saveSettings();
             Platform.exit();
             System.exit(0);
         });

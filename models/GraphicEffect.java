@@ -14,6 +14,14 @@ public class GraphicEffect {
     private ColorAdjust colorAdjust = new ColorAdjust();
     private static double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
     private static double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
+    
+    public final int SCREENWIDTH = 1;
+    public final int SCREELENGTH = 2;
+    public final int CONTRAST = 3;
+    public final int BRIGHTNESS = 4;
+    public final int HUE = 5;
+    public final int SATURATION = 6;
+    
 //*****************     GETTERS     *******************
 
     public ColorAdjust getColorAdjust() {

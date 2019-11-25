@@ -5,7 +5,7 @@ package battleship.tools;
  * Last Updated: 11/25/2019
  */
 
-public class SerializerInterface {
+public class SerializerAdapter {
 
     private Serializer serializer = new Serializer();
 

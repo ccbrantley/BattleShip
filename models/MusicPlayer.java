@@ -27,6 +27,8 @@ public class MusicPlayer {
     private MediaPlayer mediaPlayer;
     private ObservableList<String> observableMusic =  FXCollections.observableArrayList();
     private Map musicMap = new HashMap();
+    
+    public final int VOLUME = 7;
 
     private void initializeMusicSelection() {
         File musicFolder = new File("src/battleship/assets/music");
