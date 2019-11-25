@@ -1,8 +1,7 @@
 package battleship.controller;
 
 /* @author Area 51 Block Party:
- * Christopher Brantley
- * Richard Abrams
+ * Christopher Brantley, Richard Abrams
  * Last Updated: 11/25/2019
  */
 
