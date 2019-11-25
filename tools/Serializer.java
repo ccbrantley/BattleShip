@@ -1,5 +1,10 @@
 package battleship.tools;
 
+/* @author Area 51 Block Party:
+ * Richard Abrams
+ * Last Updated: 11/25/2019
+ */
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,10 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/* @author Area 51 Block Party:
- * Richard Abrams
- * Last Updated: 11/25/2019
- */
 public class Serializer {
 
     private File setting = new File("Settings.ser");
@@ -32,7 +33,6 @@ public class Serializer {
         } catch (IOException i) {
             i.printStackTrace();
         }
-
     }
 
     public String deserialize() {
@@ -52,7 +52,6 @@ public class Serializer {
                 c.printStackTrace();
                 return " ";
             }
-
         } else {
             System.out.println("No save file found.");
             return " ";
