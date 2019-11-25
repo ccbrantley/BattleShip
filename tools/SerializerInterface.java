@@ -20,13 +20,13 @@ public class SerializerInterface {
     public String extractData(int _searchDemarkerIndex) {
         int x = 0;
         String saveData = this.serializer.deserialize();
-        for (int i = 0; i < saveData.length()-1; i++) {
-            if (saveData.charAt(i) == '|') {
+        for (int demarkerCounter = 0; demarkerCounter < saveData.length()-1; demarkerCounter++) {
+            if (saveData.charAt(demarkerCounter) == '|') {
                 x++;
                 if (x == _searchDemarkerIndex) {
-                    for (int k = i - 2; k >= 0; k--) {
-                        if (saveData.charAt(k) == ' ') {
-                            saveData = saveData.substring(k, i);
+                    for (int spaceCounter = demarkerCounter - 2; spaceCounter >= 0; spaceCounter--) {
+                        if (saveData.charAt(spaceCounter) == ' ') {
+                            saveData = saveData.substring(spaceCounter, demarkerCounter);
                             saveData = saveData.trim();
                             return saveData;
                         }
