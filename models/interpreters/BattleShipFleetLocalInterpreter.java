@@ -1,15 +1,16 @@
 package battleship.models.interpreters;
 
 /* @author Area 51 Block Party:
- * Christopher Brantley
- * Last Updated: 11/20/2019
+ * Christopher Brantley, Andrew Braswell
+ * Last Updated: 11/24/2019
  */
 
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
+import battleship.tools.Listener;
 import battleship.tools.events.*;
 
-public class BattleShipFleetLocalInterpreter{
+public class BattleShipFleetLocalInterpreter implements Listener {
 
     BattleShipPlayer player;
 
@@ -17,6 +18,7 @@ public class BattleShipFleetLocalInterpreter{
         this.player = _player;
     }
 
+    @Override
     public void catchEvent(Object _event) {
         if (_event instanceof MoveShipIncrementEvent) {
             MoveShipIncrementEvent event = (MoveShipIncrementEvent)_event;

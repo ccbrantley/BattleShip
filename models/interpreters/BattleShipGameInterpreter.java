@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* @author Area 51 Block Party:
+ * Christopher Brantley, Andrew Braswell
+ * Last Updated: 11/24/2019
  */
 package battleship.models.interpreters;
 
@@ -10,17 +9,16 @@ import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
 import battleship.tools.events.FireAwayEvent;
 import battleship.tools.events.*;
+import battleship.tools.Listener;
 
-/**
- *
- * @author Christopher
- */
-public class BattleShipGameInterpreter {
+
+public class BattleShipGameInterpreter implements Listener {
     public BattleShipGameInterpreter(BattleShipGame _battleShipGame) {
         this.battleShipGame = _battleShipGame;
     }
     private BattleShipGame battleShipGame;
 
+    @Override
     public void catchEvent(Object _event) {
         if (_event instanceof FireAwayEvent) {
             FireAwayEvent event = (FireAwayEvent)_event;
