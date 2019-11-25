@@ -15,13 +15,16 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
 public class ShipSelectionViewInterpreter implements Listener {
+
+    private final ShipSelectionView shipSelectionView;
+
     public ShipSelectionViewInterpreter(ShipSelectionView shipSelectionView) {
         this.shipSelectionView = shipSelectionView;
     }
-    private final ShipSelectionView shipSelectionView;
 
     @Override
     public void catchEvent(Object _event) {
+
         if(_event instanceof UpdateSectorEvent) {
             UpdateSectorEvent event = ((UpdateSectorEvent)_event);
             int row = event.getRow();
