@@ -1,25 +1,30 @@
 package battleship.views.interpreters;
 
 /* @author Area 51 Block Party:
- * Christopher Brantley
- * Last Updated: 11/11/2019
+ * Christopher Brantley, Andrew Braswell
+ * Last Updated: 11/24/2019
  * This class is the interpreter for the event bus and the shipselectionview.
  * This class will define the protocol behind what happens when an event is
  * meant to be thrown to the ship selection view.
  */
 
 import battleship.tools.events.*;
+import battleship.tools.Listener;
 import battleship.views.ShipSelectionView;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-public class ShipSelectionViewInterpreter {
+public class ShipSelectionViewInterpreter implements Listener {
+
+    private final ShipSelectionView shipSelectionView;
+
     public ShipSelectionViewInterpreter(ShipSelectionView shipSelectionView) {
         this.shipSelectionView = shipSelectionView;
     }
-    private final ShipSelectionView shipSelectionView;
 
+    @Override
     public void catchEvent(Object _event) {
+
         if(_event instanceof UpdateSectorEvent) {
             UpdateSectorEvent event = ((UpdateSectorEvent)_event);
             int row = event.getRow();
