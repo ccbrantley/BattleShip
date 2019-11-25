@@ -18,10 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class BattleShipGameViewInterpreter implements Listener {
+
+    private final BattleShipGameView battleShipGameView;
+
     public BattleShipGameViewInterpreter(BattleShipGameView battleShipGameView) {
         this.battleShipGameView = battleShipGameView;
     }
-    private final BattleShipGameView battleShipGameView;
 
     @Override
     public void catchEvent(Object _event) {
