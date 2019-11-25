@@ -1,8 +1,9 @@
+package battleship.models.interpreters;
+
 /* @author Area 51 Block Party:
  * Christopher Brantley, Andrew Braswell
  * Last Updated: 11/24/2019
  */
-package battleship.models.interpreters;
 
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
@@ -13,6 +14,7 @@ import battleship.tools.Listener;
 
 
 public class BattleShipGameInterpreter implements Listener {
+
     public BattleShipGameInterpreter(BattleShipGame _battleShipGame) {
         this.battleShipGame = _battleShipGame;
     }
