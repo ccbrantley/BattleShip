@@ -1,4 +1,5 @@
 package battleship.tools;
+
 /* @author Area 51 Block Party:
  * Christopher Brantley, Andrew Braswell
  * Last Updated: 11/24/2019
@@ -9,8 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public final class EventBus {
-    public EventBus() {}
+
     private ArrayList<Listener> listeners = new ArrayList();
+
+    public EventBus() {
+    }
 
     public final void throwEvent(Object _event) {
         this.listeners.forEach(listener -> {
@@ -29,6 +33,7 @@ public final class EventBus {
     public final void removeListener (Listener _listener) {
         this.listeners.remove(_listener);
     }
+
 //*****************     GETTERS     *******************
 
     public final ArrayList getListeners() {
