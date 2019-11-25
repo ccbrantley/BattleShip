@@ -1,9 +1,11 @@
 package battleship.tools;
-/**
-* This interface must be implemented by all functions which listen to the EventBus.
-*
-* @author Andrew Braswell Last Updated: 11/24/2019
-*/
+
+/* @author Area 51 Block Party:
+ * Andrew Braswell
+ * Last Updated: 11/24/2019
+ * This interface must be implemented by all functions which listen to the EventBus.
+ *
+ */
 
 public interface Listener {
 
