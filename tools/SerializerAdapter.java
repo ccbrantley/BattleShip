@@ -16,7 +16,7 @@ public class SerializerAdapter {
      * then loop from that position back to get appropriate data
      * @return saveData
      */
-    
+
     public String extractData(int _searchDemarkerIndex) {
         int x = 0;
         String saveData = this.serializer.deserialize();
@@ -37,38 +37,38 @@ public class SerializerAdapter {
         System.out.println("File empty or not found.");
         return " ";
     }
-    
+
 //*****************     SAVING METHODS     *******************
-    
+
     public void saveString(String _dataToBeSaved){
         this.serializer.serialize(_dataToBeSaved);
     }
-    
+
     public void saveDouble(double _dataToBeSaved){
         this.serializer.serialize(String.valueOf(_dataToBeSaved));
     }
-    
+
     public void saveInt(int _dataToBeSaved){
         this.serializer.serialize(String.valueOf(_dataToBeSaved));
     }
-    
+
     public void saveFloat(float _dataToBeSaved){
         this.serializer.serialize(String.valueOf(_dataToBeSaved));
     }
-    
+
     public void saveBoolean(boolean _dataToBeSaved){
         this.serializer.serialize(String.valueOf(_dataToBeSaved));
     }
 
 //*****************     GETTERS     *******************
-    
+
     public Serializer getSerializer() {
         return this.serializer;
     }
 
 //*****************     SETTERS     *******************
-    
+
     public void setSerializer(Serializer serializer) {
         this.serializer = serializer;
-    }   
+    }
 }
