@@ -1,17 +1,18 @@
 package battleship.weather.models;
-/**
- * This class handles all functionality related to weather.
- * @author Andrew Braswell Last Updated: 11/25/2019
- */
-import java.util.ArrayList;
 
+/* @author Area 51 Block Party:
+ * Andrew Braswell
+ * Last Updated: 11/25/2019
+ * This class handles all functionality related to weather.
+ */
+
+import java.util.ArrayList;
 import battleship.weather.api.WeatherApiTranslator;
 import battleship.weather.util.Location;
 
-
 public class Weather {
-    protected final static WeatherApiTranslator API = new WeatherApiTranslator();
 
+    protected final static WeatherApiTranslator API = new WeatherApiTranslator();
     //The enumerated location of the weather.
     protected int location;
     //The meteorological wind direction in degrees.  Measured clockwise from north, the direction from which the wind is blowing.
@@ -21,44 +22,36 @@ public class Weather {
     //The temperature in Fahrenheit.
     protected double temperature;
 
-
-    /**
-     * This method fetches weather information for a given Location using the API.
-     * @param _location An enumerated location.
-     * @return A Weather object.
+    /** This method fetches weather information for a given Location using the API.
+     *  @param _location An enumerated location.
+     *  @return A Weather object.
      */
     public static Weather loadWeatherByLocation (int _location) {
         Weather weather = new Weather();
         weather.location = _location;
-
         Weather.API.fetchWeatherByLocation(_location);
-
         weather.windDirection = Weather.API.loadWindDirection();
         weather.temperature = Weather.API.loadTemperature();
         weather.windSpeed = Weather.API.loadWindSpeed();
-
         if (weather.windDirection == -1) {
             return null;
         }
-
         return weather;
     }
 
-    /**
-     * This method fetches weather information for every enumerated Location using the API.
-     * @return An ArrayList of Weather objects.
+    /** This method fetches weather information for every enumerated Location using the API.
+     *  @return An ArrayList of Weather objects.
      */
     public static ArrayList<Weather> loadWeathersForAllLocations () {
         ArrayList<Weather> weathers = new ArrayList();
-
         Location.getAllLocations().forEach( (location) -> {
             weathers.add(Weather.loadWeatherByLocation(location));
         });
-
         return weathers;
     }
 
 //*****************     GETTERS     *******************
+
     public int getLocation () {
         return this.location;
     }
@@ -86,4 +79,5 @@ public class Weather {
     public double getYWindSpeed () {
         return this.windSpeed * Math.cos(this.windDirection);
     }
+
 }
