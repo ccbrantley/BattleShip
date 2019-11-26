@@ -3,8 +3,9 @@ package battleship.weather.util;
  * This helper class enumerates locations.
  * It contains static methods which provide information on a given location.
  *
- * @author Andrew Braswell Last Updated: 11/13/2019
+ * @author Andrew Braswell Last Updated: 11/25/2019
  */
+import java.util.ArrayList;
 
 public class Location {
     public static final int MIDWAY = 0;
@@ -43,5 +44,15 @@ public class Location {
             case TONKIN: return "The Gulf of Tonkin";
             default: return "Null Island";
         }
+    }
+
+    public static ArrayList<Integer> getAllLocations () {
+        ArrayList<Integer> locations = new ArrayList<>();
+        int loc = 0;
+        while (!getName(loc).equals("Null Island")) {
+            locations.add(loc);
+            loc++;
+        }
+        return locations;
     }
 }

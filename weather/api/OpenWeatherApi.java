@@ -4,7 +4,7 @@ package battleship.weather.api;
  * information about the weather.
  * Note: Do not call this class directly. Route all Weather API requests through
  * the WeatherApiTranslator class.
- * @author Andrew Braswell, Ike Quigley Last Updated: 11/13/2019
+ * @author Andrew Braswell, Ike Quigley Last Updated: 11/25/2019
  */
 
 import java.io.BufferedReader;
@@ -16,13 +16,17 @@ import org.json.JSONObject;
 import battleship.weather.util.Location;
 
 
-public class OpenWeatherApi implements WeatherApiInterface {
+class OpenWeatherApi implements WeatherApiInterface {
     //Example url: https://api.openweathermap.org/data/2.5/weather?lat=28&lon=177&units=imperial&appid=ab85ba57bbbb423fb62bfb8201126ede
 
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?units=imperial";
     private static final String KEY = "ab85ba57bbbb423fb62bfb8201126ede";
     private JSONObject obj;
 
+    /**
+     * Fetches the JSONObject containing weather information at the given location.
+     * @param _location And enumerated location.
+     */
     @Override
     public void fetchWeatherByLocation (int _location) {
         int lat = Location.getLatitude(_location);
@@ -47,7 +51,7 @@ public class OpenWeatherApi implements WeatherApiInterface {
             // Extract the JSON object.
             this.obj = new JSONObject(content.toString());
         } catch (Exception ex) {
-
+            System.out.println("Erorr fetching weather information.");
         }
     }
 
@@ -90,5 +94,4 @@ public class OpenWeatherApi implements WeatherApiInterface {
 
         return temperature;
     }
-
 }
