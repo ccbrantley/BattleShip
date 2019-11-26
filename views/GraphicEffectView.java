@@ -2,8 +2,7 @@ package battleship.views;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 10/30/2019
- *
+ * Last Updated: 11/26/2019
  * GraphicEffectView is the definition of the visual for the graphic effect modifier view.
  */
 
@@ -39,7 +38,7 @@ public class GraphicEffectView {
     private Slider saturationSlider;
     private Slider hueSlider;
 
-    public GraphicEffectView(Controller _controller) {
+    public GraphicEffectView (Controller _controller) {
         // Adding controller for access to events
         this.controller = _controller;
         // Creating pane and children of the pane
@@ -54,16 +53,16 @@ public class GraphicEffectView {
         this.hueLabel = ViewAssets.createLabel("hueLabel", "Hue", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, true);
         this.hueSlider = ViewAssets.createSlider("hueSlider", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, -.5, .5, 0, .1, .2, 1, true);
         // Adding all children to array, then using array to populate VBox
-        this.graphicEffectArray.add(displaySettingsLabel);
-        this.graphicEffectArray.add(brightnessLabel);
-        this.graphicEffectArray.add(brightnessSlider);
-        this.graphicEffectArray.add(contrastLabel);
-        this.graphicEffectArray.add(contrastSlider);
-        this.graphicEffectArray.add(saturationLabel);
-        this.graphicEffectArray.add(saturationSlider);
-        this.graphicEffectArray.add(hueLabel);
-        this.graphicEffectArray.add(hueSlider);
-        this.graphicEffectVBox = ViewAssets.createVBox(this.graphicEffectArray, (.10/18) * this.screenSize, "graphicEffectVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
+        this.graphicEffectArray.add(this.displaySettingsLabel);
+        this.graphicEffectArray.add(this.brightnessLabel);
+        this.graphicEffectArray.add(this.brightnessSlider);
+        this.graphicEffectArray.add(this.contrastLabel);
+        this.graphicEffectArray.add(this.contrastSlider);
+        this.graphicEffectArray.add(this.saturationLabel);
+        this.graphicEffectArray.add(this.saturationSlider);
+        this.graphicEffectArray.add(this.hueLabel);
+        this.graphicEffectArray.add(this.hueSlider);
+        this.graphicEffectVBox = ViewAssets.createVBox(this.graphicEffectArray, (.10 / 18) * this.screenSize, "graphicEffectVBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position
         this.parentPane.getChildren().addAll(this.graphicEffectVBox);
         // Initialize childrens events
@@ -75,50 +74,42 @@ public class GraphicEffectView {
 
 //*****************     GETTERS     *******************
 
-    public double getScreenWidth() {
-        return screenWidth;
+    public AnchorPane getParentPane () {
+        return this.parentPane;
     }
 
-    public double getScreenHeight() {
-        return screenHeight;
+    public Slider getBrightnessSlider () {
+        return this.brightnessSlider;
     }
 
-    public AnchorPane getParentPane() {
-        return parentPane;
+    public Slider getContrastSlider () {
+        return this.contrastSlider;
     }
 
-    public Slider getBrightnessSlider() {
-        return brightnessSlider;
+    public Slider getSaturationSlider () {
+        return this.saturationSlider;
     }
 
-    public Slider getContrastSlider() {
-        return contrastSlider;
-    }
-
-    public Slider getSaturationSlider() {
-        return saturationSlider;
-    }
-
-    public Slider getHueSlider() {
-        return hueSlider;
+    public Slider getHueSlider () {
+        return this.hueSlider;
     }
 
 
 //*****************     SETTERS     *******************
 
-    public void setBrightnessSlider(Slider brightnessSlider) {
+    public void setBrightnessSlider (Slider brightnessSlider) {
         this.brightnessSlider = brightnessSlider;
     }
 
-    public void setContrastSlider(Slider contrastSlider) {
+    public void setContrastSlider (Slider contrastSlider) {
         this.contrastSlider = contrastSlider;
     }
 
-    public void setSaturationSlider(Slider saturationSlider) {
+    public void setSaturationSlider (Slider saturationSlider) {
         this.saturationSlider = saturationSlider;
     }
 
-    public void setHueSlider(Slider hueSlider) {
+    public void setHueSlider (Slider hueSlider) {
         this.hueSlider = hueSlider;
     }
 

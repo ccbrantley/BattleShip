@@ -2,7 +2,7 @@ package battleship.views;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/25/2019
+ * Last Updated: 11/26/2019
  * SettingsMenuView is the visual definition of the settings menu.
  */
 
@@ -33,7 +33,7 @@ public class SettingsMenuView {
     private ArrayList<Node> menuVBoxArray = new ArrayList();
     private Button mainButton;
 
-    public SettingsMenuView(Controller _controller) {
+    public SettingsMenuView (Controller _controller) {
         // Adding controller for access to events
         this.controller = _controller;
         this.MusicPlayerView = new MusicPlayerView(_controller);
@@ -51,7 +51,7 @@ public class SettingsMenuView {
         AnchorPane.setBottomAnchor(this.musicPlayerParentPane, 0.0);
         AnchorPane.setLeftAnchor(this.musicPlayerParentPane, 0.0);
         AnchorPane.setBottomAnchor(this.mainButton, 0.0);
-        this.mainButton.relocate((this.screenWidth - this.menuVBox.getMinWidth())/2, (this.screenHeight-this.menuVBox.getMinHeight())/2);
+        this.mainButton.relocate((this.screenWidth - this.menuVBox.getMinWidth()) / 2, (this.screenHeight-this.menuVBox.getMinHeight()) / 2);
         AnchorPane.setTopAnchor(this.graphicEffectParentPane, 0.0);
         AnchorPane.setBottomAnchor(this.graphicEffectParentPane, 0.0);
         AnchorPane.setRightAnchor(this.graphicEffectParentPane, 0.0);
@@ -61,7 +61,7 @@ public class SettingsMenuView {
 
 //*****************     GETTERS     *******************
 
-    public AnchorPane getParentPane() {
+    public AnchorPane getParentPane () {
         return parentPane;
     }
 

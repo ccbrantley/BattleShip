@@ -2,7 +2,7 @@ package battleship.views;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/25/2019
+ * Last Updated: 11/26/2019
  *  BattleShipGameView is the visual for the Battle Ship Game.
  */
 
@@ -45,7 +45,7 @@ public class BattleShipGameView {
     private final Button quitGameButton;
     private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
 
-    public BattleShipGameView(Controller _controller) {
+    public BattleShipGameView (Controller _controller) {
         // Adding controller for access to events.
         this.controller = _controller;
         // Creating pane and children of the pane.
@@ -58,11 +58,11 @@ public class BattleShipGameView {
         this.fireButton = ViewAssets.createButton("fire", "Fire", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.mainMenuButton = ViewAssets.createButton("main", "Main Menu", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.quitGameButton = ViewAssets.createButton("main", "Quit Game", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
-        this.menuBarHBoxArray.add(switchPaneButton);
-        this.menuBarHBoxArray.add(fireButton);
-        this.menuBarHBoxArray.add(mainMenuButton);
-        this.menuBarHBoxArray.add(quitGameButton);
-        this.menuBarHBox = ViewAssets.createHBox(menuBarHBoxArray, 50, "menuBar",  this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
+        this.menuBarHBoxArray.add(this.switchPaneButton);
+        this.menuBarHBoxArray.add(this.fireButton);
+        this.menuBarHBoxArray.add(this.mainMenuButton);
+        this.menuBarHBoxArray.add(this.quitGameButton);
+        this.menuBarHBox = ViewAssets.createHBox(this.menuBarHBoxArray, 50, "menuBar",  this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position.
         this.parentPane.getChildren().addAll(this.shipPane, this.gameUpdatesScrollPane, this.menuBarHBox);
         this.shipPane.relocate(0, 0);
@@ -77,43 +77,43 @@ public class BattleShipGameView {
         this.pinPane.getChildren().forEach(ledButton -> {
             this.controller.ledButtonSetOnAction((Button)ledButton);
         });
-        this.controller.fireEvent(fireButton);
-        this.controller.setSceneAndRemoveGame(quitGameButton);
+        this.controller.fireEvent(this.fireButton);
+        this.controller.setSceneAndRemoveGame(this.quitGameButton);
         // Adding our interpreter to the event bus.
-        BattleShipGame.getEventBus().addListener(interpreter);
+        BattleShipGame.getEventBus().addListener(this.interpreter);
     }
 
     /** Graphical Event for switching between the ship and the pin pane.
      */
     private void switchShipPinPaneEvent () {
-            if(parentPane.getChildren().contains(this.shipPane)) {
-                parentPane.getChildren().remove(this.shipPane);
-                parentPane.getChildren().add(this.pinPane);
+            if(this.parentPane.getChildren().contains(this.shipPane)) {
+                this.parentPane.getChildren().remove(this.shipPane);
+                this.parentPane.getChildren().add(this.pinPane);
                 this.pinPane.relocate(0, 0);
             }
             else {
-                parentPane.getChildren().remove(this.pinPane);
-                parentPane.getChildren().add(this.shipPane);
+                this.parentPane.getChildren().remove(this.pinPane);
+                this.parentPane.getChildren().add(this.shipPane);
                 this.shipPane.relocate(0, 0);
             }
     }
 
 //*****************     GETTERS     *******************
 
-    public VBox getMessageBox() {
-        return messageBox;
+    public VBox getMessageBox () {
+        return this.messageBox;
     }
 
-    public AnchorPane getParentPane() {
-        return parentPane;
+    public AnchorPane getParentPane () {
+        return this.parentPane;
     }
 
-    public GridPane getShipPane() {
-        return shipPane;
+    public GridPane getShipPane () {
+        return this.shipPane;
     }
 
-    public GridPane getPinPane() {
-        return pinPane;
+    public GridPane getPinPane () {
+        return this.pinPane;
     }
 
 }

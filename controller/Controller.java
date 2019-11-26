@@ -58,7 +58,7 @@ public class Controller implements Initializable {
     }
 
     @Override
-    public void initialize(URL _url, ResourceBundle _rb) {}
+    public void initialize (URL _url, ResourceBundle _rb) {}
 
     //Creates and returns a view based on the _sceneType argument.
     private Pane createView (String _sceneType){
@@ -123,14 +123,14 @@ public class Controller implements Initializable {
 //*****************     EVENTS     *******************
 
     // Throws event for firing at a ship.
-    public void fireEvent(Button _button) {
+    public void fireEvent (Button _button) {
         _button.setOnAction(event ->{
             BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(BattleShipPlayer.AWAY));
         });
     }
 
     // Event for switching led button colors.
-    public void ledButtonSetOnAction(Button _button) {
+    public void ledButtonSetOnAction (Button _button) {
         _button.setOnAction(event -> {
             Button curButton = ((Button)event.getSource());
             String buttonId = curButton.getId();
@@ -241,70 +241,70 @@ public class Controller implements Initializable {
     }
 
     // Event to change views.
-    public void setSceneOnActionEvent(Button _button) {
+    public void setSceneOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
             this.setScene(_button.getId());
         });
     }
 
     // Event to pause/play music.
-    public void setMediaPlayerStateOnActionEvent(Button _button) {
+    public void setMediaPlayerStateOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
             this.musicPlayer.setMediaPlayerState();
         });
     }
 
     // Event to set listener to volume slider.
-    public void setMediaPlayerVolumeListener(Slider _slider) {
+    public void setMediaPlayerVolumeListener (Slider _slider) {
         _slider.valueProperty().addListener((observable, oldValue, newValue)-> {
             this.musicPlayer.setVolumeLevel(newValue);
         });
     }
 
     // Event to set listener to music selection.
-    public void setMediaPlayerSelectionListener(ComboBox _comboBox) {
+    public void setMediaPlayerSelectionListener (ComboBox _comboBox) {
         _comboBox.valueProperty().addListener((observable,oldValue,newValue)->{
             this.musicPlayer.setSong(newValue);
         });
     }
 
     // Event to set listener to brigthness slider.
-    public void setGraphicEffectBrightnessListener(Slider _slider) {
+    public void setGraphicEffectBrightnessListener (Slider _slider) {
         _slider.valueProperty().addListener((observable,oldValue,newValue)->{
             this.graphicsEffect.setBrightnessLevel(newValue);
         });
     }
 
     // Event to set listener to contrast slider.
-    public void setGraphicEffectContrastsListener(Slider _slider) {
+    public void setGraphicEffectContrastsListener (Slider _slider) {
         _slider.valueProperty().addListener((observable,oldValue,newValue)->{
             this.graphicsEffect.setContrastLevel(newValue);
         });
     }
 
     // Event to set listener to saturation slider.
-    public void setGraphicEffectSaturationListener(Slider _slider) {
+    public void setGraphicEffectSaturationListener (Slider _slider) {
         _slider.valueProperty().addListener((observable,oldValue,newValue)->{
             this.graphicsEffect.setSaturationLevel(newValue);
         });
     }
 
     // Event to set listener to hue slider.
-    public void setGraphicEffectHueListener(Slider _slider) {
+    public void setGraphicEffectHueListener (Slider _slider) {
        _slider.valueProperty().addListener((observable,oldValue,newValue)->{
            this.graphicsEffect.setHueLevel(newValue);
        });
     }
 
     // Throws event to randomize ship locations.
-    public void setOnMousePressRandomizeShips(Node _node) {
+    public void setOnMousePressRandomizeShips (Node _node) {
         _node.setOnMousePressed(event -> {
             BattleShipGame.getEventBus().throwEvent(new RandomizeShipsEvent());
         });
     }
 
     // Used to remove current game.
-    public void setSceneAndRemoveGame(Node _node) {
+    public void setSceneAndRemoveGame (Node _node) {
         _node.setOnMousePressed(event ->{
             BattleShipGame.eventBus.resetListeners();
             this.setSceneOnActionEvent((Button)_node);
@@ -313,32 +313,32 @@ public class Controller implements Initializable {
 
 //*****************     GETTERS     *******************
 
-    public Stage getStage() {
+    public Stage getStage () {
         return stage;
     }
 
-    public MusicPlayer getMusicPlayer() {
+    public MusicPlayer getMusicPlayer () {
         return musicPlayer;
     }
 
-    public GraphicEffect getGraphicsEffect() {
+    public GraphicEffect getGraphicsEffect () {
         return graphicsEffect;
     }
 
 //*****************     SETTERS     *******************
 
-    public void setStage(Stage stage) {
+    public void setStage (Stage stage) {
         this.stage = stage;
     }
 
-    public void setMusicPlayer(MusicPlayer musicPlayer) {
+    public void setMusicPlayer (MusicPlayer musicPlayer) {
         this.musicPlayer = musicPlayer;
     }
 
     // Loads view based on _sceneType argument.
     // If view is not in HashMap, view is created and added to Hashmap.
     // Graphics Effect is also applied here.
-    public void setScene(String _sceneType) {
+    public void setScene (String _sceneType) {
         Pane parentPane = this.createView(_sceneType);
         this.stage.getScene().setRoot(parentPane);
         parentPane.setEffect(this.graphicsEffect.getColorAdjust());
