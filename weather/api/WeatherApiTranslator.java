@@ -4,13 +4,15 @@ package battleship.weather.api;
 * Do not call any implemented Weather API classes directly. Route all
 * requests through this central class.
 *
-* @author Andrew Braswell Last Updated: 11/13/2019
+* @author Andrew Braswell Last Updated: 11/26/2019
 */
+import battleship.weather.util.Location;
+
 public class WeatherApiTranslator implements WeatherApiInterface {
     protected static final WeatherApiInterface API = new OpenWeatherApi();
 
     @Override
-    public void fetchWeatherByLocation (int _location) {
+    public void fetchWeatherByLocation (Location _location) {
         WeatherApiTranslator.API.fetchWeatherByLocation(_location);
     }
 

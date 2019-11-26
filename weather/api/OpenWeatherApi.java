@@ -1,8 +1,8 @@
 package battleship.weather.api;
 
 /* @author Area 51 Block Party:
- * Andrew Braswell, Ike Quigley 
- * Last Updated: 11/25/2019
+ * Andrew Braswell, Ike Quigley
+ * Last Updated: 11/26/2019
  * This class connects to the openweathermap.org web server for retrieving
  * information about the weather.
  * Note: Do not call this class directly. Route all Weather API requests through
@@ -24,12 +24,12 @@ class OpenWeatherApi implements WeatherApiInterface {
     private JSONObject obj;
 
     /** Fetches the JSONObject containing weather information at the given location.
-     *  @param _location And enumerated location.
+     *  @param _location A location object.
      */
     @Override
-    public void fetchWeatherByLocation (int _location) {
-        int lat = Location.getLatitude(_location);
-        int lon = Location.getLongitude(_location);
+    public void fetchWeatherByLocation (Location _location) {
+        int lat = _location.getLatitude();
+        int lon =_location.getLongitude();
         String searchString = "&lat=" + lat + "&lon=" + lon + "&appid=" + OpenWeatherApi.KEY;
         try {
             URL url = new URL(OpenWeatherApi.BASE_URL + searchString);
