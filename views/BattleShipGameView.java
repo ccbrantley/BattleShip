@@ -2,11 +2,12 @@ package battleship.views;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/15/2019
+ * Last Updated: 11/25/2019
  *  BattleShipGameView is the visual for the Battle Ship Game.
  */
 
 import battleship.controller.Controller;
+import battleship.models.BattleShipBoard;
 import battleship.models.BattleShipGame;
 import battleship.models.GraphicEffect;
 import battleship.views.interpreters.BattleShipGameViewInterpreter;
@@ -22,13 +23,35 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class BattleShipGameView {
+
+    private Controller controller;
+    private final double screenWidth = GraphicEffect.getScreenWidth();
+    private final double screenHeight = GraphicEffect.getScreenHeight();
+    private final double screenSize = (this.screenWidth > this.screenHeight) ? this.screenHeight : this.screenWidth;
+    private final double buttonWidthRatio = .25;
+    private final double buttonHeightRatio = .10;
+    private final double gridWidthRatio = .80;
+    private final double gridHeightRatio = .80;
+    private final AnchorPane parentPane;
+    private final GridPane shipPane;
+    private final GridPane pinPane;
+    private final ScrollPane gameUpdatesScrollPane;
+    private final VBox messageBox;
+    private final HBox menuBarHBox;
+    private ArrayList<Node> menuBarHBoxArray = new ArrayList();
+    private final Button switchPaneButton;
+    private final Button fireButton;
+    private final Button mainMenuButton;
+    private final Button quitGameButton;
+    private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
+
     public BattleShipGameView(Controller _controller) {
         // Adding controller for access to events.
         this.controller = _controller;
         // Creating pane and children of the pane.
         this.parentPane = ViewAssets.createAnchorPane("battleShipGamePane", ResourceGetter.getBattleShipGameCSS());
-        this.shipPane = ViewAssets.createRowByColumnPane(10, 10, "grid", "", this.screenSize * this.gridWidthRatio , this.screenSize * this.gridHeightRatio);
-        this.pinPane = ViewAssets.createRowByColumnPane(10, 10, "blue", "", this.screenSize * this.gridWidthRatio , this.screenSize * this.gridHeightRatio);
+        this.shipPane = ViewAssets.createRowByColumnPane(BattleShipBoard.BOARDSIZE, BattleShipBoard.BOARDSIZE, "grid", "", this.screenSize * this.gridWidthRatio , this.screenSize * this.gridHeightRatio);
+        this.pinPane = ViewAssets.createRowByColumnPane(BattleShipBoard.BOARDSIZE, BattleShipBoard.BOARDSIZE, "blue", "", this.screenSize * this.gridWidthRatio , this.screenSize * this.gridHeightRatio);
         this.messageBox = ViewAssets.createVBox("messageArea");
         this.gameUpdatesScrollPane = ViewAssets.createMessageScrollPane(this.messageBox,this.shipPane.getMinWidth(), this.screenSize * this.buttonHeightRatio);
         this.switchPaneButton = ViewAssets.createButton("switch", "Switch view", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
@@ -60,27 +83,6 @@ public class BattleShipGameView {
         BattleShipGame.getEventBus().addListener(interpreter);
     }
 
-    private Controller controller;
-    private final double screenWidth = GraphicEffect.getScreenWidth();
-    private final double screenHeight = GraphicEffect.getScreenHeight();
-    private final double screenSize = (this.screenWidth > this.screenHeight) ? this.screenHeight : this.screenWidth;
-    private final double buttonWidthRatio = .25;
-    private final double buttonHeightRatio = .10;
-    private final double gridWidthRatio = .80;
-    private final double gridHeightRatio = .80;
-    private final AnchorPane parentPane;
-    private final GridPane shipPane;
-    private final GridPane pinPane;
-    private final ScrollPane gameUpdatesScrollPane;
-    private final VBox messageBox;
-    private final HBox menuBarHBox;
-    private ArrayList<Node> menuBarHBoxArray = new ArrayList();
-    private final Button switchPaneButton;
-    private final Button fireButton;
-    private final Button mainMenuButton;
-    private final Button quitGameButton;
-    private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
-
     /** Graphical Event for switching between the ship and the pin pane.
      */
     private void switchShipPinPaneEvent () {
@@ -98,52 +100,8 @@ public class BattleShipGameView {
 
 //*****************     GETTERS     *******************
 
-    public double getGridWidthRatio() {
-        return gridWidthRatio;
-    }
-
-    public double getGridHeightRatio() {
-        return gridHeightRatio;
-    }
-
     public VBox getMessageBox() {
         return messageBox;
-    }
-
-    public BattleShipGameViewInterpreter getInterpreter() {
-        return interpreter;
-    }
-
-    public Controller getController() {
-        return controller;
-    }
-
-    public double getScreenWidth() {
-        return screenWidth;
-    }
-
-    public ScrollPane getGameUpdatesScrollPane() {
-        return gameUpdatesScrollPane;
-    }
-
-    public Button getQuitGameButton() {
-        return quitGameButton;
-    }
-
-    public double getScreenHeight() {
-        return screenHeight;
-    }
-
-    public double getScreenSize() {
-        return screenSize;
-    }
-
-    public double getButtonWidthRatio() {
-        return buttonWidthRatio;
-    }
-
-    public double getButtonHeightRatio() {
-        return buttonHeightRatio;
     }
 
     public AnchorPane getParentPane() {
@@ -156,36 +114,6 @@ public class BattleShipGameView {
 
     public GridPane getPinPane() {
         return pinPane;
-    }
-
-    public HBox getMenuBarHBox() {
-        return menuBarHBox;
-    }
-
-    public ArrayList<Node> getMenuBarHBoxArray() {
-        return menuBarHBoxArray;
-    }
-
-    public Button getSwitchPaneButton() {
-        return switchPaneButton;
-    }
-
-    public Button getFireButton() {
-        return fireButton;
-    }
-
-    public Button getMainMenuButton() {
-        return mainMenuButton;
-    }
-
-//*****************     SETTERS     *******************
-
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
-    public void setMenuBarHBoxArray(ArrayList<Node> menuBarHBoxArray) {
-        this.menuBarHBoxArray = menuBarHBoxArray;
     }
 
 }

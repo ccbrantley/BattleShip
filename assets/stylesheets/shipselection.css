@@ -20,7 +20,7 @@
     -fx-alignment:center;
 }
 
-#main, #game, #random{
+#main, #play, #random{
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-opacity: .8;

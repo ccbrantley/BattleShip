@@ -32,6 +32,7 @@ public class MusicPlayerView {
         this.soundOffOnButton = ViewAssets.createButton("soundOffOnButton", "Sound Off/On", this.screenSize * this.buttonHeightRatio);
         this.volumeLevelLabel = ViewAssets.createLabel("volumeLevelLabel", "Volume Level", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, true);
         this.volumeLevelSlider = ViewAssets.createSlider("volumeLevelSlider", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, 0.0, .5, .25, .05, .1, 2, true);
+        // This line should be updated to not reach into the controller and pull data from a model.
         this.musicSelectionBox = ViewAssets.createComboBox("musicSelectionComboBox", this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio, "intro.mp3", this.controller.getMusicPlayer().getObservableMusic());
         // Adding all children to array, then using array to populate VBox
         this.soundMenuArray.add(soundSettingsLabel);

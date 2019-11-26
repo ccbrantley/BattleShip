@@ -18,10 +18,17 @@ public class BattleShipGame {
     private BattleShipPlayer player2;
     // Throw events to this EventBus.
     public static EventBus eventBus = new EventBus();
+
     //Enumerators for Game Type.
     public static final int PVPGAME = 0;
     public static final int PVBGAME = 1;
     public static final int BVBGAME = 2;
+
+    //Enumerators for Key Presses.
+    public static final String UP = "W";
+    public static final String LEFT = "A";
+    public static final String  RIGHT = "D";
+    public static final String DOWN = "S";
 
     /**
      * BattleShipGame constructor used to create BattleShipGame
