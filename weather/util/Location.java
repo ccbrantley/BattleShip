@@ -1,12 +1,16 @@
 package battleship.weather.util;
-/**
+
+/* @author Area 51 Block Party:
+ * Andrew Braswell
+ * Last Updated: 11/25/2019
  * This helper class enumerates locations.
  * It contains static methods which provide information on a given location.
- *
- * @author Andrew Braswell Last Updated: 11/13/2019
  */
 
+import java.util.ArrayList;
+
 public class Location {
+
     public static final int MIDWAY = 0;
     public static final int NORTH_SEA = 1;
     public static final int FALKLANDS = 2;
@@ -44,4 +48,15 @@ public class Location {
             default: return "Null Island";
         }
     }
+
+    public static ArrayList<Integer> getAllLocations () {
+        ArrayList<Integer> locations = new ArrayList<>();
+        int loc = 0;
+        while (!getName(loc).equals("Null Island")) {
+            locations.add(loc);
+            loc++;
+        }
+        return locations;
+    }
+
 }
