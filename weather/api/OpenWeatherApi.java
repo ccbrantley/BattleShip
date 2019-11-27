@@ -24,7 +24,7 @@ class OpenWeatherApi implements WeatherApiInterface {
     private JSONObject obj;
 
     //Enumerator
-    public final int ERROR = -1;
+    public static final int ERROR = -1;
 
     /** Fetches the JSONObject containing weather information at the given location.
      *  @param _location A location object.
@@ -61,7 +61,7 @@ class OpenWeatherApi implements WeatherApiInterface {
         try {
         windDirection = this.obj.getJSONObject("wind").getInt("deg");
         } catch (Exception ex) {
-            return OpenWeatherApi.ERROR;;
+            return OpenWeatherApi.ERROR;
         }
         return windDirection;
     }
@@ -72,7 +72,7 @@ class OpenWeatherApi implements WeatherApiInterface {
         try {
         windSpeed = this.obj.getJSONObject("wind").getInt("speed");
         } catch (Exception ex) {
-            return OpenWeatherApi.ERROR;;
+            return OpenWeatherApi.ERROR;
         }
         return windSpeed;
     }
