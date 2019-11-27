@@ -25,28 +25,23 @@ public class Serializer {
 
     public void serialize (String _input) {
         boolean saveSuccesfull = true;
-        try {
-            FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            this.savedInfo = this.savedInfo.concat(_input + " | ");
-            out.writeObject(this.savedInfo);
-            out.close();
-            fileOut.close();
-        }
-        catch (Exception e) {
-            saveSuccesfull = false;
-            System.out.println(e.toString());
-        }
+            try (FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);) {
+                this.savedInfo = this.savedInfo.concat(_input + " | ");
+                out.writeObject(this.savedInfo);
+            }
+            catch (Exception e) {
+                saveSuccesfull = false;
+                System.out.println(e.toString());
+            }
         System.out.println("Saved: " + saveSuccesfull);
     }
 
     public String deserialize () {
         if (this.setting.exists() == true) {
-            try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP)){
-                ObjectInputStream in = new ObjectInputStream(fileIn);
+            try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP);
+                    ObjectInputStream in = new ObjectInputStream(fileIn);) {
                 String tempSavedData = (String) in.readObject();
-                in.close();
-                fileIn.close();
                 return tempSavedData;
             }
             catch (Exception e) {

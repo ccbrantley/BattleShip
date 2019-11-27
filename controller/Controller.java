@@ -2,7 +2,7 @@ package battleship.controller;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley, Richard Abrams
- * Last Updated: 11/25/2019
+ * Last Updated: 11/27/2019
  */
 
 import battleship.models.BattleShipGame;
@@ -19,6 +19,8 @@ import battleship.views.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import java.util.logging.Level;
@@ -47,7 +49,7 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private BattleShipGame battleShipGame;
-    private SerializerAdapter serialzierAdapter = new SerializerAdapter();
+    private final SerializerAdapter serializerAdapter = new SerializerAdapter();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
     private final EventBus eventBus = BattleShipGame.eventBus;
@@ -92,32 +94,45 @@ public class Controller implements Initializable {
 
     //loads all the values from the settings file.
     private void loadSettings () {
-        if (!" ".equals(serialzierAdapter.extractData(this.graphicsEffect.CONTRAST))) {
-                this.graphicsEffect.setContrastLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.CONTRAST)));
+        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.CONTRAST), GraphicEffect.CONTRAST);
+        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.BRIGHTNESS), GraphicEffect.BRIGHTNESS);
+        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.HUE), GraphicEffect.HUE);
+        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.SATURATION), GraphicEffect.SATURATION);
+        this.setSettings(this.serializerAdapter.extractData(MusicPlayer.VOLUME), MusicPlayer.VOLUME);
+    }
+
+    private void setSettings(String _data, int _loadType){
+        if(_data.equals(" ")){
+            return;
         }
-        if (!" ".equals(serialzierAdapter.extractData(this.graphicsEffect.BRIGHTNESS))) {
-                this.graphicsEffect.setBrightnessLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.BRIGHTNESS)));
-        }
-        if (!" ".equals(serialzierAdapter.extractData(this.graphicsEffect.HUE))) {
-                this.graphicsEffect.setHueLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.HUE)));
-        }
-        if (!" ".equals(serialzierAdapter.extractData(this.graphicsEffect.SATURATION))) {
-                this.graphicsEffect.setSaturationLevel(Double.parseDouble(serialzierAdapter.extractData(this.graphicsEffect.SATURATION)));
-        }
-        if (!" ".equals(serialzierAdapter.extractData(this.musicPlayer.VOLUME))) {
-                this.musicPlayer.setVolumeLevel(Double.parseDouble(serialzierAdapter.extractData(this.musicPlayer.VOLUME)));
+        double data = Double.parseDouble(_data);
+        switch (_loadType) {
+            case GraphicEffect.CONTRAST:
+                this.graphicsEffect.setContrastLevel(data);
+            case GraphicEffect.BRIGHTNESS:
+                this.graphicsEffect.setBrightnessLevel(data);
+            case GraphicEffect.HUE:
+                this.graphicsEffect.setHueLevel(data);
+            case GraphicEffect.SATURATION:
+                this.graphicsEffect.setSaturationLevel(data);
+            case MusicPlayer.VOLUME:
+                this.musicPlayer.setVolumeLevel(data);
         }
     }
 
     //saves saves various settings to the settings file.
     private void saveSettings () {
-        serialzierAdapter.saveDouble(GraphicEffect.getScreenWidth());
-        serialzierAdapter.saveDouble(GraphicEffect.getScreenHeight());
-        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getContrast());
-        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getBrightness());
-        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getHue());
-        serialzierAdapter.saveDouble(this.graphicsEffect.getColorAdjust().getSaturation());
-        serialzierAdapter.saveDouble(this.musicPlayer.getMediaPlayer().getVolume());
+        ArrayList<Object> data = new ArrayList<>(
+                Arrays.asList(
+                        GraphicEffect.getScreenWidth(),
+                        GraphicEffect.getScreenHeight(),
+                        this.graphicsEffect.getColorAdjust().getContrast(),
+                        this.graphicsEffect.getColorAdjust().getBrightness(),
+                        this.graphicsEffect.getColorAdjust().getHue(),
+                        this.graphicsEffect.getColorAdjust().getSaturation(),
+                        this.musicPlayer.getMediaPlayer().getVolume()
+                ));
+        this.serializerAdapter.save(data);
     }
 
 //*****************     EVENTS     *******************

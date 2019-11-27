@@ -1,9 +1,12 @@
 package battleship.tools;
 
+
 /* @author Area 51 Block Party:
- * Richard Abrams
+ * Richard Abrams, Christopher Brantley
  * Last Updated: 11/27/2019
  */
+
+import java.util.ArrayList;
 
 public class SerializerAdapter {
 
@@ -39,24 +42,16 @@ public class SerializerAdapter {
 
 //*****************     SAVING METHODS     *******************
 
-    public void saveString (String _dataToBeSaved) {
-        this.serializer.serialize(_dataToBeSaved);
+    public void save (Object... _data) {
+        for(Object child : _data) {
+            this.serializer.serialize(String.valueOf(child));
+        }
     }
 
-    public void saveDouble (double _dataToBeSaved) {
-        this.serializer.serialize(String.valueOf(_dataToBeSaved));
-    }
-
-    public void saveInt (int _dataToBeSaved) {
-        this.serializer.serialize(String.valueOf(_dataToBeSaved));
-    }
-
-    public void saveFloat (float _dataToBeSaved) {
-        this.serializer.serialize(String.valueOf(_dataToBeSaved));
-    }
-
-    public void saveBoolean (boolean _dataToBeSaved) {
-        this.serializer.serialize(String.valueOf(_dataToBeSaved));
+    public void save (ArrayList<Object> _data) {
+        _data.forEach((child) -> {
+            this.serializer.serialize(String.valueOf(child));
+        });
     }
 
 //*****************     GETTERS     *******************

@@ -25,7 +25,7 @@ public class MusicPlayer {
     public static final String MUSICPATH = "src/battleship/assets/music";
     public static final String INTROSONG = "intro.mp3";
     // Enumerators -> Serialization Type.
-    public final int VOLUME = 7;
+    public static final int VOLUME = 7;
 
     public MusicPlayer (double _volumeLevel, boolean _autoPlay) {
         this.initializeMusicSelection();
