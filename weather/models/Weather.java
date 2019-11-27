@@ -2,7 +2,7 @@ package battleship.weather.models;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/25/2019
+ * Last Updated: 11/26/2019
  * This class handles all functionality related to weather.
  */
 
@@ -13,8 +13,8 @@ import battleship.weather.util.Location;
 public class Weather {
 
     protected final static WeatherApiTranslator API = new WeatherApiTranslator();
-    //The enumerated location of the weather.
-    protected int location;
+    //The Location of the weather.
+    protected Location location;
     //The meteorological wind direction in degrees.  Measured clockwise from north, the direction from which the wind is blowing.
     protected int windDirection;
     //The windspeed in miles per hour.
@@ -23,10 +23,10 @@ public class Weather {
     protected double temperature;
 
     /** This method fetches weather information for a given Location using the API.
-     *  @param _location An enumerated location.
+     *  @param _location A Location object.
      *  @return A Weather object.
      */
-    public static Weather loadWeatherByLocation (int _location) {
+    public static Weather loadWeatherByLocation (Location _location) {
         Weather weather = new Weather();
         weather.location = _location;
         Weather.API.fetchWeatherByLocation(_location);
@@ -52,12 +52,12 @@ public class Weather {
 
 //*****************     GETTERS     *******************
 
-    public int getLocation () {
+    public Location getLocation () {
         return this.location;
     }
 
     public String getLocationName () {
-        return Location.getName(this.location);
+        return this.location.getName();
     }
 
     public int getWindDirection () {
