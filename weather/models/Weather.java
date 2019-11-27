@@ -1,8 +1,8 @@
 package battleship.weather.models;
 
 /* @author Area 51 Block Party:
- * Andrew Braswell
- * Last Updated: 11/26/2019
+ * Andrew Braswell, Christopher Brantley
+ * Last Updated: 11/27/2019
  * This class handles all functionality related to weather.
  */
 
@@ -22,6 +22,9 @@ public class Weather {
     //The temperature in Fahrenheit.
     protected double temperature;
 
+    //Enumerator
+    public static final int ERROR = -1;
+
     /** This method fetches weather information for a given Location using the API.
      *  @param _location A Location object.
      *  @return A Weather object.
@@ -33,7 +36,7 @@ public class Weather {
         weather.windDirection = Weather.API.loadWindDirection();
         weather.temperature = Weather.API.loadTemperature();
         weather.windSpeed = Weather.API.loadWindSpeed();
-        if (weather.windDirection == -1) {
+        if (weather.windDirection == Weather.ERROR) {
             return null;
         }
         return weather;

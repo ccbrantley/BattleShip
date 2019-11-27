@@ -2,7 +2,7 @@ package battleship.weather.util;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/26/2019
+ * Last Updated: 11/27/2019
  * This class enumerates locations.
  * It can be instantiated to create an object that contains information about a location.
  */
@@ -34,28 +34,32 @@ public class Location {
      */
     public static Location getLocation (int _enumLocation) {
         switch (_enumLocation) {
-            case Location.MIDWAY: return new Location(28, -177, "Midway Atoll");
-            case Location.NORTH_SEA : return new Location(56, 3, "The North Sea");
-            case Location.FALKLANDS: return new Location(-51, -57, "The Falkland Islands");
-            case Location.TONKIN: return new Location(19, 106, "The Gulf of Tonkin");
-            default: {
+            case Location.MIDWAY:
+                return new Location(28, -177, "Midway Atoll");
+            case Location.NORTH_SEA :
+                return new Location(56, 3, "The North Sea");
+            case Location.FALKLANDS:
+                return new Location(-51, -57, "The Falkland Islands");
+            case Location.TONKIN:
+                return new Location(19, 106, "The Gulf of Tonkin");
+            default:
                 return new Location(0, 0, "Null Island");
-                }
-            }
         }
+    }
 
     /**
      * This static method allows easy access to information on all enumerated locations.
      * @return An ArrayList containing Location objects for all enumerated locations.
      */
-        public static ArrayList<Location> getAllLocations () {
+    public static ArrayList<Location> getAllLocations () {
         ArrayList<Location> locations = new ArrayList<>();
         int enumLocation = 0;
         Location location;
         while (true) {
             location = getLocation(enumLocation);
-            if (location.name.equals("Null Island"))
+            if (location.name.equals("Null Island")) {
                 break;
+            }
             locations.add(location);
             enumLocation++;
         }

@@ -2,7 +2,7 @@ package battleship.weather.api;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/26/2019
+ * Last Updated: 11/27/2019
  * This interface defines the methods that need to be implemented for any
  * valid weather API translator class.
  */

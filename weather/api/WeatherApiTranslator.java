@@ -2,7 +2,7 @@ package battleship.weather.api;
 
 /* @author Area 51 Block Party:
 * Andrew Braswell
-* Last Updated: 11/26/2019
+* Last Updated: 11/27/2019
 * This translator class acts as a central connector for all Weather API connections.
 * Do not call any implemented Weather API classes directly.
 * Roue all requests through this central class.

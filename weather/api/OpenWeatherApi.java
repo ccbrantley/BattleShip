@@ -1,14 +1,15 @@
 package battleship.weather.api;
 
 /* @author Area 51 Block Party:
- * Andrew Braswell, Ike Quigley
- * Last Updated: 11/26/2019
+ * Andrew Braswell, Ike Quigley, Christopher Brantley
+ * Last Updated: 11/27/2019
  * This class connects to the openweathermap.org web server for retrieving
  * information about the weather.
  * Note: Do not call this class directly. Route all Weather API requests through
  * the WeatherApiTranslator class.
  */
 
+import battleship.weather.models.Weather;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -22,9 +23,6 @@ class OpenWeatherApi implements WeatherApiInterface {
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?units=imperial";
     private static final String KEY = "ab85ba57bbbb423fb62bfb8201126ede";
     private JSONObject obj;
-
-    //Enumerator
-    public static final int ERROR = -1;
 
     /** Fetches the JSONObject containing weather information at the given location.
      *  @param _location A location object.
@@ -50,7 +48,8 @@ class OpenWeatherApi implements WeatherApiInterface {
             con.disconnect();
             // Extract the JSON object.
             this.obj = new JSONObject(content.toString());
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.out.println("Erorr fetching weather information.");
         }
     }
@@ -59,9 +58,10 @@ class OpenWeatherApi implements WeatherApiInterface {
     public int loadWindDirection () {
         int windDirection;
         try {
-        windDirection = this.obj.getJSONObject("wind").getInt("deg");
-        } catch (Exception ex) {
-            return OpenWeatherApi.ERROR;
+            windDirection = this.obj.getJSONObject("wind").getInt("deg");
+        }
+        catch (Exception ex) {
+            return Weather.ERROR;
         }
         return windDirection;
     }
@@ -70,9 +70,10 @@ class OpenWeatherApi implements WeatherApiInterface {
     public double loadWindSpeed () {
         int windSpeed;
         try {
-        windSpeed = this.obj.getJSONObject("wind").getInt("speed");
-        } catch (Exception ex) {
-            return OpenWeatherApi.ERROR;
+            windSpeed = this.obj.getJSONObject("wind").getInt("speed");
+        }
+        catch (Exception ex) {
+            return Weather.ERROR;
         }
         return windSpeed;
     }
@@ -81,9 +82,10 @@ class OpenWeatherApi implements WeatherApiInterface {
     public double loadTemperature () {
         double temperature;
         try {
-        temperature = this.obj.getJSONObject("main").getDouble("temp");
-        } catch (Exception ex) {
-            return OpenWeatherApi.ERROR;
+            temperature = this.obj.getJSONObject("main").getDouble("temp");
+        }
+        catch (Exception ex) {
+            return Weather.ERROR;
         }
         return temperature;
     }

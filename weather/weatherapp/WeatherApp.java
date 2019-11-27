@@ -2,7 +2,7 @@ package battleship.weather.weatherapp;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/25/2019
+ * Last Updated: 11/27/2019
  * This class is for demonstrating the use of a weather api.
  */
 
