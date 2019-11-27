@@ -1,68 +1,71 @@
 package battleship.tools;
 
 /* @author Area 51 Block Party:
- * Richard Abrams
- * Last Updated: 11/25/2019
+ * Richard Abrams, Christopher Brantley
+ * Last Updated: 11/27/2019
  */
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Serializer {
 
-    private File setting = new File("Settings.ser");
+    private File setting = new File(Serializer.SAVEFP);
     private String savedInfo;
 
-    public Serializer() {
-        savedInfo = " ";
+    //Enumerator -> Save Path.
+    public static final String SAVEFP = "settings.ser";
+
+    public Serializer () {
+        this.savedInfo = " ";
     }
 
-    public void serialize(String _input) {
+    public void serialize (String _input) {
+        boolean saveSuccesfull = true;
         try {
-            FileOutputStream fileOut = new FileOutputStream("Settings.ser");
+            FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            savedInfo = savedInfo.concat(_input + " | ");
-            out.writeObject(savedInfo);
+            this.savedInfo = this.savedInfo.concat(_input + " | ");
+            out.writeObject(this.savedInfo);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in Settings.ser");
-        } catch (IOException i) {
-            i.printStackTrace();
         }
+        catch (Exception e) {
+            saveSuccesfull = false;
+            System.out.println(e.toString());
+        }
+        System.out.println("Saved: " + saveSuccesfull);
     }
 
-    public String deserialize() {
-        if (setting.exists() == true) {
-            try {
-                FileInputStream fileIn = new FileInputStream("Settings.ser");
+    public String deserialize () {
+        if (this.setting.exists() == true) {
+            try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP)){
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 String tempSavedData = (String) in.readObject();
                 in.close();
                 fileIn.close();
                 return tempSavedData;
-            } catch (IOException i) {
-                i.printStackTrace();
-                return " ";
-            } catch (ClassNotFoundException c) {
-                System.out.println("Student class not found");
-                c.printStackTrace();
+            }
+            catch (Exception e) {
+                System.out.println(e.toString());
                 return " ";
             }
-        } else {
+        }
+        else {
             System.out.println("No save file found.");
             return " ";
         }
     }
 
-    public String getSavedInfo() {
-        return savedInfo;
+    public String getSavedInfo () {
+        return this.savedInfo;
     }
 
-    public void setSavedInfo(String savedInfo) {
+    public void setSavedInfo (String savedInfo) {
         this.savedInfo = savedInfo;
     }
+
 }
