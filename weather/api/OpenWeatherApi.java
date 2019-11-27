@@ -17,11 +17,14 @@ import org.json.JSONObject;
 import battleship.weather.util.Location;
 
 class OpenWeatherApi implements WeatherApiInterface {
-    //Example url: https://api.openweathermap.org/data/2.5/weather?lat=28&lon=177&units=imperial&appid=ab85ba57bbbb423fb62bfb8201126ede
 
+    //Example url: https://api.openweathermap.org/data/2.5/weather?lat=28&lon=177&units=imperial&appid=ab85ba57bbbb423fb62bfb8201126ede
     private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?units=imperial";
     private static final String KEY = "ab85ba57bbbb423fb62bfb8201126ede";
     private JSONObject obj;
+
+    //Enumerator
+    public final int ERROR = -1;
 
     /** Fetches the JSONObject containing weather information at the given location.
      *  @param _location A location object.
@@ -58,7 +61,7 @@ class OpenWeatherApi implements WeatherApiInterface {
         try {
         windDirection = this.obj.getJSONObject("wind").getInt("deg");
         } catch (Exception ex) {
-            return -1;
+            return OpenWeatherApi.ERROR;;
         }
         return windDirection;
     }
@@ -69,7 +72,7 @@ class OpenWeatherApi implements WeatherApiInterface {
         try {
         windSpeed = this.obj.getJSONObject("wind").getInt("speed");
         } catch (Exception ex) {
-            return -1;
+            return OpenWeatherApi.ERROR;;
         }
         return windSpeed;
     }
@@ -80,7 +83,7 @@ class OpenWeatherApi implements WeatherApiInterface {
         try {
         temperature = this.obj.getJSONObject("main").getDouble("temp");
         } catch (Exception ex) {
-            return -1;
+            return OpenWeatherApi.ERROR;
         }
         return temperature;
     }
