@@ -2,7 +2,9 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley, Richard Abrams
- * Last Updated: 10/28/2019
+ * Last Updated: 11/27/2019
+ * MusicPlayer serves as the model for a JavaFx Music Player as well
+ * as an placeholder for various musical properties.
  */
 
 import java.io.File;
@@ -19,7 +21,10 @@ public class MusicPlayer {
     private ObservableList<String> observableMusic =  FXCollections.observableArrayList();
     private Map musicMap = new HashMap();
 
-    // Enumerators
+    // Enumerators -> File Path.
+    public static final String MUSICPATH = "src/battleship/assets/music";
+    public static final String INTROSONG = "intro.mp3";
+    // Enumerators -> Serialization Type.
     public final int VOLUME = 7;
 
     public MusicPlayer (double _volumeLevel, boolean _autoPlay) {
@@ -31,8 +36,9 @@ public class MusicPlayer {
         }
     }
 
-    private void initializeMusicSelection() {
-        File musicFolder = new File("src/battleship/assets/music");
+    // Primes the music map with available music at music path.
+    private void initializeMusicSelection () {
+        File musicFolder = new File(MusicPlayer.MUSICPATH);
         File[] musicFiles = musicFolder.listFiles();
         for(File file : musicFiles ){
             this.musicMap.put(file.getPath().substring(28), file.getPath());
@@ -40,48 +46,49 @@ public class MusicPlayer {
             }
     }
 
-    private  void initializePlayer() {
-        Media soundFile = new Media(new File(this.musicMap.get("intro.mp3").toString()).toURI().toString());
+    // Primes the music player with the intro song.
+    private  void initializePlayer () {
+        Media soundFile = new Media(new File(this.musicMap.get(MusicPlayer.INTROSONG).toString()).toURI().toString());
         this.mediaPlayer = new MediaPlayer(soundFile);
     }
 
 //*****************     GETTERS     *******************
 
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
+    public MediaPlayer getMediaPlayer () {
+        return this.mediaPlayer;
     }
 
-    public ObservableList<String> getObservableMusic() {
-        return observableMusic;
+    public ObservableList<String> getObservableMusic () {
+        return this.observableMusic;
     }
 
-    public Map getMusicMap() {
-        return musicMap;
+    public Map getMusicMap () {
+        return this.musicMap;
     }
 
 //*****************     SETTERS     *******************
 
-    public void setMediaPlayer(MediaPlayer mediaPlayer) {
-        this.mediaPlayer = mediaPlayer;
+    public void setMediaPlayer (MediaPlayer _mediaPlayer) {
+        this.mediaPlayer = _mediaPlayer;
     }
 
-    public void setObservableMusic(ObservableList<String> observableMusic) {
-        this.observableMusic = observableMusic;
+    public void setObservableMusic (ObservableList<String> _observableMusic) {
+        this.observableMusic = _observableMusic;
     }
 
-    public void setMusicMap(Map musicMap) {
-        this.musicMap = musicMap;
+    public void setMusicMap (Map _musicMap) {
+        this.musicMap = _musicMap;
     }
 
-    public final void setStatePlay() {
+    public final void setStatePlay () {
         this.mediaPlayer.play();
     }
 
-    public void setStatePause() {
+    public void setStatePause () {
         this.mediaPlayer.pause();
     }
 
-    public void setMediaPlayerState() {
+    public void setMediaPlayerState () {
         if(this.mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             this.mediaPlayer.pause();
         }
@@ -90,11 +97,11 @@ public class MusicPlayer {
         }
     }
 
-    public void setVolumeLevel(Number _volumeLevel) {
+    public void setVolumeLevel (Number _volumeLevel) {
         this.mediaPlayer.setVolume(_volumeLevel.doubleValue());
     }
 
-    public void setSong(Object _file) {
+    public void setSong (Object _file) {
         this.mediaPlayer.stop();
         String filePath = (String)this.musicMap.get(_file.toString());
         Media newSong = new Media((new File(filePath)).toURI().toString());
@@ -103,4 +110,5 @@ public class MusicPlayer {
         this.mediaPlayer = newPlayer;
         this.mediaPlayer.play();
     }
+
 }

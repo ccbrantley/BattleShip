@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/20/2019
+ * Last Updated: 11/26/2019
  * BattleShipGame is used to hold the various things
  * that compose a battleship game.
  */
@@ -30,12 +30,11 @@ public class BattleShipGame {
     public static final String  RIGHT = "D";
     public static final String DOWN = "S";
 
-    /**
-     * BattleShipGame constructor used to create BattleShipGame
-     * involving player versus player, player versus bot, or bot versus bot.
-     * @param _type: Enumerators PVPGAME, PVBGAME, or BVBGAME.
+    /** BattleShipGame constructor used to create BattleShipGame
+     *  involving player versus player, player versus bot, or bot versus bot.
+     *  @param _type: Enumerators PVPGAME, PVBGAME, or BVBGAME.
      */
-    public BattleShipGame(int _type){
+    public BattleShipGame (int _type) {
         switch (_type) {
             case BattleShipGame.PVPGAME:
                 this.player1 = new BattleShipPlayer(BattleShipPlayer.HUMAN, BattleShipPlayer.LOCAL);
@@ -54,37 +53,16 @@ public class BattleShipGame {
 
 //*****************     GETTERS     *******************
 
-    public BattleShipPlayer getPlayer1() {
-        return player1;
+    public BattleShipPlayer getPlayer1 () {
+        return this.player1;
     }
 
-    public BattleShipPlayer getPlayer2() {
-        return player2;
+    public BattleShipPlayer getPlayer2 () {
+        return this.player2;
     }
 
-    public static EventBus getEventBus() {
+    public static EventBus getEventBus () {
         return eventBus;
     }
 
-    public static int getPVPGAME() {
-        return PVPGAME;
-    }
-
-    public static int getPVBGAME() {
-        return PVBGAME;
-    }
-
-    public static int getBVBGAME() {
-        return BVBGAME;
-    }
-
-//*****************     SETTERS     *******************
-
-    public void setPlayer1(BattleShipPlayer player1) {
-        this.player1 = player1;
-    }
-
-    public void setPlayer2(BattleShipPlayer player2) {
-        this.player2 = player2;
-    }
 }
