@@ -22,24 +22,22 @@ public class Location {
     private final int longitude;
     private final String name;
 
-
     public Location (int _latitude, int _longitude, String _name) {
         this.latitude = _latitude;
         this.longitude = _longitude;
         this.name = _name;
     }
 
-    /**
-     * This static method returns a Location object.  To program a new location, enumerate it above then add its case below.
-     * @param _enumLocation An enumerated location.
-     * @return A Location object with hard-coded information about the enumerated location.  If the parameter is not an enumerated location, returns the Location object for Null Island.
+    /** This static method returns a Location object.  To program a new location, enumerate it above then add its case below.
+     *  @param _enumLocation An enumerated location.
+     *  @return A Location object with hard-coded information about the enumerated location.  If the parameter is not an enumerated location, returns the Location object for Null Island.
      */
     public static Location getLocation (int _enumLocation) {
         switch (_enumLocation) {
-            case MIDWAY: return new Location(28, -177, "Midway Atoll");
-            case NORTH_SEA : return new Location(56, 3, "The North Sea");
-            case FALKLANDS: return new Location(-51, -57, "The Falkland Islands");
-            case TONKIN: return new Location(19, 106, "The Gulf of Tonkin");
+            case Location.MIDWAY: return new Location(28, -177, "Midway Atoll");
+            case Location.NORTH_SEA : return new Location(56, 3, "The North Sea");
+            case Location.FALKLANDS: return new Location(-51, -57, "The Falkland Islands");
+            case Location.TONKIN: return new Location(19, 106, "The Gulf of Tonkin");
             default: {
                 return new Location(0, 0, "Null Island");
                 }
@@ -77,4 +75,5 @@ public class Location {
     public String getName () {
         return this.name;
     }
+
 }
