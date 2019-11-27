@@ -165,13 +165,13 @@ public class Controller implements Initializable {
             case BattleShipGame.RIGHT:
                 BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(0, +1, type));
                 break;
-            case BattleShipGame.DOWN:
+            case BattleShipGame.LEFT:
                 BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(0, -1, type));
                 break;
             case BattleShipGame.UP:
                 BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(-1, 0, type));
                 break;
-            case BattleShipGame.LEFT:
+            case BattleShipGame.DOWN:
                 BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(+1, 0, type));
                 break;
         }
