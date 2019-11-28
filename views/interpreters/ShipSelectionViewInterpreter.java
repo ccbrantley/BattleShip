@@ -2,7 +2,7 @@ package battleship.views.interpreters;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley, Andrew Braswell
- * Last Updated: 11/24/2019
+ * Last Updated: 11/25/2019
  * This class is the interpreter for the event bus and the shipselectionview.
  * This class will define the protocol behind what happens when an event is
  * meant to be thrown to the ship selection view.
@@ -25,6 +25,7 @@ public class ShipSelectionViewInterpreter implements Listener {
     @Override
     public void catchEvent(Object _event) {
 
+        // Event to update sector of grid to blank grid or to ship, determined by new id.
         if(_event instanceof UpdateSectorEvent) {
             UpdateSectorEvent event = ((UpdateSectorEvent)_event);
             int row = event.getRow();
@@ -51,6 +52,7 @@ public class ShipSelectionViewInterpreter implements Listener {
             }
         }
 
+        // Event to clear the entire grid, sets all children back to blank grid.
         if(_event instanceof ClearGridEvent) {
             this.shipSelectionView.getShipSelectionPane().getChildren().forEach(child -> {
                 child.setId("grid");

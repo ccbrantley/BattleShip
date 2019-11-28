@@ -8,7 +8,10 @@ package battleship.models;
  */
 
 public class BattleShipBoard {
-    public BattleShipBoard(BattleShipPlayer _player) {
-    }
+
     public static final int BOARDSIZE = 10;
+
+    public BattleShipBoard (BattleShipPlayer _player) {
+    }
+
 }

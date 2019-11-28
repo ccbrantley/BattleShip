@@ -25,9 +25,29 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ViewAssets {
-    public ViewAssets() {}
 
-    private int GRIDSIZE = BattleShipBoard.BOARDSIZE;
+    public ViewAssets() {
+    }
+
+    //Enumerators -> LED
+    public static final String NULLLED = "";
+    public static final String BLUELED = "blue";
+    public static final String YELLOWLED = "yellow";
+    public static final String REDLED = "red";
+    public static final String REDLEDACTIVE = "redActive";
+
+    //Enumerators -> Scene Selection
+    public static final String MAIN = "main";
+    public static final String SETTINGS = "settings";
+    public static final String PLAY = "shipSelection";
+    public static final String GAME = "play";
+
+    //Enumerators -> File Path
+    public static final String SHIPIMAGES = "src/battleship/assets/images/ship/";
+
+    //Enumerators -> File Extension
+    public static final String SHIPIMAGEEXTENSION= ".png";
+ 
 
     public static Label createLabel(String _id, String _text, boolean _wrapText) {
         Label curLabel = new Label();

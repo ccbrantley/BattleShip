@@ -12,7 +12,6 @@ package battleship.models;
 
 import battleship.models.interpreters.BattleShipBotAi;
 import battleship.models.interpreters.BattleShipFleetLocalInterpreter;
-import battleship.tools.EventBus;
 
 public class BattleShipPlayer {
 
