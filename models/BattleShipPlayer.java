@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/27/2019
+ * Last Updated: 11/28/2019
  * BattleShipPlayer serves to hold the objects that are representative of a
  * battleship player. BattleShipPlayer holds a fleet of ships respective of
  * the player type. The variations of these BattleShipFleets will be for home
@@ -19,7 +19,7 @@ public class BattleShipPlayer {
     private final int playerTeam;
     private int difficulty = BattleShipPlayer.NULL;
     private BattleShipFleet battleShipFleet;
-    private Coordinate currentTarget = new Coordinate(0,0);
+    private Coordinate currentTarget = new Coordinate(0, 0);
     private boolean turn = true;
 
     // Enumerators -> type.
@@ -43,7 +43,7 @@ public class BattleShipPlayer {
     public BattleShipPlayer (int _playerType, int _playerTeam, int _difficulty) {
         this(_playerType, _playerTeam);
         this.difficulty = _difficulty;
-        BattleShipGame.getEventBus().addListener(new BattleShipBotAi(_difficulty));
+        BattleShipGame.getEventBus().addListener(new BattleShipBotAi(this.BattleShipPlayer, this.difficulty));
     }
 
     /** This constructor is for human players only.
@@ -88,6 +88,14 @@ public class BattleShipPlayer {
     }
 
 //*****************     SETTERS     *******************
+
+    public void setDifficulty (int _difficulty) {
+        this.difficulty = _difficulty;
+    }
+
+    public void setBattleShipFleet (BattleShipFleet _battleShipFleet) {
+        this.battleShipFleet = _battleShipFleet;
+    }
 
     public void setCurrentTarget (Coordinate _currentTarget) {
         this.currentTarget = _currentTarget;
