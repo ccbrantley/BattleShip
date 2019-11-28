@@ -6,15 +6,15 @@ package battleship.models.interpreters;
 * This class is protocol for battle ship AI.
 */
 
+import battleship.models.BattleShipBoard;
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
-import battleship.models.BattleShipShip;
 import battleship.models.Coordinate;
+import battleship.tools.Listener;
 import battleship.tools.events.FireAwayEvent;
 import battleship.tools.events.GameUpdateUserMessage;
-import java.util.ArrayList;
 
-public class BattleShipBotAi {
+public class BattleShipBotAi implements Listener {
 
     private int difficulty = BattleShipBotAi.NULL;
     private BattleShipPlayer player;
@@ -35,27 +35,33 @@ public class BattleShipBotAi {
     public BattleShipBotAi (BattleShipPlayer _AI, int _difficulty) {
         this.player = _AI;
         this.difficulty = _difficulty;
-        Coordinate[][] shotsFired = new Coordinate[10][10];
+        this.shotsFired = new Coordinate[10][10];
         if(_AI.getPlayerTeam() == BattleShipPlayer.AWAY){
-            opponent = BattleShipPlayer.LOCAL;
+            this.opponent = BattleShipPlayer.LOCAL;
         }
         else{
-            opponent = BattleShipPlayer.AWAY;
+            this.opponent = BattleShipPlayer.AWAY;
         }
     }
 
-    public void takeShot () {
-        xPos = (int)Math.random()*10+1;
-        yPos = (int)Math.random()*10+1;
+    private void takeShot () {
+        Coordinate randCoordinate = BattleShipBoard.generateRandomCoordinate();
+        int xPos = randCoordinate.getRow();
+        int yPos = randCoordinate.getColumn();
             if(this.shotsFired[xPos][yPos] == null){
-                currentTarget = new Coordinate(xPos,yPos);
-                this.player.setCurrentTarget(currentTarget);
-                BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(opponent));
-                this.shotsFired[xPos][yPos] = new Coordinate(xPos, yPos);
+                this.currentTarget = randCoordinate;
+                this.player.setCurrentTarget(randCoordinate);
+                BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(this.opponent));
+                this.shotsFired[xPos][yPos] = randCoordinate;
             }
             else{
                 takeShot();
             }
+    }
+
+    @Override
+    public void catchEvent(Object _event) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
