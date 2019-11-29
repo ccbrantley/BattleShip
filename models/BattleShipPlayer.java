@@ -89,14 +89,14 @@ public class BattleShipPlayer {
         return this.turn;
     }
 
-    public int getSelectedShip() {
-        return selectedShip;
+    public int getSelectedShip () {
+        return this.selectedShip;
     }
 
 //*****************     SETTERS     *******************
 
-    public void setSelectedShip(int selectedShip) {
-        this.selectedShip = selectedShip;
+    public void setSelectedShip (int _selectedShip) {
+        this.selectedShip = _selectedShip;
     }
 
     public void setDifficulty (int _difficulty) {

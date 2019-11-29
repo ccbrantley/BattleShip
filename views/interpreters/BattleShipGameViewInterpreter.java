@@ -8,6 +8,9 @@ package battleship.views.interpreters;
  * meant to be thrown to the ship selection view.
  */
 
+import battleship.models.Animator;
+import battleship.models.BattleShipBoard;
+import battleship.models.BattleShipPlayer;
 import battleship.tools.ViewAssets;
 import battleship.tools.Listener;
 import battleship.tools.events.*;
@@ -21,13 +24,13 @@ public class BattleShipGameViewInterpreter implements Listener {
 
     private final BattleShipGameView battleShipGameView;
 
-    public BattleShipGameViewInterpreter(BattleShipGameView battleShipGameView) {
+    public BattleShipGameViewInterpreter (BattleShipGameView battleShipGameView) {
         this.battleShipGameView = battleShipGameView;
     }
 
     @Override
-    public void catchEvent(Object _event) {
-        if(_event instanceof UpdateSectorEvent) {
+    public void catchEvent (Object _event) {
+        if (_event instanceof UpdateSectorEvent) {
             UpdateSectorEvent event = ((UpdateSectorEvent)_event);
             int row = event.getRow();
             int column = event.getColumn();
@@ -35,10 +38,10 @@ public class BattleShipGameViewInterpreter implements Listener {
             String newId = event.getNewId();
             int rowIndex;
             int columnIndex;
-            for(Node curNode : this.battleShipGameView.getShipPane().getChildren()) {
+            for (Node curNode : this.battleShipGameView.getShipPane().getChildren()) {
                 rowIndex = GridPane.getRowIndex(curNode);
                 columnIndex = GridPane.getColumnIndex(curNode);
-                if((rowIndex == row) && (columnIndex == column)) {
+                if ((rowIndex == row) && (columnIndex == column)) {
                     Button newButton = ViewAssets.createGridButton(newId, rotation, "");
                     if(!("grid".equals(newId))) {
                     } else {
@@ -50,19 +53,58 @@ public class BattleShipGameViewInterpreter implements Listener {
             }
         }
 
-        if(_event instanceof RedActiveLedEvent) {
+        if (_event instanceof RedActiveLedEvent) {
              this.battleShipGameView.getPinPane().getChildren().forEach((curNode) -> {
                  if(curNode.getId().equals("redActive"))
                 curNode.setId("blue");
             });
         }
 
-        if(_event instanceof GameMessageEvent) {
+        if (_event instanceof GameMessageEvent) {
             GameMessageEvent event = (GameMessageEvent)_event;
             String message = event.getMessage();
             Label messageLabel = ViewAssets.createLabel("message", message, true);
             this.battleShipGameView.getMessageBox().getChildren().add(messageLabel);
         }
+
+        if (_event instanceof ShipHitEvent) {
+            ShipHitEvent event = (ShipHitEvent)_event;
+            if (!this.checkIfLocal(event.getPlayer())) {
+                return;
+            }
+            int row = event.getRow();
+            int column = event.getColumn();
+            double paneLength = this.battleShipGameView.getShipPane().getMinHeight();
+            double childSize = paneLength / BattleShipBoard.BOARDSIZE;
+            double paneLocationX = this.battleShipGameView.getShipPane().getLayoutX();
+            double paneLocationY = this.battleShipGameView.getShipPane().getLayoutY();
+            double xPos = paneLocationX + (column * childSize) - 220;
+            double yPos = paneLocationY + (row * childSize) - 220;
+            this.battleShipGameView.getAnimator().setImageViewLayout(xPos, yPos);
+            this.battleShipGameView.getAnimator().playAnimation();
+        }
+
+        if (_event instanceof UpdatePinEvent) {
+            UpdatePinEvent event = (UpdatePinEvent)_event;
+            if (!this.checkIfLocal(event.getPlayer())) {
+                return;
+            }
+            int row = event.getRow();
+            int column = event.getColumn();
+            String color = event.getColor();
+            for (Node curNode : this.battleShipGameView.getPinPane().getChildren()) {
+                if (GridPane.getRowIndex(curNode) == row) {
+                    if (GridPane.getColumnIndex(curNode) == column) {
+                        curNode.setId(color);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public Boolean checkIfLocal (int _playerTeam) {
+        return _playerTeam == BattleShipPlayer.LOCAL;
     }
 
 }

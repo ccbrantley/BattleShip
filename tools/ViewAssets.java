@@ -3,12 +3,10 @@ package battleship.tools;
 /* @author Area 51 Block Party:
  * Christopher Brantley
  * Last Updated: 10/30/2019
- *
  * ViewAssets is used to force consistent property changes
  * in javaFX nodes.
  */
 
-import battleship.models.BattleShipBoard;
 import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -39,15 +37,16 @@ public class ViewAssets {
     //Enumerators -> Scene Selection
     public static final String MAIN = "main";
     public static final String SETTINGS = "settings";
-    public static final String PLAY = "shipSelection";
-    public static final String GAME = "play";
+    public static final String SHIPSELECTION = "shipSelection";
+    public static final String GAMETYPE = "gameTypeSelection";
+    public static final String PLAY = "play";
 
     //Enumerators -> File Path
     public static final String SHIPIMAGES = "src/battleship/assets/images/ship/";
 
     //Enumerators -> File Extension
     public static final String SHIPIMAGEEXTENSION= ".png";
- 
+
 
     public static Label createLabel(String _id, String _text, boolean _wrapText) {
         Label curLabel = new Label();

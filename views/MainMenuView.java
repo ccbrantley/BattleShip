@@ -40,7 +40,7 @@ public class MainMenuView {
         // Creating pane and children of the pane
         this.parentPane = ViewAssets.createAnchorPane("mainMenuPane", ResourceGetter.getMainMenuCSS());
         this.gameLogo = ViewAssets.createLabel("battleShipLabel", "Battleship", this.screenSize * this.buttonWidthRatio, this.screenSize * .30, false);
-        this.playButton = ViewAssets.createButton("shipSelection", "Play", this.screenSize * this.buttonHeightRatio);
+        this.playButton = ViewAssets.createButton("gameTypeSelection", "Play", this.screenSize * this.buttonHeightRatio);
         this.settingButton = ViewAssets.createButton("settings", "Settings", this.screenSize * this.buttonHeightRatio);
         this.quitButton = ViewAssets.createButton("quit", "Quit", this.screenSize * this.buttonHeightRatio);
         // Adding all children to array, then using array to populate VBox

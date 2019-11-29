@@ -2,11 +2,12 @@ package battleship.views;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/26/2019
+ * Last Updated: 11/29/2019
  *  BattleShipGameView is the visual for the Battle Ship Game.
  */
 
 import battleship.controller.Controller;
+import battleship.models.Animator;
 import battleship.models.BattleShipBoard;
 import battleship.models.BattleShipGame;
 import battleship.models.GraphicEffect;
@@ -42,6 +43,7 @@ public class BattleShipGameView {
     private final Button switchPaneButton;
     private final Button fireButton;
     private final Button mainMenuButton;
+    Animator animator = new Animator(Animator.EXPLOSION);
     private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
 
     public BattleShipGameView (Controller _controller) {
@@ -61,10 +63,11 @@ public class BattleShipGameView {
         this.menuBarHBoxArray.add(this.mainMenuButton);
         this.menuBarHBox = ViewAssets.createHBox(this.menuBarHBoxArray, 50, "menuBar",  this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position.
-        this.parentPane.getChildren().addAll(this.shipPane, this.gameUpdatesScrollPane, this.menuBarHBox);
+        this.parentPane.getChildren().addAll(this.shipPane, this.gameUpdatesScrollPane, this.menuBarHBox, this.animator.getImageView());
         this.shipPane.relocate(0, 0);
         this.gameUpdatesScrollPane.relocate(0, this.screenHeight - (2 * (this.screenSize * this.buttonHeightRatio)));
         this.menuBarHBox.relocate(0, this.screenHeight - (this.screenSize * this.buttonHeightRatio));
+        this.animator.getImageView().toFront();
         // Initialize childrens events.
         this.controller.setSceneOnActionEvent(this.mainMenuButton);
         // Visual event for switching the ship pane and pin pane.
@@ -110,6 +113,10 @@ public class BattleShipGameView {
 
     public GridPane getPinPane () {
         return this.pinPane;
+    }
+
+    public Animator getAnimator() {
+        return animator;
     }
 
 }

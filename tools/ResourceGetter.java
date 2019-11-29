@@ -85,4 +85,8 @@ public class ResourceGetter {
         return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
     }
 
+    public static String getGameTypeSelectionCSS() {
+        File styleSheet = new File("src/battleship/assets/stylesheets/gametypeselection.css");
+        return "file:///" + styleSheet.getAbsolutePath().replace("\\", "/").replaceAll("\\u0020", "%20");
+    }
 }

@@ -34,11 +34,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -48,7 +44,7 @@ import javafx.stage.Stage;
 public class Controller implements Initializable {
 
     private Stage stage;
-    private BattleShipGame battleShipGame;
+    private BattleShipGame battleShipGame = new BattleShipGame();
     private final SerializerAdapter serializerAdapter = new SerializerAdapter();
     private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
@@ -66,15 +62,18 @@ public class Controller implements Initializable {
     private Pane createView (String _sceneType){
         Pane parentPane;
             switch (_sceneType) {
-                case ViewAssets.GAME:
+                case ViewAssets.PLAY:
                     BattleShipGameView gamePane = new BattleShipGameView(this);
                     this.battleShipGame.getPlayer1().getBattleShipFleet().throwAllPositionUpdateEvents();
                     parentPane = gamePane.getParentPane();
                     break;
-                case ViewAssets.PLAY:
+                case ViewAssets.SHIPSELECTION:
                     ShipSelectionView selectionPane = new ShipSelectionView(this);
-                    this.initializeGame();
                     parentPane = selectionPane.getParentPane();
+                    break;
+                case ViewAssets.GAMETYPE:
+                    GameTypeSelectionView gameTypeSelectionPane = new GameTypeSelectionView(this);
+                    parentPane = gameTypeSelectionPane.getParentPane();
                     break;
                 case ViewAssets.SETTINGS:
                     SettingsMenuView settingsPane = new SettingsMenuView(this);
@@ -89,7 +88,7 @@ public class Controller implements Initializable {
 
     // Will take a game type and instantiate BattleShipGame with the game type.
     private void initializeGame () {
-        this.battleShipGame = new BattleShipGame(BattleShipGame.PVBGAME);
+        this.battleShipGame.initializeGame();
     }
 
     //loads all the values from the settings file.
@@ -273,6 +272,27 @@ public class Controller implements Initializable {
         });
     }
 
+
+    public void setGameTypeOnPressEvent (Node _node) {
+        _node.setOnMousePressed(event -> {
+            Node curNode = (Node)event.getSource();
+            this.battleShipGame.setGameType(Integer.parseInt(curNode.getId()));
+        });
+    }
+
+    public void initializeGameOnPressEvent (Node _node) {
+        _node.setOnMousePressed(event -> {
+            this.initializeGame();
+            if(this.battleShipGame.getGameType() == BattleShipGame.PVBGAME) {
+                this.setScene(ViewAssets.SHIPSELECTION);
+                this.battleShipGame.getPlayer1().getBattleShipFleet().throwAllPositionUpdateEvents();
+            }
+            else {
+                this.setScene(ViewAssets.PLAY);
+            }
+        });
+    }
+
     // Event to change views.
     public void setSceneOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
@@ -333,14 +353,6 @@ public class Controller implements Initializable {
     public void setOnMousePressRandomizeShips (Node _node) {
         _node.setOnMousePressed(event -> {
             BattleShipGame.getEventBus().throwEvent(new RandomizeShipsEvent());
-        });
-    }
-
-    // Used to remove current game.
-    public void setSceneAndRemoveGame (Node _node) {
-        _node.setOnMousePressed(event ->{
-            BattleShipGame.eventBus.resetListeners();
-            this.setSceneOnActionEvent((Button)_node);
         });
     }
 
