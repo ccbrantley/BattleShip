@@ -54,8 +54,8 @@ public class MainMenuView {
         this.mainMenuVBox.relocate((this.screenWidth - this.screenSize * this.buttonWidthRatio) / 2 - (.25 / 8) * this.screenSize, 0);
         // Initialize childrens events
         this.controller.setcloseGuiOnActionEvent(this.quitButton);
-        this.controller.setSceneOnActionEvent(this.settingButton);
-        this.controller.setSceneOnActionEvent(this.playButton);
+        this.controller.setSceneOnMousePress(this.settingButton);
+        this.controller.setSceneOnMousePress(this.playButton);
     }
 
 //*****************     GETTERS     *******************

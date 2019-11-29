@@ -282,27 +282,37 @@ public class Controller implements Initializable {
 
     public void initializeGameOnPressEvent (Node _node) {
         _node.setOnMousePressed(event -> {
-            this.initializeGame();
+                this.initializeGame();
             if(this.battleShipGame.getGameType() == BattleShipGame.PVBGAME) {
                 this.setScene(ViewAssets.SHIPSELECTION);
                 this.battleShipGame.getPlayer1().getBattleShipFleet().throwAllPositionUpdateEvents();
             }
             else {
+
                 this.setScene(ViewAssets.PLAY);
             }
         });
     }
 
+    public void removeListenersSetSceneOnMousePress (Node _node) {
+        _node.setOnMousePressed(event -> {
+            BattleShipGame.getEventBus().resetListeners();
+            Node curNode = (Node)event.getSource();
+            this.setScene(curNode.getId());
+        });
+    }
+
     // Event to change views.
-    public void setSceneOnActionEvent (Button _button) {
-        _button.setOnAction(event -> {
-            this.setScene(_button.getId());
+    public void setSceneOnMousePress (Node _node) {
+        _node.setOnMousePressed(event -> {
+            Node curNode = (Node)event.getSource();
+            this.setScene(curNode.getId());
         });
     }
 
     // Event to pause/play music.
-    public void setMediaPlayerStateOnActionEvent (Button _button) {
-        _button.setOnAction(event -> {
+    public void setMediaPlayerStateOnMousePress (Node _node) {
+        _node.setOnMousePressed(event -> {
             this.musicPlayer.setMediaPlayerState();
         });
     }

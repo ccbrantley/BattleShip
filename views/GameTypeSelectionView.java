@@ -58,7 +58,7 @@ public class GameTypeSelectionView {
         this.controller.setGameTypeOnPressEvent(this.pvbButton);
         this.controller.setGameTypeOnPressEvent(this.bvbButton);
         this.controller.initializeGameOnPressEvent(this.confirmSelection);
-        this.controller.setSceneOnActionEvent(this.mainMenuButton);
+        this.controller.setSceneOnMousePress(this.mainMenuButton);
     }
 
 //*****************     GETTERS     *******************

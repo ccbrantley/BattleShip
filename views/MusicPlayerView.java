@@ -59,7 +59,7 @@ public class MusicPlayerView {
         // Adding all children to the Parent pane and setting their screen position
         this.parentPane.getChildren().addAll(this.soundMenuVBox);
         // Initialize childrens events
-        this.controller.setMediaPlayerStateOnActionEvent(this.soundOffOnButton);
+        this.controller.setMediaPlayerStateOnMousePress(this.soundOffOnButton);
         this.controller.setMediaPlayerVolumeListener(this.volumeLevelSlider);
         this.controller.setMediaPlayerSelectionListener(this.musicSelectionBox);
     }

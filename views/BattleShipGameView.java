@@ -67,9 +67,8 @@ public class BattleShipGameView {
         this.shipPane.relocate(0, 0);
         this.gameUpdatesScrollPane.relocate(0, this.screenHeight - (2 * (this.screenSize * this.buttonHeightRatio)));
         this.menuBarHBox.relocate(0, this.screenHeight - (this.screenSize * this.buttonHeightRatio));
-        this.animator.getImageView().toFront();
         // Initialize childrens events.
-        this.controller.setSceneOnActionEvent(this.mainMenuButton);
+        this.controller.removeListenersSetSceneOnMousePress(this.mainMenuButton);
         // Visual event for switching the ship pane and pin pane.
         this.switchPaneButton.setOnAction(event -> {
             this.switchShipPinPaneEvent();
@@ -88,11 +87,14 @@ public class BattleShipGameView {
             if(this.parentPane.getChildren().contains(this.shipPane)) {
                 this.parentPane.getChildren().remove(this.shipPane);
                 this.parentPane.getChildren().add(this.pinPane);
+                this.animator.getImageView().setOpacity(0);
                 this.pinPane.relocate(0, 0);
             }
             else {
                 this.parentPane.getChildren().remove(this.pinPane);
                 this.parentPane.getChildren().add(this.shipPane);
+                this.animator.getImageView().setOpacity(1);
+                this.animator.getImageView().toFront();
                 this.shipPane.relocate(0, 0);
             }
     }

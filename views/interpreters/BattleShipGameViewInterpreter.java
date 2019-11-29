@@ -82,6 +82,7 @@ public class BattleShipGameViewInterpreter implements Listener {
             double yPos = paneLocationY + (row * childSize) - 220;
             this.battleShipGameView.getAnimator().setImageViewLayout(xPos, yPos);
             this.battleShipGameView.getAnimator().playAnimation();
+            this.battleShipGameView.getAnimator().getImageView().toFront();
         }
 
         if (_event instanceof UpdatePinEvent) {

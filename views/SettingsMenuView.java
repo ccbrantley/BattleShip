@@ -56,7 +56,7 @@ public class SettingsMenuView {
         AnchorPane.setBottomAnchor(this.graphicEffectParentPane, 0.0);
         AnchorPane.setRightAnchor(this.graphicEffectParentPane, 0.0);
         // Initialize childrens events
-        this.controller.setSceneOnActionEvent(this.mainButton);
+        this.controller.setSceneOnMousePress(this.mainButton);
     }
 
 //*****************     GETTERS     *******************

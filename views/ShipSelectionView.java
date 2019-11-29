@@ -49,13 +49,13 @@ public class ShipSelectionView {
         this.shipSelectionPane.relocate(((this.screenWidth) - (this.screenSize * .90)) / 2, ((this.screenHeight)-(this.screenSize * .90)) / 2);
         this.confirmLayoutButton.relocate((this.screenWidth - (this.screenSize * this.buttonWidthRatio)), ((this.screenHeight) - (this.screenSize * this.buttonWidthRatio)) / 2);
         // Initialize childrens events.
-        this.controller.setSceneOnActionEvent(this.mainMenuButton);
+        this.controller.setSceneOnMousePress(this.mainMenuButton);
         this.shipSelectionPane.getChildren().forEach(grid -> {
             this.setShipSelectionPaneGridEvents(grid);
         });
         this.controller.shipMovementEvent(this.shipSelectionPane);
         this.controller.setOnMousePressRandomizeShips(this.randomshipLayoutButton);
-        this.controller.setSceneOnActionEvent(this.confirmLayoutButton);
+        this.controller.setSceneOnMousePress(this.confirmLayoutButton);
         // Adding our interpreter to the event bus.
         BattleShipGame.getEventBus().addListener(this.interpreter);
     }
