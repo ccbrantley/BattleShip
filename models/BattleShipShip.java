@@ -37,7 +37,7 @@ public class BattleShipShip {
         this.shipType = _shipType;
         this.shipOrientation = _orientation;
         this.battleShipFleet = _battleShipFleet;
-        this.shipId = this.convertShipTypeToId(_shipType);
+        this.shipId = BattleShipShip.convertShipTypeToId(_shipType);
         this.shipLength = this.determineShipLength(_shipType);
         for(int x = 0; x < this.shipLength; x++) {
             shipPieces.add(new BattleShipShipPiece((x+1), _orientation, this.shipId));
@@ -128,7 +128,7 @@ public class BattleShipShip {
      * @return Boolean value of whether the ship has or has not been moved.
      */
     public boolean moveShip (int _row, int _column) {
-        if(_row == BattleShipShip.RANDOM &&(_row == _column)) {
+        if(_row == BattleShipShip.RANDOM && (_row == _column)) {
             Coordinate randomCoordinate = this.generateRandomUniqueCoordinate();
             _row = randomCoordinate.getRow();
             _column = randomCoordinate.getColumn();
@@ -276,12 +276,30 @@ public class BattleShipShip {
      * @return A value within board boundary.
      */
     private int normalizeRange (int _index, int _totalRange) {
+        int sum = _index + _totalRange - 1;
+        if(!this.gridBoundaryCheck(_index)) {
+            if (_index < 0) {
+                return (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
+            }
+            else {
+                return 0;
+            }
+        }
+        if (!this.gridBoundaryCheck(sum)) {
+            if (sum < 0) {
+                return (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
+            }
+            else {
+                return 0;
+            }
+        }
+        /*
         if (!(this.gridBoundaryCheck(_index+_totalRange-1))) {
             _index = (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
         }
         if (!(this.gridBoundaryCheck(_index))) {
             _index =  0;
-        }
+        } */
         return _index;
     }
 

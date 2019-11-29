@@ -25,8 +25,7 @@ public class BattleShipFleetLocalInterpreter implements Listener {
             MoveShipIncrementallyEvent event = (MoveShipIncrementallyEvent)_event;
             int row = event.getRow();
             int column = event.getColumn();
-            String type = event.getShipType();
-            this.player.getBattleShipFleet().moveShipIncrementally(row, column, type);
+            this.player.getBattleShipFleet().moveShipIncrementally(row, column, this.player.getSelectedShip());
             this.refreshGame();
         }
 
@@ -68,4 +67,5 @@ public class BattleShipFleetLocalInterpreter implements Listener {
         BattleShipGame.getEventBus().throwEvent(new ClearGridEvent());
         this.player.getBattleShipFleet().throwAllPositionUpdateEvents();
     }
+
 }

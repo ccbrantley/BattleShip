@@ -20,6 +20,8 @@ public class BattleShipPlayer {
     private int difficulty = BattleShipPlayer.NULL;
     private BattleShipFleet battleShipFleet;
     private Coordinate currentTarget = new Coordinate(0, 0);
+    private int selectedShip = BattleShipShip.CARRIER;
+
     private boolean turn = true;
 
     // Enumerators -> type.
@@ -87,7 +89,15 @@ public class BattleShipPlayer {
         return this.turn;
     }
 
+    public int getSelectedShip() {
+        return selectedShip;
+    }
+
 //*****************     SETTERS     *******************
+
+    public void setSelectedShip(int selectedShip) {
+        this.selectedShip = selectedShip;
+    }
 
     public void setDifficulty (int _difficulty) {
         this.difficulty = _difficulty;

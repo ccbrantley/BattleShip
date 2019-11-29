@@ -53,6 +53,7 @@ public class ShipSelectionView {
         this.shipSelectionPane.getChildren().forEach(grid -> {
             this.setShipSelectionPaneGridEvents(grid);
         });
+        this.controller.shipMovementEvent(this.shipSelectionPane);
         this.controller.setOnMousePressRandomizeShips(this.randomshipLayoutButton);
         this.controller.setSceneOnActionEvent(this.confirmLayoutButton);
         // Adding our interpreter to the event bus.
@@ -63,15 +64,9 @@ public class ShipSelectionView {
      * @param _curNode
      */
     public void setShipSelectionPaneShipEvents (Node _curNode) {
-        _curNode.setOnKeyPressed(event -> {
-            this.controller.shipMovementEvent(event);
-        });
-        _curNode.setOnDragDetected(event -> {
-            this.controller.shipOnDragDetectedEvent(event);
-        });
-        _curNode.setOnScroll(event -> {
-            this.controller.shipOnScrollEvent(event);
-        });
+        this.controller.setShipSelectionEvent(_curNode);
+        this.controller.shipOnDragDetectedEvent(_curNode);
+        this.controller.shipOnScrollEvent(_curNode);
     }
 
     /** Removes the events specific to ship buttons.
@@ -87,12 +82,8 @@ public class ShipSelectionView {
      *  @param _curNode
      */
     public void setShipSelectionPaneGridEvents (Node _curNode) {
-        _curNode.setOnDragOver(event ->{
-            this.controller.gridOnDragOverEvent(event);
-        });
-        _curNode.setOnDragDropped(event -> {
-            this.controller.gridOnDragDroppedEvent(event);
-        });
+        this.controller.gridOnDragOverEvent(_curNode);
+        this.controller.gridOnDragDroppedEvent(_curNode);
     }
 
     /** Removes the events specific to grid buttons.

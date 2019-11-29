@@ -28,8 +28,8 @@ public class BattleShipFleet {
     private final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
 
     // Moves ship to a row/column based on current position plus increment.
-    public void moveShipIncrementally (int _rowInc, int _columnInc, String _type) {
-        BattleShipShip battleShip = this.fleetOfShips.get(BattleShipShip.convertShipIdToType(_type));
+    public void moveShipIncrementally (int _rowInc, int _columnInc, int _type) {
+        BattleShipShip battleShip = this.fleetOfShips.get(_type);
         battleShip.moveShipIncrementally(_rowInc, _columnInc);
     }
 

@@ -42,7 +42,6 @@ public class BattleShipGameView {
     private final Button switchPaneButton;
     private final Button fireButton;
     private final Button mainMenuButton;
-    private final Button quitGameButton;
     private final BattleShipGameViewInterpreter interpreter = new BattleShipGameViewInterpreter(this);
 
     public BattleShipGameView (Controller _controller) {
@@ -57,11 +56,9 @@ public class BattleShipGameView {
         this.switchPaneButton = ViewAssets.createButton("switch", "Switch view", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.fireButton = ViewAssets.createButton("fire", "Fire", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.mainMenuButton = ViewAssets.createButton("main", "Main Menu", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
-        this.quitGameButton = ViewAssets.createButton("main", "Quit Game", this.screenSize * this.buttonWidthRatio , this.screenSize * this.buttonHeightRatio);
         this.menuBarHBoxArray.add(this.switchPaneButton);
         this.menuBarHBoxArray.add(this.fireButton);
         this.menuBarHBoxArray.add(this.mainMenuButton);
-        this.menuBarHBoxArray.add(this.quitGameButton);
         this.menuBarHBox = ViewAssets.createHBox(this.menuBarHBoxArray, 50, "menuBar",  this.screenSize * this.buttonWidthRatio, this.screenSize * this.buttonHeightRatio);
         // Adding all children to the Parent pane and setting their screen position.
         this.parentPane.getChildren().addAll(this.shipPane, this.gameUpdatesScrollPane, this.menuBarHBox);
@@ -78,7 +75,6 @@ public class BattleShipGameView {
             this.controller.ledButtonSetOnAction((Button)ledButton);
         });
         this.controller.fireEvent(this.fireButton);
-        this.controller.setSceneAndRemoveGame(this.quitGameButton);
         // Adding our interpreter to the event bus.
         BattleShipGame.getEventBus().addListener(this.interpreter);
     }

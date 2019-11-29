@@ -173,78 +173,95 @@ public class Controller implements Initializable {
     }
 
     // Event for w,a,s,d key presses to move ship.
-    public void shipMovementEvent (KeyEvent _event) {
-        Node shipButton = (Node)_event.getSource();
-        String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
-        switch (_event.getText().toUpperCase()) {
-            case BattleShipGame.RIGHT:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(0, +1, type));
-                break;
-            case BattleShipGame.LEFT:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(0, -1, type));
-                break;
-            case BattleShipGame.UP:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(-1, 0, type));
-                break;
-            case BattleShipGame.DOWN:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(+1, 0, type));
-                break;
-        }
+    public void shipMovementEvent (Node _node) {
+        _node.setOnKeyPressed(event -> {
+            switch (event.getText().toUpperCase()) {
+                case BattleShipGame.RIGHT:
+                    BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(0, +1));
+                    break;
+                case BattleShipGame.LEFT:
+                    BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(0, -1));
+                    break;
+                case BattleShipGame.UP:
+                    BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(-1, 0));
+                    break;
+                case BattleShipGame.DOWN:
+                    BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(+1, 0));
+                    break;
+            }
+        });
+    }
+
+    public void setShipSelectionEvent (Node _node) {
+        _node.setOnMousePressed(event -> {
+            Node shipButton = (Node)event.getSource();
+            String shipId = shipButton.getId();
+            int shipType = BattleShipShip.convertShipIdToType(shipId.substring(0, shipId.length()-1));
+            this.battleShipGame.getPlayer1().setSelectedShip(shipType);
+        });
     }
 
     // Event upon dragging ship.
-    public void shipOnDragDetectedEvent (MouseEvent _event) {
-        Node shipButton = (Node)_event.getSource();
-        String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
-        Dragboard db = shipButton.startDragAndDrop(TransferMode.ANY);
-        ClipboardContent content = new ClipboardContent();
-        content.putString(type);
-        db.setContent(content);
-        _event.consume();
-        ImageView cursorView;
-        try {
-            cursorView = new ImageView(new Image(new FileInputStream(ViewAssets.SHIPIMAGES.concat(type).concat(ViewAssets.SHIPIMAGEEXTENSION)), 100, 100, true, false));
-            Image cursorImage = cursorView.getImage();
-            cursorView.setOpacity(100);
-            int orientation = this.battleShipGame.getPlayer1().getBattleShipFleet().getFleetOfShips().get(BattleShipShip.convertShipIdToType(type)).getShipOrientation();
-            if(orientation == BattleShipShip.VERTICAL){
-                cursorView.setRotate(90);
-                SnapshotParameters params = new SnapshotParameters();
-                params.setFill(Color.TRANSPARENT);
-                cursorImage = cursorView.snapshot(params, null);
+    public void shipOnDragDetectedEvent (Node _node) {
+        _node.setOnDragDetected(event -> {
+            Node shipButton = (Node)event.getSource();
+            String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
+            Dragboard db = shipButton.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(type);
+            db.setContent(content);
+            event.consume();
+            ImageView cursorView;
+            try {
+                cursorView = new ImageView(new Image(new FileInputStream(ViewAssets.SHIPIMAGES.concat(type).concat(ViewAssets.SHIPIMAGEEXTENSION)), 100, 100, true, false));
+                Image cursorImage = cursorView.getImage();
+                cursorView.setOpacity(100);
+                int orientation = this.battleShipGame.getPlayer1().getBattleShipFleet().getFleetOfShips().get(BattleShipShip.convertShipIdToType(type)).getShipOrientation();
+                if(orientation == BattleShipShip.VERTICAL){
+                    cursorView.setRotate(90);
+                    SnapshotParameters params = new SnapshotParameters();
+                    params.setFill(Color.TRANSPARENT);
+                    cursorImage = cursorView.snapshot(params, null);
+                }
+                db.setDragView(cursorImage,0,0);
             }
-            db.setDragView(cursorImage,0,0);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            catch (FileNotFoundException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     // Event upon dragging ship over a grid.
-    public void gridOnDragOverEvent (DragEvent _event) {
-        Button curButton = (Button)_event.getSource();
-        if (_event.getGestureSource() != curButton &&
-                _event.getDragboard().hasString()) {
-            _event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-        }
-        _event.consume();
+    public void gridOnDragOverEvent (Node _node) {
+        _node.setOnDragOver(event -> {
+            Button curButton = (Button)event.getSource();
+            if (event.getGestureSource() != curButton && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            //event.consume();
+        });
     }
 
     // Event upon dragging and then dropping ship.
-    public void gridOnDragDroppedEvent (DragEvent _event) {
-        Button curButton = (Button)_event.getSource();
-        int rowIndex = GridPane.getRowIndex(curButton);
-        int columnIndex = GridPane.getColumnIndex(curButton);
-        String shipType = _event.getDragboard().getString();
-        BattleShipGame.getEventBus().throwEvent(new MoveShipEvent(rowIndex, columnIndex, shipType));
-         _event.consume();
+    public void gridOnDragDroppedEvent (Node _node) {
+        _node.setOnDragDropped(event -> {
+            Button curButton = (Button)event.getSource();
+            int rowIndex = GridPane.getRowIndex(curButton);
+            int columnIndex = GridPane.getColumnIndex(curButton);
+            String shipType = event.getDragboard().getString();
+            BattleShipGame.getEventBus().throwEvent(new MoveShipEvent(rowIndex, columnIndex, shipType));
+             event.consume();
+         });
     }
 
     // Event to rotate the ship.
-    public void shipOnScrollEvent (ScrollEvent _event) {
-        Node shipButton = (Node)_event.getSource();
-        String shipId = shipButton.getId().substring(0,shipButton.getId().length()-1);
-        int shipType = BattleShipShip.convertShipIdToType(shipId);
-        BattleShipGame.getEventBus().throwEvent(new RotateShipEvent(shipType));
+    public void shipOnScrollEvent (Node _node) {
+        _node.setOnScroll(event -> {
+            Node shipButton = (Node)event.getSource();
+            String shipId = shipButton.getId().substring(0,shipButton.getId().length()-1);
+            int shipType = BattleShipShip.convertShipIdToType(shipId);
+            BattleShipGame.getEventBus().throwEvent(new RotateShipEvent(shipType));
+        });
     }
 
     // Event to close program and save last values of certain settings.
