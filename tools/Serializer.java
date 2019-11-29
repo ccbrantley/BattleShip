@@ -1,7 +1,7 @@
 package battleship.tools;
 
 /* @author Area 51 Block Party:
- * Richard Abrams, Christopher Brantley
+ * Richard Abrams
  * Last Updated: 11/27/2019
  */
 
