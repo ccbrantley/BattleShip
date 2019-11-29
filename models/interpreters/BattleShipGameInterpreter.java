@@ -27,12 +27,12 @@ public class BattleShipGameInterpreter implements Listener {
             int destination = event.getDestination();
             if (destination == BattleShipPlayer.AWAY) {
                 Coordinate selectedCoordinate = this.battleShipGame.getPlayer1().getCurrentTarget();
-                GameUpdateUserMessage messageEvent;
+                GameMessageEvent messageEvent;
                 if (this.battleShipGame.getPlayer2().getBattleShipFleet().receiveFire(selectedCoordinate)) {
-                    messageEvent = new GameUpdateUserMessage("Ship Hit.");
+                    messageEvent = new GameMessageEvent("Ship Hit.");
                 }
                 else {
-                    messageEvent = new GameUpdateUserMessage("Shot Missed.");
+                    messageEvent = new GameMessageEvent("Shot Missed.");
                 }
                 BattleShipGame.getEventBus().throwEvent(messageEvent);
                 this.battleShipGame.getPlayer1().setTurn(true);

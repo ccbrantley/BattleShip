@@ -50,15 +50,15 @@ public class BattleShipGameViewInterpreter implements Listener {
             }
         }
 
-        if(_event instanceof RemoveAllRedLedEvent) {
+        if(_event instanceof RedActiveLedEvent) {
              this.battleShipGameView.getPinPane().getChildren().forEach((curNode) -> {
                  if(curNode.getId().equals("redActive"))
                 curNode.setId("blue");
             });
         }
 
-        if(_event instanceof GameUpdateUserMessage) {
-            GameUpdateUserMessage event = (GameUpdateUserMessage)_event;
+        if(_event instanceof GameMessageEvent) {
+            GameMessageEvent event = (GameMessageEvent)_event;
             String message = event.getMessage();
             Label messageLabel = ViewAssets.createLabel("message", message, true);
             this.battleShipGameView.getMessageBox().getChildren().add(messageLabel);

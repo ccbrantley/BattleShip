@@ -12,7 +12,7 @@ import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
 import battleship.tools.Listener;
 import battleship.tools.events.FireAwayEvent;
-import battleship.tools.events.GameUpdateUserMessage;
+import battleship.tools.events.GameMessageEvent;
 
 public class BattleShipBotAi implements Listener {
 
@@ -24,7 +24,7 @@ public class BattleShipBotAi implements Listener {
     int yPos;
     int opponent;
     Coordinate currentTarget;
-    GameUpdateUserMessage messageEvent;
+    GameMessageEvent messageEvent;
 
     //Enumeration -> Bot difficulty.
     public static final int NULL = -1;

@@ -1,7 +1,7 @@
 package battleship.weather.api;
 
 /* @author Area 51 Block Party:
- * Andrew Braswell, Ike Quigley, Christopher Brantley
+ * Andrew Braswell, Ike Quigley
  * Last Updated: 11/27/2019
  * This class connects to the openweathermap.org web server for retrieving
  * information about the weather.

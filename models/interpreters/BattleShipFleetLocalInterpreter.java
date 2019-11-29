@@ -7,6 +7,7 @@ package battleship.models.interpreters;
 
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
+import battleship.models.BattleShipShip;
 import battleship.tools.Listener;
 import battleship.tools.events.*;
 
@@ -20,11 +21,11 @@ public class BattleShipFleetLocalInterpreter implements Listener {
 
     @Override
     public void catchEvent(Object _event) {
-        if (_event instanceof MoveShipIncrementEvent) {
-            MoveShipIncrementEvent event = (MoveShipIncrementEvent)_event;
+        if (_event instanceof MoveShipIncrementallyEvent) {
+            MoveShipIncrementallyEvent event = (MoveShipIncrementallyEvent)_event;
             int row = event.getRow();
             int column = event.getColumn();
-            String type = event.getType();
+            String type = event.getShipType();
             this.player.getBattleShipFleet().moveShipIncrementally(row, column, type);
             this.refreshGame();
         }
@@ -33,16 +34,17 @@ public class BattleShipFleetLocalInterpreter implements Listener {
             MoveShipEvent event = (MoveShipEvent)_event;
             int row = event.getRow();
             int column = event.getColumn();
-            String type = event.getType();
+            String type = event.getShipType();
             this.player.getBattleShipFleet().moveShip(row, column, type);
             this.refreshGame();
         }
 
         if (_event instanceof RotateShipEvent) {
             RotateShipEvent event = (RotateShipEvent)_event;
-            String type = event.getType();
+            int shipType = event.getShipType();
+            String shipId = BattleShipShip.convertShipTypeToId(shipType);
             this.player.getBattleShipFleet().getFleetOfShips().forEach(ship -> {
-                if(ship.getShipId().equals(type)) {
+                if(ship.getShipId().equals(shipId)) {
                     ship.rotateShip();
                 }
             });

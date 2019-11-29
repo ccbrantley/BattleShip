@@ -65,6 +65,27 @@ public class BattleShipShip {
         }
     }
 
+    /**Determines ship's string Id from its enumerated value.
+     * @param _type
+     * @return ship's string Id.
+     */
+    public static String convertShipTypeToId (int _type) {
+        switch (_type) {
+            case BattleShipShip.CARRIER:
+                return "carrier";
+            case BattleShipShip.BATTLESHIP:
+                return "battleship";
+            case BattleShipShip.CRUISER:
+                return "cruiser";
+            case BattleShipShip.SUBMARINE:
+                return "submarine";
+            case BattleShipShip.DESTROYER:
+                return "destroyer";
+            default:
+                return "error";
+        }
+    }
+
     /**Takes a value and checks if it is within the range of the board.
      * @param _index
      * @return Boolean value of whether the value lies within the board size.
@@ -225,27 +246,6 @@ public class BattleShipShip {
             }
         }
         return true;
-    }
-
-    /**Determines ship's string Id from its enumerated value.
-     * @param _type
-     * @return ship's string Id.
-     */
-    private String convertShipTypeToId (int _type) {
-        switch (_type) {
-            case BattleShipShip.CARRIER:
-                return "carrier";
-            case BattleShipShip.BATTLESHIP:
-                return "battleship";
-            case BattleShipShip.CRUISER:
-                return "cruiser";
-            case BattleShipShip.SUBMARINE:
-                return "submarine";
-            case BattleShipShip.DESTROYER:
-                return "destroyer";
-            default:
-                return "error";
-        }
     }
 
     /**Determines a ships length from its enumerated value.

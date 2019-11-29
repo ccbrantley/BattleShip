@@ -152,7 +152,7 @@ public class Controller implements Initializable {
             String newId = ViewAssets.NULLLED;
             switch (buttonId) {
                 case ViewAssets.BLUELED:
-                    BattleShipGame.getEventBus().throwEvent(new RemoveAllRedLedEvent());
+                    BattleShipGame.getEventBus().throwEvent(new RedActiveLedEvent());
                     int row = GridPane.getRowIndex(_button);
                     int column = GridPane.getColumnIndex(_button);
                     BattleShipGame.getEventBus().throwEvent(new SetTargetEvent(new Coordinate(row, column)));
@@ -178,16 +178,16 @@ public class Controller implements Initializable {
         String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
         switch (_event.getText().toUpperCase()) {
             case BattleShipGame.RIGHT:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(0, +1, type));
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(0, +1, type));
                 break;
             case BattleShipGame.LEFT:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(0, -1, type));
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(0, -1, type));
                 break;
             case BattleShipGame.UP:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(-1, 0, type));
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(-1, 0, type));
                 break;
             case BattleShipGame.DOWN:
-                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementEvent(+1, 0, type));
+                BattleShipGame.getEventBus().throwEvent(new MoveShipIncrementallyEvent(+1, 0, type));
                 break;
         }
     }
@@ -242,8 +242,9 @@ public class Controller implements Initializable {
     // Event to rotate the ship.
     public void shipOnScrollEvent (ScrollEvent _event) {
         Node shipButton = (Node)_event.getSource();
-        String type = shipButton.getId().substring(0,shipButton.getId().length()-1);
-        BattleShipGame.getEventBus().throwEvent(new RotateShipEvent(type));
+        String shipId = shipButton.getId().substring(0,shipButton.getId().length()-1);
+        int shipType = BattleShipShip.convertShipIdToType(shipId);
+        BattleShipGame.getEventBus().throwEvent(new RotateShipEvent(shipType));
     }
 
     // Event to close program and save last values of certain settings.

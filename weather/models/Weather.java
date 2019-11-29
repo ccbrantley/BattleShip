@@ -1,7 +1,7 @@
 package battleship.weather.models;
 
 /* @author Area 51 Block Party:
- * Andrew Braswell, Christopher Brantley
+ * Andrew Braswell
  * Last Updated: 11/27/2019
  * This class handles all functionality related to weather.
  */
