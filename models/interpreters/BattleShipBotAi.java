@@ -1,7 +1,7 @@
 package battleship.models.interpreters;
 
 /*@Author Area51BlockParty
-* Jacob Schumacher, Christopher Brantley
+* Jacob Schumacher
 * Last updated 11/28/19
 * This class is protocol for battle ship AI.
 */

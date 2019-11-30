@@ -26,6 +26,9 @@ public class MusicPlayer {
     public static final String INTROSONG = "intro.mp3";
     // Enumerators -> Serialization Type.
     public static final int VOLUME = 7;
+    //Enumerators -> state.
+    public static boolean AUTOPLAY = true;
+    public static boolean PRIME = false;
 
     public MusicPlayer (double _volumeLevel, boolean _autoPlay) {
         this.initializeMusicSelection();

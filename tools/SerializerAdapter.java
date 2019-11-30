@@ -3,7 +3,7 @@ package battleship.tools;
 
 /* @author Area 51 Block Party:
  * Richard Abrams
- * Last Updated: 11/27/2019
+ * Last Updated: 11/29/2019
  */
 
 import java.util.ArrayList;
@@ -62,8 +62,8 @@ public class SerializerAdapter {
 
 //*****************     SETTERS     *******************
 
-    public void setSerializer (Serializer serializer) {
-        this.serializer = serializer;
+    public void setSerializer (Serializer _serializer) {
+        this.serializer = _serializer;
     }
 
 }

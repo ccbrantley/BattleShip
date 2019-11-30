@@ -2,14 +2,13 @@ package battleship.controller;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley, Richard Abrams
- * Last Updated: 11/27/2019
+ * Last Updated: 11/29/2019
  */
 
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.models.BattleShipShip;
 import battleship.models.Coordinate;
-import battleship.tools.EventBus;
 import battleship.models.GraphicEffect;
 import battleship.models.MusicPlayer;
 import battleship.tools.SerializerAdapter;
@@ -46,9 +45,8 @@ public class Controller implements Initializable {
     private Stage stage;
     private BattleShipGame battleShipGame = new BattleShipGame();
     private final SerializerAdapter serializerAdapter = new SerializerAdapter();
-    private MusicPlayer musicPlayer = new MusicPlayer(.25,true);
+    private MusicPlayer musicPlayer = new MusicPlayer(.25, MusicPlayer.AUTOPLAY);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
-    private final EventBus eventBus = BattleShipGame.eventBus;
 
     public Controller (Stage _stage) {
         this.stage = _stage;
@@ -56,10 +54,11 @@ public class Controller implements Initializable {
     }
 
     @Override
-    public void initialize (URL _url, ResourceBundle _rb) {}
+    public void initialize (URL _url, ResourceBundle _rb) {
+    }
 
     //Creates and returns a view based on the _sceneType argument.
-    private Pane createView (String _sceneType){
+    private Pane createView (String _sceneType) {
         Pane parentPane;
             switch (_sceneType) {
                 case ViewAssets.PLAY:
@@ -100,7 +99,7 @@ public class Controller implements Initializable {
         this.setSettings(this.serializerAdapter.extractData(MusicPlayer.VOLUME), MusicPlayer.VOLUME);
     }
 
-    private void setSettings(String _data, int _loadType){
+    private void setSettings (String _data, int _loadType) {
         if(_data.equals(" ")){
             return;
         }
@@ -326,35 +325,35 @@ public class Controller implements Initializable {
 
     // Event to set listener to music selection.
     public void setMediaPlayerSelectionListener (ComboBox _comboBox) {
-        _comboBox.valueProperty().addListener((observable,oldValue,newValue)->{
+        _comboBox.valueProperty().addListener((observable,oldValue,newValue)-> {
             this.musicPlayer.setSong(newValue);
         });
     }
 
     // Event to set listener to brigthness slider.
     public void setGraphicEffectBrightnessListener (Slider _slider) {
-        _slider.valueProperty().addListener((observable,oldValue,newValue)->{
+        _slider.valueProperty().addListener((observable,oldValue,newValue)-> {
             this.graphicsEffect.setBrightnessLevel(newValue);
         });
     }
 
     // Event to set listener to contrast slider.
     public void setGraphicEffectContrastsListener (Slider _slider) {
-        _slider.valueProperty().addListener((observable,oldValue,newValue)->{
+        _slider.valueProperty().addListener((observable,oldValue,newValue)-> {
             this.graphicsEffect.setContrastLevel(newValue);
         });
     }
 
     // Event to set listener to saturation slider.
     public void setGraphicEffectSaturationListener (Slider _slider) {
-        _slider.valueProperty().addListener((observable,oldValue,newValue)->{
+        _slider.valueProperty().addListener((observable,oldValue,newValue)-> {
             this.graphicsEffect.setSaturationLevel(newValue);
         });
     }
 
     // Event to set listener to hue slider.
     public void setGraphicEffectHueListener (Slider _slider) {
-       _slider.valueProperty().addListener((observable,oldValue,newValue)->{
+       _slider.valueProperty().addListener((observable,oldValue,newValue)-> {
            this.graphicsEffect.setHueLevel(newValue);
        });
     }
