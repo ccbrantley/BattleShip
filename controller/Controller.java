@@ -100,21 +100,20 @@ public class Controller implements Initializable {
     }
 
     private void setSettings (String _data, int _loadType) {
-        if(_data.equals(" ")){
+        if (_data.equals(" ")) {
             return;
         }
-        double data = Double.parseDouble(_data);
         switch (_loadType) {
             case GraphicEffect.CONTRAST:
-                this.graphicsEffect.setContrastLevel(data);
+                this.graphicsEffect.setContrastLevel(Double.parseDouble(_data));
             case GraphicEffect.BRIGHTNESS:
-                this.graphicsEffect.setBrightnessLevel(data);
+                this.graphicsEffect.setBrightnessLevel(Double.parseDouble(_data));
             case GraphicEffect.HUE:
-                this.graphicsEffect.setHueLevel(data);
+                this.graphicsEffect.setHueLevel(Double.parseDouble(_data));
             case GraphicEffect.SATURATION:
-                this.graphicsEffect.setSaturationLevel(data);
+                this.graphicsEffect.setSaturationLevel(Double.parseDouble(_data));
             case MusicPlayer.VOLUME:
-                this.musicPlayer.setVolumeLevel(data);
+                this.musicPlayer.setVolumeLevel(Double.parseDouble(_data));
         }
     }
 
