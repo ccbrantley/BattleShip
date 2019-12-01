@@ -12,7 +12,7 @@ import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
 import battleship.tools.Listener;
 import battleship.tools.events.FireAwayEvent;
-import battleship.tools.events.GameMessageEvent;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -21,14 +21,21 @@ public class BattleShipBotAi implements Listener {
 
     private int difficulty = BattleShipBotAi.NULL;
     private BattleShipPlayer player;
-    Coordinate[][] shotsFired;
-    Coordinate lastHit;
+    ArrayList<Coordinate> possibleShots = new ArrayList();
     int opponent;
-    Coordinate currentTarget;
-    GameMessageEvent messageEvent;
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds((int)(Math.random() * 5)+ 5), event ->{
-        this.takeShot();
+    /*
+    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 5), event -> {
+        if (this.player.isTurn() && !this.possibleShots.isEmpty()) {
+            this.takeShot();
+        }
     }));
+    */
+    Timeline aMilliWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
+        if (this.player.isTurn() && !this.possibleShots.isEmpty()) {
+            this.takeShot();
+        }
+    }));
+
 
 
     //Enumeration -> Bot difficulty.
@@ -40,34 +47,43 @@ public class BattleShipBotAi implements Listener {
     public BattleShipBotAi (BattleShipPlayer _AI, int _difficulty) {
         this.player = _AI;
         this.difficulty = _difficulty;
-        this.shotsFired = new Coordinate[10][10];
         if(this.player.getPlayerTeam() == BattleShipPlayer.AWAY){
             this.opponent = BattleShipPlayer.LOCAL;
         }
         else{
             this.opponent = BattleShipPlayer.AWAY;
         }
-        this.fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        this.fiveSecondsWonder.play();
-    }
+        this.createPossibleShotArray();
+        this.aMilliWonder.setCycleCount(Timeline.INDEFINITE);
+        this.aMilliWonder.play();
 
-    private void takeShot () {
-        Coordinate randCoordinate = BattleShipBoard.generateRandomCoordinate();
-        int xPos = randCoordinate.getRow();
-        int yPos = randCoordinate.getColumn();
-        if(this.shotsFired[xPos][yPos] == null){
-            this.currentTarget = randCoordinate;
-            this.player.setCurrentTarget(randCoordinate);
-            BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(this.opponent));
-            this.shotsFired[xPos][yPos] = randCoordinate;
-        }
-        else {
-            takeShot();
-        }
     }
 
     @Override
     public void catchEvent(Object _event) {
+    }
+
+    private void createPossibleShotArray () {
+        for (int x = 0; x < BattleShipBoard.BOARDSIZE; ++x) {
+            for (int y = 0; y < BattleShipBoard.BOARDSIZE; ++y) {
+                this.possibleShots.add(new Coordinate(x, y));
+            }
+        }
+    }
+
+    private Coordinate getRandomPossibleShot () {
+        int randIndex = (int)(Math.random() * (this.possibleShots.size() - 1));
+        Coordinate randCoordinate = this.possibleShots.get(randIndex);
+        this.possibleShots.remove(randIndex);
+        return randCoordinate;
+    }
+
+    private void takeShot () {
+        Coordinate randCoordinate = this.getRandomPossibleShot();
+        int xPos = randCoordinate.getRow();
+        int yPos = randCoordinate.getColumn();
+        this.player.setCurrentTarget(randCoordinate);
+        BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(this.opponent));
     }
 
 }

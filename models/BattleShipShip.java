@@ -94,6 +94,19 @@ public class BattleShipShip {
         return !(_index < 0 | _index > BattleShipBoard.BOARDSIZE-1 );
     }
 
+    /**
+     * @return Ship's state of being sunk or not sunk.
+     */
+    public Boolean isSunk () {
+        boolean sunkState = true;
+        for (BattleShipShipPiece piece : this.getShipPieces()) {
+            if (!piece.isHit()) {
+                sunkState = false;
+            }
+        }
+        return sunkState;
+    }
+
     /**Takes a coordinate and returns a list of coordinates of where the ship
      * would occupy if moved to that coordinate.
      * @param _row

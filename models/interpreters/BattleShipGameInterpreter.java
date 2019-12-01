@@ -16,10 +16,12 @@ import battleship.tools.ViewAssets;
 
 public class BattleShipGameInterpreter implements Listener {
 
+    private BattleShipGame battleShipGame;
+    private boolean gameOver = false;
+
     public BattleShipGameInterpreter(BattleShipGame _battleShipGame) {
         this.battleShipGame = _battleShipGame;
     }
-    private BattleShipGame battleShipGame;
 
     @Override
     public void catchEvent(Object _event) {
@@ -52,6 +54,10 @@ public class BattleShipGameInterpreter implements Listener {
                 gameMessage += "was successful.";
                 BattleShipGame.getEventBus().throwEvent(new ShipHitEvent(row,column, destination));
                 updatePinEvent = new UpdatePinEvent(row, column, attackingPlayer.getPlayerTeam(), ViewAssets.REDLED);
+                if (receivingPlayer.getBattleShipFleet().getLiveShipCount() == 0) {
+                    gameMessage = "Player " + (attackingPlayer.getPlayerTeam() + 1) + " wins!";
+                    gameOver = true;
+                }
             }
             else {
                 gameMessage += "was not successful.";
@@ -61,6 +67,9 @@ public class BattleShipGameInterpreter implements Listener {
             receivingPlayer.setTurn(true);
             BattleShipGame.getEventBus().throwEvent(updatePinEvent);
             BattleShipGame.getEventBus().throwEvent(new GameMessageEvent(gameMessage));
+            if (this.gameOver) {
+                BattleShipGame.getEventBus().resetListeners();
+            }
         }
     }
 

@@ -12,6 +12,10 @@ import java.util.ArrayList;
 
 public class BattleShipFleet {
 
+    // Serves as an reference to all ships of a fleet.
+    private final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
+    private int liveShipCount;
+
     /**Creates one of every ship type by incrementing through
      * the range of enumerated values and moves the ship to
      * a random position.
@@ -21,11 +25,9 @@ public class BattleShipFleet {
             BattleShipShip curShip = new BattleShipShip(shipType, (int)(Math.random() * 2), this.fleetOfShips);
             curShip.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
             this.fleetOfShips.add(shipType, curShip);
+            this.liveShipCount++;
         }
     }
-
-    // Serves as an reference to all ships of a fleet.
-    private final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
 
     // Moves ship to a row/column based on current position plus increment.
     public void moveShipIncrementally (int _rowInc, int _columnInc, int _type) {
@@ -47,6 +49,7 @@ public class BattleShipFleet {
         });
     }
 
+    // NOTE: Should find away to remove all throw events and place them only in interpreters to preserve model integrity.
     // Throws all sector update events with the ship coordinates.
     public final void throwAllPositionUpdateEvents () {
         this.getFleetOfShips().forEach(ship -> {
@@ -65,6 +68,9 @@ public class BattleShipFleet {
                 if(fireRow == piece.getRowIndex()) {
                     if (fireColumn == piece.getColumnIndex()) {
                         piece.setHit(true);
+                        if (ship.isSunk()) {
+                            --this.liveShipCount;
+                        }
                         return true;
                     }
                 }
@@ -77,6 +83,10 @@ public class BattleShipFleet {
 
     public ArrayList<BattleShipShip> getFleetOfShips () {
         return this.fleetOfShips;
+    }
+
+    public int getLiveShipCount () {
+        return this.liveShipCount;
     }
 
 }
