@@ -60,7 +60,7 @@ public class BattleShipBotAi implements Listener {
     }
 
     @Override
-    public void catchEvent(Object _event) {
+    public void catchEvent (Object _event) {
     }
 
     private void createPossibleShotArray () {
