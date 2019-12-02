@@ -1,8 +1,9 @@
 package battleship.tools;
 
 /* @author Area 51 Block Party:
- * Richard Abrams
- * Last Updated: 11/27/2019
+ * Richard Abrams, Christopher Brantley
+ * This class can take a string and save it to a file or load what is stored in said file.
+ * Last Updated: 12/2/2019
  */
 
 import java.io.File;
@@ -19,10 +20,12 @@ public class Serializer {
     //Enumerator -> Save Path.
     public static final String SAVEFP = "settings.ser";
 
+    //This method is a constructor.
     public Serializer () {
         this.savedInfo = " ";
     }
 
+    //Save a given string to the settings file by concatenating to the save string and sending it to the file.
     public void serialize (String _input) {
         boolean saveSuccesfull = true;
             try (FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
@@ -37,6 +40,7 @@ public class Serializer {
         System.out.println("Saved: " + saveSuccesfull);
     }
 
+    // Loads a string from the settings file and returns it.
     public String deserialize () {
         if (this.setting.exists() == true) {
             try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP);
@@ -55,9 +59,13 @@ public class Serializer {
         }
     }
 
+//*****************     GETTERS     *******************
+
     public String getSavedInfo () {
         return this.savedInfo;
     }
+
+//*****************     SETTERS     *******************
 
     public void setSavedInfo (String savedInfo) {
         this.savedInfo = savedInfo;
