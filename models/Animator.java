@@ -209,9 +209,9 @@ public final class Animator {
         }
     }
 
-        public void playAnimation () {
-            this.timeLine.playFromStart();
-        }
+    public void playAnimation () {
+        this.timeLine.playFromStart();
+    }
 
 //*****************     GETTERS     *******************
 

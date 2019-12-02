@@ -14,6 +14,7 @@ public class BattleShipBoard {
     public BattleShipBoard () {
     }
 
+    // Generates a random coordinate within the boundaries of the board.
     public static Coordinate generateRandomCoordinate() {
         int randomRow = (int)(Math.random() * BattleShipBoard.BOARDSIZE);
         int randomColumn = (int)(Math.random() * BattleShipBoard.BOARDSIZE);
