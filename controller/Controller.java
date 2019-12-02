@@ -49,6 +49,7 @@ public class Controller implements Initializable {
     private final GraphicEffect graphicsEffect = new GraphicEffect();
 
     public Controller (Stage _stage) {
+        System.out.println(this.musicPlayer.getMusicMap());
         this.stage = _stage;
         loadSettings();
     }

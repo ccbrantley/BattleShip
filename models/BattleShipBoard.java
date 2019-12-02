@@ -11,7 +11,7 @@ public class BattleShipBoard {
 
     public static final int BOARDSIZE = 10;
 
-    public BattleShipBoard (BattleShipPlayer _player) {
+    public BattleShipBoard () {
     }
 
     public static Coordinate generateRandomCoordinate() {

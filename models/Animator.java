@@ -34,7 +34,7 @@ public final class Animator {
     }
 
     // Pieces together the images of an animation at the correct time interval.
-    public void createExplosionAnimation() {
+    private void createExplosionAnimation() {
         try {
             Image smoke = new Image(new FileInputStream(Animator.IMAGESRCPATH + "explosion/smoke1.png"));
             Image smoke2 = new Image(new FileInputStream(Animator.IMAGESRCPATH + "explosion/smoke2.png"));
