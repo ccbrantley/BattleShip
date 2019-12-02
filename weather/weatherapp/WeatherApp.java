@@ -1,21 +1,23 @@
 package battleship.weather.weatherapp;
-/**
- * This class is for demonstrating the use of a weather api.
- *
- * @author Andrew Braswell Last Updated: 11/13/2019
- */
-import battleship.weather.models.Weather;
-import battleship.weather.util.Location;
 
+/* @author Area 51 Block Party:
+ * Andrew Braswell
+ * Last Updated: 11/27/2019
+ * This class is for demonstrating the use of a weather api.
+ */
+
+import java.text.DecimalFormat;
+import battleship.weather.models.Weather;
 
 public class WeatherApp {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        Weather x = Weather.loadWeatherByLocation(Location.MIDWAY);
-
-        System.out.println("The temperature at " + x.getLocationName() + " is " + x.getTemperature());
+        DecimalFormat f = new DecimalFormat("#.##");
+        for (Weather w : Weather.loadWeathersForAllLocations()) {
+            System.out.println("The temperature in " + w.getLocationName() + " is " + w.getTemperature() + " F.");
+            System.out.println("Windspeed: " + w.getWindSpeed() + ".  Wind direction: " + w.getWindDirection());
+            System.out.println("The wind is blowing " + f.format(w.getXWindSpeed()) + " mph from the west and " + f.format(w.getYWindSpeed()) + " mph from the north. \n");
+        }
     }
+
 }

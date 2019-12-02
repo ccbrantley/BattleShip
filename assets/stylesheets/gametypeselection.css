@@ -1,0 +1,22 @@
+#gameTypePane{
+ -fx-background-image: url("../images/water/ocean2.gif");
+ -fx-background-size: 100% 100%;
+}
+
+.label{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-weight: bold;
+    -fx-font-size: xx-large;
+    -fx-alignment:center;
+}
+
+.button{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-opacity: .8;
+    -fx-font-size: x-large;
+    -fx-alignment:center;
+    -fx-text-align: center;
+}

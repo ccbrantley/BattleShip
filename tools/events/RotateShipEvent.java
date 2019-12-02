@@ -2,27 +2,28 @@ package battleship.tools.events;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/03/2019
+ * Last Updated: 11/28/2019
  * Rotate Ship Event.
  */
 
 public class RotateShipEvent {
-    public RotateShipEvent(String _type) {
-        this.type = _type;
-    }
 
-    private String type;
+    private int shipType;
+
+    public RotateShipEvent (int _shipType) {
+        this.shipType = _shipType;
+    }
 
 //*****************     GETTERS     *******************
 
-    public String getType() {
-        return type;
+    public int getShipType () {
+        return this.shipType;
     }
 
 //*****************     SETTERS     *******************
 
-    public void setType(String type) {
-        this.type = type;
+    public void setShipType (int _shipType) {
+        this.shipType = _shipType;
     }
 
 }

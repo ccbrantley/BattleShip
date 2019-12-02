@@ -1,9 +1,8 @@
-
 package battleship.tools.events;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/03/2019
+ * Last Updated: 11/28/2019
  * Event that contains information
  * to update the model to show
  * which index to fire at.
@@ -12,19 +11,22 @@ package battleship.tools.events;
 import battleship.models.Coordinate;
 
 public class SetTargetEvent {
-    public SetTargetEvent(Coordinate _coordinate){
+
+    private Coordinate coordinate;
+
+    public SetTargetEvent (Coordinate _coordinate){
         this.coordinate = _coordinate;
     }
-    private Coordinate coordinate;
 
 //*****************     GETTERS     *******************
 
-    public Coordinate getCoordinate() {
-        return coordinate;
+    public Coordinate getCoordinate () {
+        return this.coordinate;
     }
+
 //*****************     SETTERS     *******************
 
-    public void setCoordinate(Coordinate coordinate) {
+    public void setCoordinate (Coordinate coordinate) {
         this.coordinate = coordinate;
     }
 

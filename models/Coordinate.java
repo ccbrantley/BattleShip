@@ -1,29 +1,51 @@
 package battleship.models;
 
+/* @author Area 51 Block Party:
+ * Christopher Brantley
+ * Last Updated: 11/27/2019
+ * Coordinate represents a single (x,y) pair.
+ */
+
 public class Coordinate {
-    public Coordinate(int _row, int _column){
+
+    private int row;
+    private int column;
+
+    public Coordinate (int _row, int _column) {
         this.row = _row;
         this.column = _column;
     }
-    private int row;
-    private int column;
-//*****************     GETTERS     *******************
 
-    public int getRow() {
-        return row;
+    @Override
+    public boolean equals(Object _other) {
+        if(_other instanceof Coordinate){
+            Coordinate other = (Coordinate)_other;
+            if (other.getRow() == this.getRow()) {
+                if (other.getColumn() == this.getColumn()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-    public int getColumn() {
-        return column;
+//*****************     GETTERS     *******************
+
+    public int getRow () {
+        return this.row;
+    }
+
+    public int getColumn () {
+        return this.column;
     }
 
 //*****************     SETTERS     *******************
 
-    public void setRow(int row) {
+    public void setRow (int row) {
         this.row = row;
     }
 
-    public void setColumn(int column) {
+    public void setColumn (int column) {
         this.column = column;
     }
 

@@ -11,33 +11,66 @@ import battleship.models.Coordinate;
 import battleship.tools.events.FireAwayEvent;
 import battleship.tools.events.*;
 import battleship.tools.Listener;
+import battleship.tools.ViewAssets;
 
 
 public class BattleShipGameInterpreter implements Listener {
 
+    private BattleShipGame battleShipGame;
+    private boolean gameOver = false;
+
     public BattleShipGameInterpreter(BattleShipGame _battleShipGame) {
         this.battleShipGame = _battleShipGame;
     }
-    private BattleShipGame battleShipGame;
 
     @Override
     public void catchEvent(Object _event) {
         if (_event instanceof FireAwayEvent) {
             FireAwayEvent event = (FireAwayEvent)_event;
+            BattleShipPlayer attackingPlayer;
+            BattleShipPlayer receivingPlayer;
+            String gameMessage;
             int destination = event.getDestination();
             if (destination == BattleShipPlayer.AWAY) {
-                Coordinate selectedCoordinate = this.battleShipGame.getPlayer1().getCurrentTarget();
-                GameUpdateUserMessage messageEvent;
-                if (this.battleShipGame.getPlayer2().getBattleShipFleet().receiveFire(selectedCoordinate)) {
-                    messageEvent = new GameUpdateUserMessage("Ship Hit.");
+                attackingPlayer = this.battleShipGame.getPlayer1();
+                receivingPlayer = this.battleShipGame.getPlayer2();
+                gameMessage = "Player 1's target, ";
+            }
+            else {
+                attackingPlayer = this.battleShipGame.getPlayer2();
+                receivingPlayer = this.battleShipGame.getPlayer1();
+                gameMessage = "Player 2's target, ";
+            }
+            if (!attackingPlayer.isTurn()) {
+                return;
+            }
+            Coordinate attackedCoordinate = attackingPlayer.getCurrentTarget();
+            int row = attackedCoordinate.getRow();
+            int column = attackedCoordinate.getColumn();
+            gameMessage += "(" + (row + 1) + ", " + (column + 1) + "), ";
+            GameMessageEvent messageEvent;
+            UpdatePinEvent updatePinEvent;
+            if (receivingPlayer.getBattleShipFleet().receiveFire(attackedCoordinate)) {
+                gameMessage += "was successful.";
+                BattleShipGame.getEventBus().throwEvent(new ShipHitEvent(row,column, destination));
+                updatePinEvent = new UpdatePinEvent(row, column, attackingPlayer.getPlayerTeam(), ViewAssets.REDLED);
+                if (receivingPlayer.getBattleShipFleet().getLiveShipCount() == 0) {
+                    gameMessage = "Player " + (attackingPlayer.getPlayerTeam() + 1) + " wins!";
+                    gameOver = true;
                 }
-                else {
-                    messageEvent = new GameUpdateUserMessage("Shot Missed.");
-                }
-                BattleShipGame.getEventBus().throwEvent(messageEvent);
-                this.battleShipGame.getPlayer1().setTurn(true);
-                this.battleShipGame.getPlayer2().setTurn(true);
+            }
+            else {
+                gameMessage += "was not successful.";
+                updatePinEvent = new UpdatePinEvent(row, column, attackingPlayer.getPlayerTeam(), ViewAssets.YELLOWLED);
+            }
+            attackingPlayer.setTurn(false);
+            receivingPlayer.setTurn(true);
+            BattleShipGame.getEventBus().throwEvent(updatePinEvent);
+            BattleShipGame.getEventBus().throwEvent(new GameMessageEvent(gameMessage));
+            if (this.gameOver) {
+                BattleShipGame.getEventBus().resetListeners();
             }
         }
     }
+
 }
