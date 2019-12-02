@@ -1,7 +1,8 @@
 package battleship.tools;
 
-/* @author Area 51 Block Party:
+/** @author Area 51 Block Party:
  * Richard Abrams
+ * The Serializer Class stores given data into a text file.
  * Last Updated: 11/27/2019
  */
 
@@ -23,6 +24,7 @@ public class Serializer {
         this.savedInfo = " ";
     }
 
+    //The serialize method takes in any string data, concatenates it with the saved string and then adds it to the settings file.
     public void serialize (String _input) {
         boolean saveSuccesfull = true;
             try (FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
@@ -37,6 +39,7 @@ public class Serializer {
         System.out.println("Saved: " + saveSuccesfull);
     }
 
+    //The deserialize method takes the string from the settings file and returns it.
     public String deserialize () {
         if (this.setting.exists() == true) {
             try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP);
@@ -55,9 +58,13 @@ public class Serializer {
         }
     }
 
+//*****************     GETTERS     *******************
+
     public String getSavedInfo () {
         return this.savedInfo;
     }
+
+//*****************     SETTERS     *******************
 
     public void setSavedInfo (String savedInfo) {
         this.savedInfo = savedInfo;
