@@ -20,7 +20,7 @@ public class Serializer {
     //Enumerator -> Save Path.
     public static final String SAVEFP = "settings.ser";
 
-    //Constructor
+    //Tis method is a constructor.
     public Serializer () {
         this.savedInfo = " ";
     }
