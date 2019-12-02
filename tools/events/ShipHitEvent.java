@@ -10,6 +10,7 @@ public class ShipHitEvent {
 
     private int row;
     private int column;
+    // Player who's ship got hit.
     private int player;
 
     public ShipHitEvent (int _row, int _column, int _player) {

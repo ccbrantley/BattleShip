@@ -67,9 +67,11 @@ public class BattleShipFleet {
             for(BattleShipShipPiece piece : ship.getShipPieces()){
                 if(fireRow == piece.getRowIndex()) {
                     if (fireColumn == piece.getColumnIndex()) {
-                        piece.setHit(true);
-                        if (ship.isSunk()) {
-                            --this.liveShipCount;
+                        if (!piece.isHit()) {
+                            piece.setHit(true);
+                            if (ship.isSunk()) {
+                                --this.liveShipCount;
+                            }
                         }
                         return true;
                     }

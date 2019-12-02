@@ -20,4 +20,24 @@ public class BattleShipBoard {
         return new Coordinate(randomRow, randomColumn);
     }
 
+    /**Takes a value and checks if it is within the range of the board.
+     * @param _index
+     * @return Boolean value of whether the value lies within the board size.
+     */
+
+    public static Boolean boardBoundaryCheck (int _index) {
+        return !(_index < 0 | _index > BattleShipBoard.BOARDSIZE-1 );
+    }
+
+    public static Boolean boardBoundaryCheck (Coordinate _coordinate) {
+        int row = _coordinate.getRow();
+        int column = _coordinate.getColumn();
+        if (!(row < 0 | row > BattleShipBoard.BOARDSIZE-1 )) {
+            if (!(column < 0 | column > BattleShipBoard.BOARDSIZE-1 )) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

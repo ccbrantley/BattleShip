@@ -16,6 +16,19 @@ public class Coordinate {
         this.column = _column;
     }
 
+    @Override
+    public boolean equals(Object _other) {
+        if(_other instanceof Coordinate){
+            Coordinate other = (Coordinate)_other;
+            if (other.getRow() == this.getRow()) {
+                if (other.getColumn() == this.getColumn()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 //*****************     GETTERS     *******************
 
     public int getRow () {

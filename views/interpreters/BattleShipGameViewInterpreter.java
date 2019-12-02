@@ -8,7 +8,6 @@ package battleship.views.interpreters;
  * meant to be thrown to the ship selection view.
  */
 
-import battleship.models.Animator;
 import battleship.models.BattleShipBoard;
 import battleship.models.BattleShipPlayer;
 import battleship.tools.ViewAssets;

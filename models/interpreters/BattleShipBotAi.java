@@ -2,7 +2,7 @@ package battleship.models.interpreters;
 
 /*@Author Area51BlockParty
 * Jacob Schumacher
-* Last updated 11/28/19
+* Last updated 12/1/19
 * This class is protocol for battle ship AI.
 */
 
@@ -12,7 +12,10 @@ import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
 import battleship.tools.Listener;
 import battleship.tools.events.FireAwayEvent;
+import battleship.tools.events.ShipHitEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -21,8 +24,11 @@ public class BattleShipBotAi implements Listener {
 
     private int difficulty = BattleShipBotAi.NULL;
     private BattleShipPlayer player;
-    ArrayList<Coordinate> possibleShots = new ArrayList();
-    int opponent;
+    private ArrayList<Coordinate> possibleShots = new ArrayList();
+    private ArrayList<Coordinate> predictedShots = new ArrayList();
+    private ArrayList<Coordinate> alreadyShot = new ArrayList();
+    private Coordinate lastShot;
+    private int opponent;
     /*
     Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 5), event -> {
         if (this.player.isTurn() && !this.possibleShots.isEmpty()) {
@@ -30,9 +36,11 @@ public class BattleShipBotAi implements Listener {
         }
     }));
     */
-    Timeline aMilliWonder = new Timeline(new KeyFrame(Duration.millis(1), event -> {
-        if (this.player.isTurn() && !this.possibleShots.isEmpty()) {
-            this.takeShot();
+    Timeline fiveSecondWonder = new Timeline(new KeyFrame(Duration.millis((int)(Math.random() * 500) + 500), event -> {
+        if (this.player.isTurn()) {
+            if(!this.makePredictedShot()) {
+                this.takeRandomShot();
+            }
         }
     }));
 
@@ -54,13 +62,38 @@ public class BattleShipBotAi implements Listener {
             this.opponent = BattleShipPlayer.AWAY;
         }
         this.createPossibleShotArray();
-        this.aMilliWonder.setCycleCount(Timeline.INDEFINITE);
-        this.aMilliWonder.play();
+        this.fiveSecondWonder.setCycleCount(Timeline.INDEFINITE);
+        this.fiveSecondWonder.play();
 
     }
 
     @Override
     public void catchEvent (Object _event) {
+
+        if (_event instanceof ShipHitEvent) {
+            ShipHitEvent event = (ShipHitEvent)_event;
+            if (this.player.getPlayerTeam() != event.getPlayer()) {
+                int row = event.getRow();
+                int column = event.getColumn();
+                Coordinate curCoordinate;
+                List<Integer> plusMinus = Arrays.asList(1, -1);
+                for (int multiplicity : plusMinus) {
+                    curCoordinate = new Coordinate(row + multiplicity * 1, column + 0);
+                    if (BattleShipBoard.boardBoundaryCheck(curCoordinate)) {
+                        if (!this.coordinateInList(this.alreadyShot, curCoordinate)) {
+                            this.predictedShots.add(curCoordinate);
+                        }
+                    }
+                    curCoordinate = new Coordinate(row + 0, column - multiplicity * 1);
+                    if (BattleShipBoard.boardBoundaryCheck(curCoordinate)) {
+                        if (!this.coordinateInList(this.alreadyShot, curCoordinate)) {
+                            this.predictedShots.add(curCoordinate);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private void createPossibleShotArray () {
@@ -71,19 +104,56 @@ public class BattleShipBotAi implements Listener {
         }
     }
 
-    private Coordinate getRandomPossibleShot () {
-        int randIndex = (int)(Math.random() * (this.possibleShots.size() - 1));
-        Coordinate randCoordinate = this.possibleShots.get(randIndex);
-        this.possibleShots.remove(randIndex);
+    private Coordinate getRandomPossibleShot (ArrayList<Coordinate> _shots) {
+        int randIndex = (int)(Math.random() * (_shots.size() - 1));
+        Coordinate randCoordinate = _shots.get(randIndex);
+        _shots.remove(randIndex);
         return randCoordinate;
     }
 
-    private void takeShot () {
-        Coordinate randCoordinate = this.getRandomPossibleShot();
-        int xPos = randCoordinate.getRow();
-        int yPos = randCoordinate.getColumn();
-        this.player.setCurrentTarget(randCoordinate);
+    private boolean makePredictedShot () {
+        if (!this.predictedShots.isEmpty()) {
+            Coordinate predictedCoordinate = this.getRandomPossibleShot(this.predictedShots);
+            this.takeShot(predictedCoordinate);
+            this.synchShotArrays();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void synchShotArrays () {
+        this.possibleShots.forEach(possibleShot -> {
+            this.predictedShots.forEach(predictShot -> {
+                if (possibleShot == predictShot) {
+                    this.possibleShots.remove(possibleShot);
+                }
+            });
+        });
+    }
+
+    private boolean coordinateInList (ArrayList<Coordinate> _list, Coordinate _coordinate) {
+        for (Coordinate curCoordinate : _list) {
+            if (curCoordinate.equals(_coordinate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void takeRandomShot () {
+        if(!this.possibleShots.isEmpty()) {
+        Coordinate randCoordinate = this.getRandomPossibleShot(this.possibleShots);
+        this.takeShot(randCoordinate);
+        }
+    }
+
+    private void takeShot (Coordinate _coordinate) {
+        this.lastShot = _coordinate;
+        this.player.setCurrentTarget(_coordinate);
         BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(this.opponent));
+        this.alreadyShot.add(_coordinate);
     }
 
 }

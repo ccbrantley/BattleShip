@@ -86,14 +86,6 @@ public class BattleShipShip {
         }
     }
 
-    /**Takes a value and checks if it is within the range of the board.
-     * @param _index
-     * @return Boolean value of whether the value lies within the board size.
-     */
-    public Boolean gridBoundaryCheck (int _index) {
-        return !(_index < 0 | _index > BattleShipBoard.BOARDSIZE-1 );
-    }
-
     /**
      * @return Ship's state of being sunk or not sunk.
      */
@@ -290,7 +282,7 @@ public class BattleShipShip {
      */
     private int normalizeRange (int _index, int _totalRange) {
         int sum = _index + _totalRange - 1;
-        if(!this.gridBoundaryCheck(_index)) {
+        if(!BattleShipBoard.boardBoundaryCheck(_index)) {
             if (_index < 0) {
                 return (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
             }
@@ -298,7 +290,7 @@ public class BattleShipShip {
                 return 0;
             }
         }
-        if (!this.gridBoundaryCheck(sum)) {
+        if (!BattleShipBoard.boardBoundaryCheck(sum)) {
             if (sum < 0) {
                 return (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
             }
