@@ -25,7 +25,7 @@ public class Serializer {
         this.savedInfo = " ";
     }
 
-    //Save a given string to the settings file by concatenating to the save string and sending it to the file
+    //Save a given string to the settings file by concatenating to the save string and sending it to the file.
     public void serialize (String _input) {
         boolean saveSuccesfull = true;
             try (FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
@@ -40,7 +40,7 @@ public class Serializer {
         System.out.println("Saved: " + saveSuccesfull);
     }
 
-    // Loads a string from the settings file and returns it
+    // Loads a string from the settings file and returns it.
     public String deserialize () {
         if (this.setting.exists() == true) {
             try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP);
