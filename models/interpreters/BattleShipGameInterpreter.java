@@ -56,7 +56,7 @@ public class BattleShipGameInterpreter implements Listener {
                 updatePinEvent = new UpdatePinEvent(row, column, attackingPlayer.getPlayerTeam(), ViewAssets.REDLED);
                 if (receivingPlayer.getBattleShipFleet().getLiveShipCount() == 0) {
                     gameMessage = "Player " + (attackingPlayer.getPlayerTeam() + 1) + " wins!";
-                    gameOver = true;
+                    this.gameOver = true;
                 }
             }
             else {
