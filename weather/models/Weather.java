@@ -2,7 +2,7 @@ package battleship.weather.models;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/27/2019
+ * Last Updated: 12/03/2019
  * This class handles all functionality related to weather.
  */
 
@@ -24,7 +24,7 @@ public class Weather {
     //Whether or not the weather object has successfully loaded the API.
     protected boolean hasData;
 
-    //Enumeratated error value.
+    //Enumerator -> error value.
     public static final int ERROR = -1;
 
 
@@ -66,7 +66,7 @@ public class Weather {
     public String getLocationName () {
         if (this.location == null)
             return "No Location";
-        return this.location.getName() + (this.hasData? "" :" (No Data)");
+        return this.location.getName() + (this.hasData? "" : " (No Data)");
     }
 
     public int getWindDirection () {
