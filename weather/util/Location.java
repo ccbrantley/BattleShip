@@ -17,15 +17,44 @@ public class Location {
     public static final int NORTH_SEA = 1;
     public static final int FALKLANDS = 2;
     public static final int TONKIN = 3;
+
+    //The default name used when invalid location paramters are used.
+    private static final String DEFAULT_NAME = "Null Island";
+
     //Instance variables
     private final int latitude;
     private final int longitude;
     private final String name;
 
-    public Location (int _latitude, int _longitude, String _name) {
+    /**
+     * This constructs a location with the default values.  This is only called when makeLocation() is called with invalid parameters.
+     */
+    private Location () {
+        this.latitude = 0;
+        this.longitude = 0;
+        this.name = DEFAULT_NAME;
+    }
+
+    /**
+     * This constructs a location with the given values.  This is only called through the makeLocation() static method.
+     */
+    private Location (int _latitude, int _longitude, String _name) {
         this.latitude = _latitude;
         this.longitude = _longitude;
         this.name = _name;
+    }
+
+    /**
+     * Constructs and returns a Location object.  If the coordinate parameters are invalid, it returns the default Location object.
+     */
+    public static Location makeLocation (int _latitude, int _longitude, String _name) {
+        if (isValidCoordinate(_latitude) && isValidCoordinate(_longitude))
+            return new Location(_latitude, _longitude, _name);
+        else
+        {
+            System.out.println("Error: Invalid Location coordinate parameters");
+            return new Location();
+        }
     }
 
     /** This static method returns a Location object.  To program a new location, enumerate it above then add its case below.
@@ -35,15 +64,15 @@ public class Location {
     public static Location getLocation (int _enumLocation) {
         switch (_enumLocation) {
             case Location.MIDWAY:
-                return new Location(28, -177, "Midway Atoll");
+                return makeLocation(28, -177, "Midway Atoll");
             case Location.NORTH_SEA :
-                return new Location(56, 3, "The North Sea");
+                return makeLocation(56, 3, "The North Sea");
             case Location.FALKLANDS:
-                return new Location(-51, -57, "The Falkland Islands");
+                return makeLocation(-51, -57, "The Falkland Islands");
             case Location.TONKIN:
-                return new Location(19, 106, "The Gulf of Tonkin");
+                return makeLocation(19, 106, "The Gulf of Tonkin");
             default:
-                return new Location(0, 0, "Null Island");
+                return new Location();
         }
     }
 
@@ -57,7 +86,8 @@ public class Location {
         Location location;
         while (true) {
             location = getLocation(enumLocation);
-            if (location.name.equals("Null Island")) {
+            if (location.name.equals(DEFAULT_NAME)) {
+                locations.add(location);
                 break;
             }
             locations.add(location);
@@ -66,6 +96,14 @@ public class Location {
         return locations;
     }
 
+    /**
+     * This helper method checks whether or not a given coordinate is valid.
+     * @param _ltude Latitude or Longitude
+     * @return True if valid, false if invalid.
+     */
+    private static boolean isValidCoordinate (int _ltude) {
+        return (_ltude > -180 && _ltude < 180);
+    }
 //*****************     GETTERS     *******************
 
     public int getLatitude () {

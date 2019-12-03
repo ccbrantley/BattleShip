@@ -21,9 +21,19 @@ public class Weather {
     protected double windSpeed;
     //The temperature in Fahrenheit.
     protected double temperature;
+    //Whether or not the weather object has successfully loaded the API.
+    protected boolean hasData;
 
-    //Enumerator
+    //Enumeratated error value.
     public static final int ERROR = -1;
+
+    /**
+     * Creates a blank Weather object with no weather data.
+     */
+    public Weather () {
+        this.location = null;
+        this.noData();
+    }
 
     /** This method fetches weather information for a given Location using the API.
      *  @param _location A Location object.
@@ -33,11 +43,11 @@ public class Weather {
         Weather weather = new Weather();
         weather.location = _location;
         Weather.API.fetchWeatherByLocation(_location);
-        weather.windDirection = Weather.API.loadWindDirection();
-        weather.temperature = Weather.API.loadTemperature();
-        weather.windSpeed = Weather.API.loadWindSpeed();
-        if (weather.windDirection == Weather.ERROR) {
-            return null;
+        if (Weather.API.loadWindDirection() != Weather.ERROR) {
+            weather.windDirection = Weather.API.loadWindDirection();
+            weather.temperature = Weather.API.loadTemperature();
+            weather.windSpeed = Weather.API.loadWindSpeed();
+            weather.hasData = true;
         }
         return weather;
     }
@@ -53,6 +63,15 @@ public class Weather {
         return weathers;
     }
 
+    /**
+     * Sets the Weather object to have no weather data.
+     */
+    private void noData () {
+        this.temperature = 0;
+        this.windSpeed = 0;
+        this.windDirection = 0;
+        this.hasData = false;
+    }
 //*****************     GETTERS     *******************
 
     public Location getLocation () {
@@ -60,7 +79,9 @@ public class Weather {
     }
 
     public String getLocationName () {
-        return this.location.getName();
+        if (this.location == null)
+            return "No Location";
+        return this.location.getName() + (this.hasData? "" :" (No Data)");
     }
 
     public int getWindDirection () {
@@ -81,6 +102,10 @@ public class Weather {
 
     public double getYWindSpeed () {
         return this.windSpeed * Math.cos(this.windDirection);
+    }
+
+    public boolean hasData () {
+        return this.hasData;
     }
 
 }
