@@ -27,13 +27,6 @@ public class Weather {
     //Enumeratated error value.
     public static final int ERROR = -1;
 
-    /**
-     * Creates a blank Weather object with no weather data.
-     */
-    public Weather () {
-        this.location = null;
-        this.noData();
-    }
 
     /** This method fetches weather information for a given Location using the API.
      *  @param _location A Location object.
@@ -63,15 +56,7 @@ public class Weather {
         return weathers;
     }
 
-    /**
-     * Sets the Weather object to have no weather data.
-     */
-    private void noData () {
-        this.temperature = 0;
-        this.windSpeed = 0;
-        this.windDirection = 0;
-        this.hasData = false;
-    }
+
 //*****************     GETTERS     *******************
 
     public Location getLocation () {
