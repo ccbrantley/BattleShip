@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/26/2019
+ * Last Updated: 12/03/2019
  * BattleShipGame is used to hold the various things
  * that compose a battleship game.
  */
@@ -13,16 +13,7 @@ import battleship.tools.EventBus;
 
 public class BattleShipGame {
 
-    // Player 1 must be LOCAL, variation of either Player or Bot.
-    private BattleShipPlayer player1;
-    // Player 2 must be AWAY, variation of either Player or Bot.
-    private BattleShipPlayer player2;
-    private int gameType = BattleShipGame.BVBGAME;
-    // Throw events to this EventBus.
-    public static EventBus eventBus = new EventBus();
-
     //Enumerators for Game Type.
-    public static final int PVPGAME = 0;
     public static final int PVBGAME = 1;
     public static final int BVBGAME = 2;
 
@@ -32,6 +23,14 @@ public class BattleShipGame {
     public static final String  RIGHT = "D";
     public static final String DOWN = "S";
 
+    // Player 1 must be LOCAL, variation of either Player or Bot.
+    private BattleShipPlayer player1;
+    // Player 2 must be AWAY, variation of either Player or Bot.
+    private BattleShipPlayer player2;
+    private int gameType = BattleShipGame.BVBGAME;
+    // Throw events to this EventBus.
+    public static EventBus eventBus = new EventBus();
+
     public BattleShipGame () {
     }
 
@@ -40,9 +39,6 @@ public class BattleShipGame {
      */
     public void initializeGame () {
         switch (this.gameType) {
-            case BattleShipGame.PVPGAME:
-                this.player1 = new BattleShipPlayer(BattleShipPlayer.HUMAN, BattleShipPlayer.LOCAL);
-                break;
             case BattleShipGame.PVBGAME:
                 this.player1 = new BattleShipPlayer(BattleShipPlayer.HUMAN, BattleShipPlayer.LOCAL);
                 this.player2 = new BattleShipPlayer(BattleShipPlayer.BOT, BattleShipPlayer.AWAY, BattleShipBotAi.EASY);
@@ -65,7 +61,7 @@ public class BattleShipGame {
         return this.player2;
     }
 
-    public int getGameType() {
+    public int getGameType () {
         return this.gameType;
     }
 
@@ -75,7 +71,7 @@ public class BattleShipGame {
 
 //*****************     SETTERS     *******************
 
-    public void setGameType(int _gameType) {
+    public void setGameType (int _gameType) {
         this.gameType = _gameType;
     }
 

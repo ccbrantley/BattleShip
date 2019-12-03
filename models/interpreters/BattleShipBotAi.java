@@ -2,7 +2,7 @@ package battleship.models.interpreters;
 
 /*@Author Area51BlockParty
 * Jacob Schumacher
-* Last updated 12/1/19
+* Last updated 12/3/19
 * This class is protocol for battle ship AI.
 */
 
@@ -22,6 +22,12 @@ import javafx.util.Duration;
 
 public class BattleShipBotAi implements Listener {
 
+    //Enumeration -> Bot difficulty.
+    public static final int NULL = -1;
+    public static final int EASY = 0;
+    public static final int NORMAL = 1;
+    public static final int HARD = 2;
+
     private int difficulty = BattleShipBotAi.NULL;
     private BattleShipPlayer player;
     private ArrayList<Coordinate> possibleShots = new ArrayList();
@@ -29,13 +35,7 @@ public class BattleShipBotAi implements Listener {
     private ArrayList<Coordinate> alreadyShot = new ArrayList();
     private Coordinate lastShot;
     private int opponent;
-    /*
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 5), event -> {
-        if (this.player.isTurn() && !this.possibleShots.isEmpty()) {
-            this.takeShot();
-        }
-    }));
-    */
+
     Timeline fiveSecondWonder = new Timeline(new KeyFrame(Duration.millis((int)(Math.random() * 500) + 500), event -> {
         if (this.player.isTurn()) {
             if(!this.makePredictedShot()) {
@@ -43,14 +43,6 @@ public class BattleShipBotAi implements Listener {
             }
         }
     }));
-
-
-
-    //Enumeration -> Bot difficulty.
-    public static final int NULL = -1;
-    public static final int EASY = 0;
-    public static final int NORMAL = 1;
-    public static final int HARD = 2;
 
     public BattleShipBotAi (BattleShipPlayer _AI, int _difficulty) {
         this.player = _AI;

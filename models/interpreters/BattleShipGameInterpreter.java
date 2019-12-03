@@ -2,7 +2,7 @@ package battleship.models.interpreters;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley, Andrew Braswell
- * Last Updated: 11/24/2019
+ * Last Updated: 12/03/2019
  */
 
 import battleship.models.BattleShipGame;
@@ -19,12 +19,12 @@ public class BattleShipGameInterpreter implements Listener {
     private BattleShipGame battleShipGame;
     private boolean gameOver = false;
 
-    public BattleShipGameInterpreter(BattleShipGame _battleShipGame) {
+    public BattleShipGameInterpreter (BattleShipGame _battleShipGame) {
         this.battleShipGame = _battleShipGame;
     }
 
     @Override
-    public void catchEvent(Object _event) {
+    public void catchEvent (Object _event) {
         if (_event instanceof FireAwayEvent) {
             FireAwayEvent event = (FireAwayEvent)_event;
             BattleShipPlayer attackingPlayer;

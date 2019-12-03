@@ -189,6 +189,7 @@ public class Controller implements Initializable {
         });
     }
 
+    // Updaes the model to show which ship was last selected.
     public void setShipSelectionEvent (Node _node) {
         _node.setOnMousePressed(event -> {
             Node shipButton = (Node)event.getSource();
@@ -235,7 +236,6 @@ public class Controller implements Initializable {
             if (event.getGestureSource() != curButton && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
-            //event.consume();
         });
     }
 
@@ -245,7 +245,8 @@ public class Controller implements Initializable {
             Button curButton = (Button)event.getSource();
             int rowIndex = GridPane.getRowIndex(curButton);
             int columnIndex = GridPane.getColumnIndex(curButton);
-            String shipType = event.getDragboard().getString();
+            String shipId = event.getDragboard().getString();
+            int shipType = BattleShipShip.convertShipIdToType(shipId);
             BattleShipGame.getEventBus().throwEvent(new MoveShipEvent(rowIndex, columnIndex, shipType));
              event.consume();
          });
@@ -270,7 +271,7 @@ public class Controller implements Initializable {
         });
     }
 
-
+    // Sets the game type, either PVB or BVB.
     public void setGameTypeOnPressEvent (Node _node) {
         _node.setOnMousePressed(event -> {
             Node curNode = (Node)event.getSource();
@@ -278,6 +279,7 @@ public class Controller implements Initializable {
         });
     }
 
+    // Creates the game object.
     public void initializeGameOnPressEvent (Node _node) {
         _node.setOnMousePressed(event -> {
                 this.initializeGame();
@@ -292,6 +294,7 @@ public class Controller implements Initializable {
         });
     }
 
+    // Resets the listeners as part of the end of game protocol.
     public void removeListenersSetSceneOnMousePress (Node _node) {
         _node.setOnMousePressed(event -> {
             BattleShipGame.getEventBus().resetListeners();

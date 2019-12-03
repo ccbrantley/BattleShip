@@ -2,7 +2,7 @@ package battleship.tools.events;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/28/2019
+ * Last Updated: 12/03/2019
  * Event to move a ship by value to a index.
  */
 
@@ -10,9 +10,9 @@ public class MoveShipEvent {
 
     private int row;
     private int column;
-    private String shipType;
+    private int shipType;
 
-    public MoveShipEvent (int _row, int _column, String _shipType){
+    public MoveShipEvent (int _row, int _column, int _shipType){
         this.row = _row;
         this.column = _column;
         this.shipType = _shipType;
@@ -28,7 +28,7 @@ public class MoveShipEvent {
         return this.column;
     }
 
-    public String getShipType () {
+    public int getShipType () {
         return this.shipType;
     }
 
@@ -42,7 +42,7 @@ public class MoveShipEvent {
         this.column = _column;
     }
 
-    public void setShipType (String _shipType) {
+    public void setShipType (int _shipType) {
         this.shipType = _shipType;
     }
 

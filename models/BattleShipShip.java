@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/27/2019
+ * Last Updated: 12/03/2019
  * BattleShipShip serves to define a ship object. A ship object will contain
  * attributes such as the type, id, orientation, length, and the ship pieces.
  * Procedures required to move ship are located here.
@@ -13,13 +13,8 @@ import java.util.ArrayList;
 
 public class BattleShipShip {
 
-    private int shipType;
-    private int shipOrientation;
-    private int shipLength;
-    private String shipId;
-    private ArrayList<BattleShipShipPiece> shipPieces = new ArrayList();
-    private ArrayList<BattleShipShip> battleShipFleet;
-
+    //Enumerators -> Quantity of Ships.
+    public static final int NUMBEROFSHIPTYPES = 5;
     //Enumerators -> Ship Type.
     private static final int ERROR = -1;
     public static final int CARRIER = 0;
@@ -32,6 +27,13 @@ public class BattleShipShip {
     public static final int VERTICAL = 1;
     //Enumerators -> Movement Direction.
     public static final int RANDOM = -1;
+
+    private int shipType;
+    private int shipOrientation;
+    private int shipLength;
+    private String shipId;
+    private ArrayList<BattleShipShipPiece> shipPieces = new ArrayList();
+    private ArrayList<BattleShipShip> battleShipFleet;
 
     public BattleShipShip (int _shipType, int _orientation, ArrayList<BattleShipShip> _battleShipFleet) {
         this.shipType = _shipType;
@@ -298,62 +300,55 @@ public class BattleShipShip {
                 return 0;
             }
         }
-        /*
-        if (!(this.gridBoundaryCheck(_index+_totalRange-1))) {
-            _index = (BattleShipBoard.BOARDSIZE-1) - (_totalRange-1);
-        }
-        if (!(this.gridBoundaryCheck(_index))) {
-            _index =  0;
-        } */
         return _index;
     }
 
 //*****************     GETTERS     *******************
 
-    public int getShipType() {
+    public int getShipType () {
         return this.shipType;
     }
 
-    public int getShipRotation() {
+    public int getShipRotation () {
         return (this.shipOrientation == BattleShipShip.HORIZONTAL) ? 0 : 90;
     }
 
-    public int getShipOrientation() {
+    public int getShipOrientation () {
         return this.shipOrientation;
     }
 
-    public int getShipLength() {
+    public int getShipLength () {
         return this.shipLength;
     }
 
-    public String getShipId() {
+    public String getShipId () {
         return this.shipId;
     }
 
-    public ArrayList<BattleShipShipPiece> getShipPieces() {
+    public ArrayList<BattleShipShipPiece> getShipPieces () {
         return this.shipPieces;
     }
 
 //*****************     SETTERS     *******************
 
-    public void setShipType(int shipType) {
-        this.shipType = shipType;
+    public void setShipType (int _shipType) {
+        this.shipType = _shipType;
     }
 
-    public void setShipOrientation(int shipOrientation) {
-        this.shipOrientation = shipOrientation;
+    public void setShipOrientation (int _shipOrientation) {
+        this.shipOrientation = _shipOrientation;
     }
 
-    public void setShipLength(int shipLength) {
-        this.shipLength = shipLength;
+    public void setShipLength (int _shipLength) {
+        this.shipLength = _shipLength;
     }
 
-    public void setShipId(String shipId) {
-        this.shipId = shipId;
+    public void setShipId (String _shipId) {
+        this.shipId = _shipId;
     }
 
-    public void setShipPieces(ArrayList<BattleShipShipPiece> shipPieces) {
-        this.shipPieces = shipPieces;
+    public void setShipPieces (ArrayList<BattleShipShipPiece> _shipPieces) {
+        this.shipPieces = _shipPieces;
     }
 
 }

@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/26/2019
+ * Last Updated: 12/03/2019
  * BattleShipFleet holds access to all battle ships of a single player.
  * This class contains generic procedures that
  * require finding a specific ship.
@@ -21,8 +21,8 @@ public class BattleShipFleet {
      * a random position.
      */
     public BattleShipFleet () {
-        for (int shipType = 0; shipType < 5; shipType++) {
-            BattleShipShip curShip = new BattleShipShip(shipType, (int)(Math.random() * 2), this.fleetOfShips);
+        for (int shipType = 0; shipType < BattleShipShip.NUMBEROFSHIPTYPES; shipType++) {
+            BattleShipShip curShip = new BattleShipShip(shipType, BattleShipShip.generateRandomOrientation(), this.fleetOfShips);
             curShip.moveShip(BattleShipShip.RANDOM, BattleShipShip.RANDOM);
             this.fleetOfShips.add(shipType, curShip);
             this.liveShipCount++;
@@ -36,8 +36,8 @@ public class BattleShipFleet {
     }
 
     // Moves ship to a specific row/column.
-    public void moveShip (int _row, int _column, String _type) {
-        BattleShipShip battleShip = this.fleetOfShips.get(BattleShipShip.convertShipIdToType(_type));
+    public void moveShip (int _row, int _column, int _type) {
+        BattleShipShip battleShip = this.fleetOfShips.get(_type);
         battleShip.moveShip(_row, _column);
     }
 
@@ -49,7 +49,6 @@ public class BattleShipFleet {
         });
     }
 
-    // NOTE: Should find away to remove all throw events and place them only in interpreters to preserve model integrity.
     // Throws all sector update events with the ship coordinates.
     public final void throwAllPositionUpdateEvents () {
         this.getFleetOfShips().forEach(ship -> {

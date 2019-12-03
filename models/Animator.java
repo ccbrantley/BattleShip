@@ -19,13 +19,13 @@ import javafx.util.Duration;
 
 public final class Animator {
 
-    private ImageView imageView;
-    private Timeline timeLine;
-
     //Enumerator -> Animation Type
     public static final int EXPLOSION = -1;
     //Enumerator -> Image file Path
     public static final String IMAGESRCPATH = "src/battleship/assets/images/";
+
+    private ImageView imageView;
+    private Timeline timeLine;
 
     public Animator (int _type) {
         if (_type == Animator.EXPLOSION) {
@@ -200,7 +200,6 @@ public final class Animator {
                         smokeView.setImage(smoke40);
                     })
             );
-            //timeline.setCycleCount(Animation.INDEFINITE);
             // Sets this particular animator object to this effect.
             this.imageView = smokeView;
             this.timeLine = timeline;

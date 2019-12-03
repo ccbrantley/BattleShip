@@ -2,7 +2,7 @@ package battleship.models.interpreters;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley, Andrew Braswell
- * Last Updated: 11/24/2019
+ * Last Updated: 12/03/2019
  */
 
 import battleship.models.BattleShipGame;
@@ -15,12 +15,12 @@ public class BattleShipFleetLocalInterpreter implements Listener {
 
     BattleShipPlayer player;
 
-    public BattleShipFleetLocalInterpreter(BattleShipPlayer _player) {
+    public BattleShipFleetLocalInterpreter (BattleShipPlayer _player) {
         this.player = _player;
     }
 
     @Override
-    public void catchEvent(Object _event) {
+    public void catchEvent (Object _event) {
         if (_event instanceof MoveShipIncrementallyEvent) {
             MoveShipIncrementallyEvent event = (MoveShipIncrementallyEvent)_event;
             int row = event.getRow();
@@ -33,8 +33,8 @@ public class BattleShipFleetLocalInterpreter implements Listener {
             MoveShipEvent event = (MoveShipEvent)_event;
             int row = event.getRow();
             int column = event.getColumn();
-            String type = event.getShipType();
-            this.player.getBattleShipFleet().moveShip(row, column, type);
+            int shipType = event.getShipType();
+            this.player.getBattleShipFleet().moveShip(row, column, shipType);
             this.refreshGame();
         }
 
@@ -63,7 +63,7 @@ public class BattleShipFleetLocalInterpreter implements Listener {
 
     }
 
-    private void refreshGame() {
+    private void refreshGame () {
         BattleShipGame.getEventBus().throwEvent(new ClearGridEvent());
         this.player.getBattleShipFleet().throwAllPositionUpdateEvents();
     }
