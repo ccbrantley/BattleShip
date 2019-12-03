@@ -2,7 +2,7 @@ package battleship.weather.util;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/27/2019
+ * Last Updated: 12/03/2019
  * This class enumerates locations.
  * It can be instantiated to create an object that contains information about a location.
  */
@@ -104,6 +104,7 @@ public class Location {
     private static boolean isValidCoordinate (int _ltude) {
         return (_ltude > -180 && _ltude < 180);
     }
+
 //*****************     GETTERS     *******************
 
     public int getLatitude () {
