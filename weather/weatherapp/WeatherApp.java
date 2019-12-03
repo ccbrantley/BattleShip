@@ -7,13 +7,16 @@ package battleship.weather.weatherapp;
  */
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import battleship.weather.models.Weather;
 
 public class WeatherApp {
 
     public static void main(String[] args) {
         DecimalFormat f = new DecimalFormat("#.##");
-        for (Weather w : Weather.loadWeathersForAllLocations()) {
+        ArrayList<Weather> weathers = Weather.loadWeathersForAllLocations();
+        weathers.add(new Weather());
+        for (Weather w : weathers) {
             System.out.println("The temperature in " + w.getLocationName() + " is " + w.getTemperature() + " F.");
             System.out.println("Windspeed: " + w.getWindSpeed() + ".  Wind direction: " + w.getWindDirection());
             System.out.println("The wind is blowing " + f.format(w.getXWindSpeed()) + " mph from the west and " + f.format(w.getYWindSpeed()) + " mph from the north. \n");
