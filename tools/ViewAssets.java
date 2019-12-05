@@ -24,9 +24,6 @@ import javafx.scene.layout.VBox;
 
 public class ViewAssets {
 
-    public ViewAssets() {
-    }
-
     //Enumerators -> LED
     public static final String NULLLED = "";
     public static final String BLUELED = "blue";
@@ -48,7 +45,7 @@ public class ViewAssets {
     public static final String SHIPIMAGEEXTENSION= ".png";
 
 
-    public static Label createLabel(String _id, String _text, boolean _wrapText) {
+    public static Label createLabel (String _id, String _text, boolean _wrapText) {
         Label curLabel = new Label();
         curLabel.setId(_id);
         curLabel.setText(_text);
@@ -56,7 +53,7 @@ public class ViewAssets {
         return curLabel;
     }
 
-    public static Label createLabel(String _id, String _text, double _width, double _height, boolean _wrapText) {
+    public static Label createLabel (String _id, String _text, double _width, double _height, boolean _wrapText) {
         Label curLabel = new Label();
         curLabel.setId(_id);
         curLabel.setText(_text);
@@ -67,7 +64,7 @@ public class ViewAssets {
         return curLabel;
     }
 
-    public static Button createGridButton(String _id, double _rotation, String _text) {
+    public static Button createGridButton (String _id, double _rotation, String _text) {
         Button curButton = new Button();
         curButton.setId(_id);
         curButton.setRotate(_rotation);
@@ -81,7 +78,7 @@ public class ViewAssets {
         return curButton;
     }
 
-    public static Button createButton(String _id, String _text, double _height) {
+    public static Button createButton (String _id, String _text, double _height) {
         Button curButton = new Button();
         curButton.setId(_id);
         curButton.setText(_text);
@@ -90,7 +87,7 @@ public class ViewAssets {
         return curButton;
     }
 
-    public static Button createButton(String _id, String _text, double _width, double _height) {
+    public static Button createButton (String _id, String _text, double _width, double _height) {
         Button curButton = new Button();
         curButton.setId(_id);
         curButton.setText(_text);
@@ -102,13 +99,13 @@ public class ViewAssets {
         return curButton;
     }
 
-    public static VBox createVBox(String id) {
+    public static VBox createVBox (String id) {
         VBox curVBox = new VBox();
         curVBox.setId(id);
         return curVBox;
     }
 
-    public static VBox createVBox(ArrayList<Node> _children, double _inset, String _id, double _boxWidth, double _boxHeight) {
+    public static VBox createVBox (ArrayList<Node> _children, double _inset, String _id, double _boxWidth, double _boxHeight) {
         VBox curVBox = new VBox();
         _children.forEach(child -> {
             VBox.setMargin(child, new Insets(_inset));
@@ -121,7 +118,7 @@ public class ViewAssets {
         return curVBox;
     }
 
-    public static HBox createHBox(ArrayList<Node> _children, double _inset, String _id, double _boxWidth, double _boxHeight) {
+    public static HBox createHBox (ArrayList<Node> _children, double _inset, String _id, double _boxWidth, double _boxHeight) {
         HBox curVBox = new HBox();
         _children.forEach(child -> {
             VBox.setMargin(child, new Insets(_inset));
@@ -134,7 +131,7 @@ public class ViewAssets {
         return curVBox;
     }
 
-    public static GridPane createRowByColumnPane(int _row, int _column, String _buttonId, String _buttonText, double _paneWidth, double _paneHeight) {
+    public static GridPane createRowByColumnPane (int _row, int _column, String _buttonId, String _buttonText, double _paneWidth, double _paneHeight) {
         int paneWidth = (int) _paneWidth;
         int paneHeight = (int) _paneHeight;
         GridPane curPane = new GridPane();
@@ -156,14 +153,14 @@ public class ViewAssets {
         return curPane;
     }
 
-    public static AnchorPane createAnchorPane(String _id, String _path) {
+    public static AnchorPane createAnchorPane (String _id, String _path) {
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setId(_id);
         anchorPane.getStylesheets().add(_path);
         return anchorPane;
     }
 
-    public static Slider createSlider(String _id, double _width, double _height, double _min, double _max, double _value, double _increment, double _major, int _minor, boolean _snap) {
+    public static Slider createSlider (String _id, double _width, double _height, double _min, double _max, double _value, double _increment, double _major, int _minor, boolean _snap) {
         Slider curSlider = new Slider();
         curSlider.setId(_id);
         curSlider.setMinWidth(_width);
@@ -179,7 +176,7 @@ public class ViewAssets {
         return curSlider;
     }
 
-    public static ComboBox createComboBox(String _id, double _width, double _height, String _prompt, ObservableList _items) {
+    public static ComboBox createComboBox (String _id, double _width, double _height, String _prompt, ObservableList _items) {
         ComboBox curComboBox = new ComboBox();
         curComboBox.setId(_id);
         curComboBox.setMinWidth(_width);
@@ -189,7 +186,7 @@ public class ViewAssets {
         return curComboBox;
     }
 
-    public static ScrollPane createMessageScrollPane(VBox messageArea, double _width, double _height) {
+    public static ScrollPane createMessageScrollPane (VBox messageArea, double _width, double _height) {
         ScrollPane scrollPane = new ScrollPane();
         messageArea.setPrefHeight(0);
         scrollPane.setMinWidth(_width);
@@ -200,7 +197,4 @@ public class ViewAssets {
         return scrollPane;
     }
 
-//*****************     GETTERS     *******************
-
-//*****************     GETTERS     *******************
 }

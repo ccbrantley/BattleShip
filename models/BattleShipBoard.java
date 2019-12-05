@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/28/2019
+ * Last Updated: 12/03/2019
  * BattleShipBoard will contain various methods
  * and attributes that generically define a Battle Ship Board.
  */
@@ -25,7 +25,6 @@ public class BattleShipBoard {
      * @param _index
      * @return Boolean value of whether the value lies within the board size.
      */
-
     public static Boolean boardBoundaryCheck (int _index) {
         return !(_index < 0 | _index > BattleShipBoard.BOARDSIZE-1 );
     }

@@ -2,7 +2,7 @@ package battleship.models.interpreters;
 
 /*@Author Area51BlockParty
 * Jacob Schumacher
-* Last updated 12/1/19
+* Last updated 12/3/19
 * This class is protocol for battle ship AI.
 */
 
@@ -11,8 +11,7 @@ import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
 import battleship.tools.Listener;
-import battleship.tools.events.FireAwayEvent;
-import battleship.tools.events.ShipHitEvent;
+import battleship.tools.events.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,35 +21,24 @@ import javafx.util.Duration;
 
 public class BattleShipBotAi implements Listener {
 
-    private int difficulty = BattleShipBotAi.NULL;
-    private BattleShipPlayer player;
-    private ArrayList<Coordinate> possibleShots = new ArrayList();
-    private ArrayList<Coordinate> predictedShots = new ArrayList();
-    private ArrayList<Coordinate> alreadyShot = new ArrayList();
-    private Coordinate lastShot;
-    private int opponent;
-    /*
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 5), event -> {
-        if (this.player.isTurn() && !this.possibleShots.isEmpty()) {
-            this.takeShot();
-        }
-    }));
-    */
-    Timeline fiveSecondWonder = new Timeline(new KeyFrame(Duration.millis((int)(Math.random() * 500) + 500), event -> {
-        if (this.player.isTurn()) {
-            if(!this.makePredictedShot()) {
-                this.takeRandomShot();
-            }
-        }
-    }));
-
-
-
     //Enumeration -> Bot difficulty.
     public static final int NULL = -1;
     public static final int EASY = 0;
     public static final int NORMAL = 1;
     public static final int HARD = 2;
+
+    private int difficulty = BattleShipBotAi.NULL;
+    private final BattleShipPlayer player;
+    private ArrayList<Coordinate> possibleShots = new ArrayList();
+    private ArrayList<Coordinate> predictedShots = new ArrayList();
+    private ArrayList<Coordinate> alreadyShot = new ArrayList();
+    private Coordinate lastShot;
+    private final int opponent;
+    private final int botTimer = (int)(Math.random() * 500 + 500);
+
+    Timeline AiLoop = new Timeline(new KeyFrame(Duration.millis(botTimer), event -> {
+        this.takeTurn();
+    }));
 
     public BattleShipBotAi (BattleShipPlayer _AI, int _difficulty) {
         this.player = _AI;
@@ -62,13 +50,16 @@ public class BattleShipBotAi implements Listener {
             this.opponent = BattleShipPlayer.AWAY;
         }
         this.createPossibleShotArray();
-        this.fiveSecondWonder.setCycleCount(Timeline.INDEFINITE);
-        this.fiveSecondWonder.play();
 
     }
 
     @Override
     public void catchEvent (Object _event) {
+
+        if (_event instanceof StartGameEvent) {
+            this.AiLoop.setCycleCount(Timeline.INDEFINITE);
+            this.AiLoop.play();
+        }
 
         if (_event instanceof ShipHitEvent) {
             ShipHitEvent event = (ShipHitEvent)_event;
@@ -94,6 +85,10 @@ public class BattleShipBotAi implements Listener {
             }
         }
 
+    }
+
+    private void startAi() {
+        this.AiLoop.pause();
     }
 
     private void createPossibleShotArray () {
@@ -154,6 +149,14 @@ public class BattleShipBotAi implements Listener {
         this.player.setCurrentTarget(_coordinate);
         BattleShipGame.getEventBus().throwEvent(new FireAwayEvent(this.opponent));
         this.alreadyShot.add(_coordinate);
+    }
+
+    private void takeTurn () {
+        if (this.player.isTurn()) {
+            if(!this.makePredictedShot()) {
+                this.takeRandomShot();
+            }
+        }
     }
 
 }

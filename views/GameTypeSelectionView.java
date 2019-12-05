@@ -14,13 +14,8 @@ import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-/**
- *
- * @author christopherbrantley
- */
 public class GameTypeSelectionView {
     Controller controller;
     private final double screenWidth = GraphicEffect.getScreenWidth();
@@ -37,7 +32,7 @@ public class GameTypeSelectionView {
     private Button confirmSelection;
     private Button mainMenuButton;
 
-    public GameTypeSelectionView(Controller _controller) {
+    public GameTypeSelectionView (Controller _controller) {
         // Adding controller for access to events
         this.controller = _controller;
         // Creating pane and children of the pane

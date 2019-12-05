@@ -12,10 +12,6 @@ import javafx.scene.effect.ColorAdjust;
 
 public class GraphicEffect {
 
-    private ColorAdjust colorAdjust = new ColorAdjust();
-    private static double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
-    private static double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
-
     // Enumerators -> Serialization Type.
     public static final int SCREENWIDTH = 1;
     public static final int SCREELENGTH = 2;
@@ -23,6 +19,10 @@ public class GraphicEffect {
     public static final int BRIGHTNESS = 4;
     public static final int HUE = 5;
     public static final int SATURATION = 6;
+
+    private ColorAdjust colorAdjust = new ColorAdjust();
+    private static double screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getWidth();
+    private static double screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight();
 
     public GraphicEffect () {
     }

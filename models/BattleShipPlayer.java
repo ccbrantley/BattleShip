@@ -2,7 +2,7 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Christopher Brantley
- * Last Updated: 11/28/2019
+ * Last Updated: 12/03/2019
  * BattleShipPlayer serves to hold the objects that are representative of a
  * battleship player. BattleShipPlayer holds a fleet of ships respective of
  * the player type. The variations of these BattleShipFleets will be for home
@@ -15,15 +15,6 @@ import battleship.models.interpreters.BattleShipFleetLocalInterpreter;
 
 public class BattleShipPlayer {
 
-    private final int playerType;
-    private final int playerTeam;
-    private int difficulty = BattleShipPlayer.NULL;
-    private BattleShipFleet battleShipFleet;
-    private Coordinate currentTarget = new Coordinate(0, 0);
-    private int selectedShip = BattleShipShip.CARRIER;
-
-    private boolean turn = true;
-
     // Enumerators -> type.
     public static final int HUMAN = 0;
     public static final int BOT = 1;
@@ -35,6 +26,15 @@ public class BattleShipPlayer {
     public static final int EASY = 0;
     public static final int NORMAL = 1;
     public static final int HARD = 2;
+
+    private final int playerType;
+    private final int playerTeam;
+    private int difficulty = BattleShipPlayer.NULL;
+    private BattleShipFleet battleShipFleet;
+    private Coordinate currentTarget = new Coordinate(0, 0);
+    private int selectedShip = BattleShipShip.CARRIER;
+
+    private boolean turn = true;
 
     /** This constructor is for human players only.
      *  Interpreter throws the event to update local view.
