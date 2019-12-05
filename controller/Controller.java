@@ -65,6 +65,7 @@ public class Controller implements Initializable {
                     BattleShipGameView gamePane = new BattleShipGameView(this);
                     this.battleShipGame.getPlayer1().getBattleShipFleet().throwAllPositionUpdateEvents();
                     parentPane = gamePane.getParentPane();
+                    this.throwStartGameEvent();
                     break;
                 case ViewAssets.SHIPSELECTION:
                     ShipSelectionView selectionPane = new ShipSelectionView(this);
@@ -88,6 +89,10 @@ public class Controller implements Initializable {
     // Will take a game type and instantiate BattleShipGame with the game type.
     private void initializeGame () {
         this.battleShipGame.initializeGame();
+    }
+
+    private void throwStartGameEvent() {
+        BattleShipGame.getEventBus().throwEvent(new StartGameEvent());
     }
 
     //loads all the values from the settings file.

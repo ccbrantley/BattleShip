@@ -31,12 +31,18 @@ public class BattleShipFleet {
 
     // Moves ship to a row/column based on current position plus increment.
     public void moveShipIncrementally (int _rowInc, int _columnInc, int _type) {
+        if (_type == BattleShipShip.ERROR){
+            return;
+        }
         BattleShipShip battleShip = this.fleetOfShips.get(_type);
         battleShip.moveShipIncrementally(_rowInc, _columnInc);
     }
 
     // Moves ship to a specific row/column.
     public void moveShip (int _row, int _column, int _type) {
+        if (_type == BattleShipShip.ERROR){
+            return;
+        }
         BattleShipShip battleShip = this.fleetOfShips.get(_type);
         battleShip.moveShip(_row, _column);
     }

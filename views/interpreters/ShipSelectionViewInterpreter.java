@@ -55,8 +55,10 @@ public class ShipSelectionViewInterpreter implements Listener {
         // Event to clear the entire grid, sets all children back to blank grid.
         if(_event instanceof ClearGridEvent) {
             this.shipSelectionView.getShipSelectionPane().getChildren().forEach(child -> {
+                if(!child.getId().equals("grid")) {
+                    this.shipSelectionView.removeShipSelectionPaneShipEvents(child);
+                }
                 child.setId("grid");
-                this.shipSelectionView.removeShipSelectionPaneShipEvents(child);
                 this.shipSelectionView.setShipSelectionPaneGridEvents(child);
             });
         }

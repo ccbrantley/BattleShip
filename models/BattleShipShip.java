@@ -16,7 +16,7 @@ public class BattleShipShip {
     //Enumerators -> Quantity of Ships.
     public static final int NUMBEROFSHIPTYPES = 5;
     //Enumerators -> Ship Type.
-    private static final int ERROR = -1;
+    public static final int ERROR = -1;
     public static final int CARRIER = 0;
     public static final int BATTLESHIP = 1;
     public static final int CRUISER = 2;
