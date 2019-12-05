@@ -11,15 +11,13 @@ import battleship.models.BattleShipShip;
 import battleship.models.Coordinate;
 import battleship.models.GraphicEffect;
 import battleship.models.MusicPlayer;
-import battleship.tools.SerializerAdapter;
+import battleship.models.SavingModel;
 import battleship.tools.ViewAssets;
 import battleship.tools.events.*;
 import battleship.views.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import java.util.logging.Level;
@@ -44,13 +42,13 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private BattleShipGame battleShipGame = new BattleShipGame();
-    //private final SerializerAdapter serializerAdapter = new SerializerAdapter();
     private MusicPlayer musicPlayer = new MusicPlayer(.25, MusicPlayer.AUTOPLAY);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
+    private SavingModel saver = new SavingModel(musicPlayer, graphicsEffect);
 
     public Controller (Stage _stage) {
         this.stage = _stage;
-        //loadSettings();
+        this.saver.loadSettings();
     }
 
     @Override
@@ -224,7 +222,7 @@ public class Controller implements Initializable {
     // Event to close program and save last values of certain settings.
     public void setcloseGuiOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
-            //saveSettings();
+            this.saver.saveSettings(graphicsEffect, musicPlayer);
             Platform.exit();
             System.exit(0);
         });
