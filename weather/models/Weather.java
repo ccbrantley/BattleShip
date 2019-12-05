@@ -2,7 +2,7 @@ package battleship.weather.models;
 
 /* @author Area 51 Block Party:
  * Andrew Braswell
- * Last Updated: 11/27/2019
+ * Last Updated: 12/03/2019
  * This class handles all functionality related to weather.
  */
 
@@ -21,9 +21,12 @@ public class Weather {
     protected double windSpeed;
     //The temperature in Fahrenheit.
     protected double temperature;
+    //Whether or not the weather object has successfully loaded the API.
+    protected boolean hasData;
 
-    //Enumerator
+    //Enumerator -> error value.
     public static final int ERROR = -1;
+
 
     /** This method fetches weather information for a given Location using the API.
      *  @param _location A Location object.
@@ -33,11 +36,11 @@ public class Weather {
         Weather weather = new Weather();
         weather.location = _location;
         Weather.API.fetchWeatherByLocation(_location);
-        weather.windDirection = Weather.API.loadWindDirection();
-        weather.temperature = Weather.API.loadTemperature();
-        weather.windSpeed = Weather.API.loadWindSpeed();
-        if (weather.windDirection == Weather.ERROR) {
-            return null;
+        if (Weather.API.loadWindDirection() != Weather.ERROR) {
+            weather.windDirection = Weather.API.loadWindDirection();
+            weather.temperature = Weather.API.loadTemperature();
+            weather.windSpeed = Weather.API.loadWindSpeed();
+            weather.hasData = true;
         }
         return weather;
     }
@@ -53,6 +56,7 @@ public class Weather {
         return weathers;
     }
 
+
 //*****************     GETTERS     *******************
 
     public Location getLocation () {
@@ -60,7 +64,9 @@ public class Weather {
     }
 
     public String getLocationName () {
-        return this.location.getName();
+        if (this.location == null)
+            return "No Location";
+        return this.location.getName() + (this.hasData? "" : " (No Data)");
     }
 
     public int getWindDirection () {
@@ -81,6 +87,10 @@ public class Weather {
 
     public double getYWindSpeed () {
         return this.windSpeed * Math.cos(this.windDirection);
+    }
+
+    public boolean hasData () {
+        return this.hasData;
     }
 
 }
