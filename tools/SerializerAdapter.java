@@ -27,7 +27,7 @@ public class SerializerAdapter {
                 x++;
                 if (x == _searchDemarkerIndex) {
                     for (int spaceCounter = demarkerCounter - 2; spaceCounter >= 0; spaceCounter--) {
-                        if (saveData.charAt(spaceCounter) == Serializer.SPACE) {
+                        if (saveData.charAt(spaceCounter) == ' ') {
                             saveData = saveData.substring(spaceCounter, demarkerCounter);
                             saveData = saveData.trim();
                             return saveData;
@@ -36,7 +36,7 @@ public class SerializerAdapter {
                 }
             }
         }
-        return Character.toString(Serializer.SPACE);
+        return Serializer.NULL;
     }
 
 //*****************     SAVING METHODS     *******************

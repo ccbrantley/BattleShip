@@ -12,6 +12,7 @@ import battleship.models.Coordinate;
 import battleship.models.GraphicEffect;
 import battleship.models.MusicPlayer;
 import battleship.models.SavingModel;
+import battleship.tools.Serializer;
 import battleship.tools.ViewAssets;
 import battleship.tools.events.*;
 import battleship.views.*;
@@ -48,7 +49,12 @@ public class Controller implements Initializable {
 
     public Controller (Stage _stage) {
         this.stage = _stage;
+        try {
         this.saver.loadSettings();
+        }
+        catch (Exception e) {
+            Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Serializer {
 
     //Enumerators
     public static final char DEMARKER  = '|';
-    public static final char SPACE = ' ';
+    public static final String NULL = " ";
 
     private File setting = new File(Serializer.SAVEFP);
     private String savedInfo;
@@ -29,7 +29,7 @@ public class Serializer {
 
     //This method is a constructor.
     public Serializer () {
-        this.savedInfo = Character.toString(Serializer.SPACE);
+        this.savedInfo = Serializer.NULL;
     }
 
     //Save a given string to the settings file by concatenating to the save string and sending it to the file.
@@ -37,7 +37,7 @@ public class Serializer {
         boolean saveSuccesfull = true;
             try (FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);) {
-                this.savedInfo = this.savedInfo.concat(_input + Serializer.SPACE + Serializer.DEMARKER + Serializer.SPACE);
+                this.savedInfo = this.savedInfo.concat(_input + ' ' + Serializer.DEMARKER + ' ');
                 out.writeObject(this.savedInfo);
             }
             catch (Exception e) {
@@ -48,6 +48,9 @@ public class Serializer {
 
     // Loads a string from the settings file and returns it.
     public String deserialize () {
+            if (!this.setting.exists()) {
+                return Serializer.NULL;
+            }
             try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP);
                     ObjectInputStream in = new ObjectInputStream(fileIn);) {
                 String tempSavedData = (String) in.readObject();
@@ -55,7 +58,7 @@ public class Serializer {
             }
             catch (Exception e) {
                 Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
-                return Character.toString(Serializer.SPACE);
+                return Serializer.NULL;
             }
     }
 
