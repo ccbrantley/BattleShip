@@ -44,13 +44,13 @@ public class Controller implements Initializable {
 
     private Stage stage;
     private BattleShipGame battleShipGame = new BattleShipGame();
-    private final SerializerAdapter serializerAdapter = new SerializerAdapter();
+    //private final SerializerAdapter serializerAdapter = new SerializerAdapter();
     private MusicPlayer musicPlayer = new MusicPlayer(.25, MusicPlayer.AUTOPLAY);
     private final GraphicEffect graphicsEffect = new GraphicEffect();
 
     public Controller (Stage _stage) {
         this.stage = _stage;
-        loadSettings();
+        //loadSettings();
     }
 
     @Override
@@ -90,47 +90,7 @@ public class Controller implements Initializable {
         this.battleShipGame.initializeGame();
     }
 
-    //loads all the values from the settings file.
-    private void loadSettings () {
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.CONTRAST), GraphicEffect.CONTRAST);
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.BRIGHTNESS), GraphicEffect.BRIGHTNESS);
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.HUE), GraphicEffect.HUE);
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.SATURATION), GraphicEffect.SATURATION);
-        this.setSettings(this.serializerAdapter.extractData(MusicPlayer.VOLUME), MusicPlayer.VOLUME);
-    }
 
-    private void setSettings (String _data, int _loadType) {
-        if (_data.equals(" ")) {
-            return;
-        }
-        switch (_loadType) {
-            case GraphicEffect.CONTRAST:
-                this.graphicsEffect.setContrastLevel(Double.parseDouble(_data));
-            case GraphicEffect.BRIGHTNESS:
-                this.graphicsEffect.setBrightnessLevel(Double.parseDouble(_data));
-            case GraphicEffect.HUE:
-                this.graphicsEffect.setHueLevel(Double.parseDouble(_data));
-            case GraphicEffect.SATURATION:
-                this.graphicsEffect.setSaturationLevel(Double.parseDouble(_data));
-            case MusicPlayer.VOLUME:
-                this.musicPlayer.setVolumeLevel(Double.parseDouble(_data));
-        }
-    }
-
-    //saves saves various settings to the settings file.
-    private void saveSettings () {
-        ArrayList<Object> data = new ArrayList<>(
-                Arrays.asList(
-                        GraphicEffect.getScreenWidth(),
-                        GraphicEffect.getScreenHeight(),
-                        this.graphicsEffect.getColorAdjust().getContrast(),
-                        this.graphicsEffect.getColorAdjust().getBrightness(),
-                        this.graphicsEffect.getColorAdjust().getHue(),
-                        this.graphicsEffect.getColorAdjust().getSaturation(),
-                        this.musicPlayer.getMediaPlayer().getVolume()
-                ));
-        this.serializerAdapter.save(data);
-    }
 
 //*****************     EVENTS     *******************
 
@@ -264,7 +224,7 @@ public class Controller implements Initializable {
     // Event to close program and save last values of certain settings.
     public void setcloseGuiOnActionEvent (Button _button) {
         _button.setOnAction(event -> {
-            saveSettings();
+            //saveSettings();
             Platform.exit();
             System.exit(0);
         });
