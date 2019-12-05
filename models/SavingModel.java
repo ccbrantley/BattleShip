@@ -1,15 +1,14 @@
 package battleship.models;
 
+/* @author Area 51 Block Party:
+ * Richard Abrams
+ * Last Updated: 12/5/2019
+ * This class acts as a pipeline to the serizalizer and applies the saved data appropiately.
+ */
+
 import battleship.tools.SerializerAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-
-/* @author Area 51 Block Party:
- * Richard Abrams
- * Last Updated: 12/4/2019
- * This class acts as a pipeline to the serizalizer and applies the saved data appropiately.
- */
 
 public class SavingModel {
 
@@ -34,7 +33,7 @@ public class SavingModel {
 
     //This method saves various settings to the settings file.
     public void saveSettings (GraphicEffect _graphicsEffect, MusicPlayer _musicPlayer) {
-        ArrayList<Object> data = new ArrayList<>(
+        ArrayList<Object> data = new ArrayList<> (
                 Arrays.asList(
                         GraphicEffect.getScreenWidth(),
                         GraphicEffect.getScreenHeight(),
@@ -65,4 +64,5 @@ public class SavingModel {
                 this.musicPlayer.setVolumeLevel(Double.parseDouble(_data));
         }
     }
+
 }

@@ -17,17 +17,17 @@ public class SerializerAdapter {
      * Takes in an integer and retrieves the data in a string from the settings file via the serializer.
      * After which it will loop through the string and identify the correct demarker by the number
      * then loop from that position back to get appropriate data.
-     * @return saveData
+     * @return saveData, else " " if file empty or not found.
      */
     public String extractData (int _searchDemarkerIndex) {
         int x = 0;
         String saveData = this.serializer.deserialize();
         for (int demarkerCounter = 0; demarkerCounter < saveData.length()-1; demarkerCounter++) {
-            if (saveData.charAt(demarkerCounter) == '|') {
+            if (saveData.charAt(demarkerCounter) == Serializer.DEMARKER) {
                 x++;
                 if (x == _searchDemarkerIndex) {
                     for (int spaceCounter = demarkerCounter - 2; spaceCounter >= 0; spaceCounter--) {
-                        if (saveData.charAt(spaceCounter) == ' ') {
+                        if (saveData.charAt(spaceCounter) == Serializer.SPACE) {
                             saveData = saveData.substring(spaceCounter, demarkerCounter);
                             saveData = saveData.trim();
                             return saveData;
@@ -36,8 +36,7 @@ public class SerializerAdapter {
                 }
             }
         }
-        System.out.println("File empty or not found.");
-        return " ";
+        return Character.toString(Serializer.SPACE);
     }
 
 //*****************     SAVING METHODS     *******************

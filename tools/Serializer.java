@@ -6,13 +6,20 @@ package battleship.tools;
  * Last Updated: 12/2/2019
  */
 
+import battleship.models.Animator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Serializer {
+
+    //Enumerators
+    public static final char DEMARKER  = '|';
+    public static final char SPACE = ' ';
 
     private File setting = new File(Serializer.SAVEFP);
     private String savedInfo;
@@ -22,7 +29,7 @@ public class Serializer {
 
     //This method is a constructor.
     public Serializer () {
-        this.savedInfo = " ";
+        this.savedInfo = Character.toString(Serializer.SPACE);
     }
 
     //Save a given string to the settings file by concatenating to the save string and sending it to the file.
@@ -30,33 +37,26 @@ public class Serializer {
         boolean saveSuccesfull = true;
             try (FileOutputStream fileOut = new FileOutputStream(Serializer.SAVEFP);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);) {
-                this.savedInfo = this.savedInfo.concat(_input + " | ");
+                this.savedInfo = this.savedInfo.concat(_input + Serializer.SPACE + Serializer.DEMARKER + Serializer.SPACE);
                 out.writeObject(this.savedInfo);
             }
             catch (Exception e) {
                 saveSuccesfull = false;
-                System.out.println(e.toString());
+                Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
             }
-        System.out.println("Saved: " + saveSuccesfull);
     }
 
     // Loads a string from the settings file and returns it.
     public String deserialize () {
-        if (this.setting.exists() == true) {
             try (FileInputStream fileIn = new FileInputStream(Serializer.SAVEFP);
                     ObjectInputStream in = new ObjectInputStream(fileIn);) {
                 String tempSavedData = (String) in.readObject();
                 return tempSavedData;
             }
             catch (Exception e) {
-                System.out.println(e.toString());
-                return " ";
+                Logger.getLogger(Serializer.class.getName()).log(Level.SEVERE, null, e);
+                return Character.toString(Serializer.SPACE);
             }
-        }
-        else {
-            System.out.println("No save file found.");
-            return " ";
-        }
     }
 
 //*****************     GETTERS     *******************
