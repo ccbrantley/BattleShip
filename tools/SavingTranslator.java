@@ -11,21 +11,21 @@ import java.util.ArrayList;
 
 public class SavingTranslator implements SavingInterface {
 
-    private SerializerAdapter serializerAdapter = new SerializerAdapter();
+    private SavingInterface serializerAdapter = new SerializerAdapter();
 
     @Override
     public void saveList (ArrayList<Object> _data) {
-        this.serializerAdapter.save(_data);
+        this.serializerAdapter.saveList(_data);
     }
 
     @Override
     public void saveObject (Object... _data) {
-        this.serializerAdapter.save(_data);
+        this.serializerAdapter.saveObject(_data);
     }
 
     @Override
     public String load(int _searchDemarkerIndex) {
-        return this.serializerAdapter.extractData(_searchDemarkerIndex);
+        return this.serializerAdapter.load(_searchDemarkerIndex);
     }
 
 }

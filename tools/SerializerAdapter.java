@@ -3,12 +3,12 @@ package battleship.tools;
 
 /* @author Area 51 Block Party:
  * Richard Abrams, Christopher Brantley
- * Last Updated: 11/29/2019
+ * Last Updated: 12/8/2019
  */
 
 import java.util.ArrayList;
 
-public class SerializerAdapter {
+public class SerializerAdapter implements SavingInterface {
 
     private Serializer serializer = new Serializer();
 
@@ -19,7 +19,8 @@ public class SerializerAdapter {
      * then loop from that position back to get appropriate data.
      * @return saveData, else " " if file empty or not found.
      */
-    public String extractData (int _searchDemarkerIndex) {
+    @Override
+    public String load (int _searchDemarkerIndex) {
         int x = 0;
         String saveData = this.serializer.deserialize();
         for (int demarkerCounter = 0; demarkerCounter < saveData.length()-1; demarkerCounter++) {
@@ -41,13 +42,15 @@ public class SerializerAdapter {
 
 //*****************     SAVING METHODS     *******************
 
-    public void save (Object... _data) {
+    @Override
+    public void saveObject (Object... _data) {
         for(Object child : _data) {
             this.serializer.serialize(String.valueOf(child));
         }
     }
 
-    public void save (ArrayList<Object> _data) {
+    @Override
+    public void saveList (ArrayList<Object> _data) {
         _data.forEach((child) -> {
             this.serializer.serialize(String.valueOf(child));
         });
