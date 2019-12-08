@@ -47,6 +47,7 @@ public final class EventBus {
     }
 
     public void resetListeners() {
+        this.listeners = null;
         this.listeners = new ArrayList();
     }
 

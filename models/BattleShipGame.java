@@ -10,6 +10,9 @@ package battleship.models;
 import battleship.models.interpreters.BattleShipBotAi;
 import battleship.models.interpreters.BattleShipGameInterpreter;
 import battleship.tools.EventBus;
+import battleship.weather.models.Weather;
+import battleship.weather.util.Location;
+import java.util.ArrayList;
 
 public class BattleShipGame {
 
@@ -29,7 +32,12 @@ public class BattleShipGame {
     private BattleShipPlayer player2;
     private int gameType = BattleShipGame.BVBGAME;
     // Throw events to this EventBus.
-    public static EventBus eventBus = new EventBus();
+    private static EventBus eventBus = new EventBus();
+
+    // Weather API
+    private static ArrayList<Weather> weathers = Weather.loadWeathersForAllLocations();
+    // User Weather Location
+    private static int weatherSelection = Location.FALKLANDS;
 
     public BattleShipGame () {
     }
@@ -67,6 +75,10 @@ public class BattleShipGame {
 
     public static EventBus getEventBus () {
         return eventBus;
+    }
+
+    public static Weather getWeatherSelection() {
+        return BattleShipGame.weathers.get(BattleShipGame.weatherSelection);
     }
 
 //*****************     SETTERS     *******************

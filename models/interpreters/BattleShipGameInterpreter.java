@@ -5,6 +5,7 @@ package battleship.models.interpreters;
  * Last Updated: 12/03/2019
  */
 
+import battleship.models.BattleShipFleet;
 import battleship.models.BattleShipGame;
 import battleship.models.BattleShipPlayer;
 import battleship.models.Coordinate;
@@ -45,6 +46,20 @@ public class BattleShipGameInterpreter implements Listener {
                 return;
             }
             Coordinate attackedCoordinate = attackingPlayer.getCurrentTarget();
+            GameMessageEvent windMessageEvent;
+            int shotAlterStatus = attackingPlayer.getBattleShipFleet().calculateShotProbability(attackedCoordinate);
+            if (shotAlterStatus == BattleShipFleet.SHOTUNCHANGED) {
+                windMessageEvent = new GameMessageEvent("The wind is calm.");
+            }
+            else if (shotAlterStatus == BattleShipFleet.SHOTCHANGED) {
+                windMessageEvent = new GameMessageEvent("The wind begins to blow!");
+            }
+            else {
+                windMessageEvent = new GameMessageEvent("The wind is unmatched!");
+                BattleShipGame.getEventBus().throwEvent(windMessageEvent);
+                return;
+            }
+            BattleShipGame.getEventBus().throwEvent(windMessageEvent);
             int row = attackedCoordinate.getRow();
             int column = attackedCoordinate.getColumn();
             gameMessage += "(" + (row + 1) + ", " + (column + 1) + "), ";

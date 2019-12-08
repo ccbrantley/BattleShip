@@ -84,6 +84,7 @@ public class Controller implements Initializable {
                     parentPane = settingsPane.getParentPane();
                     break;
                 default:
+                  //  Battle
                     MainMenuView mainePane = new MainMenuView(this);
                     parentPane = mainePane.getParentPane();
             }

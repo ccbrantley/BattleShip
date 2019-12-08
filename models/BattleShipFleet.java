@@ -11,6 +11,10 @@ package battleship.models;
 import java.util.ArrayList;
 
 public class BattleShipFleet {
+    //Enumerators -> shot probability.
+    public static int SHOTMISS = 0;
+    public static int SHOTCHANGED = 1;
+    public static int SHOTUNCHANGED =2;
 
     // Serves as an reference to all ships of a fleet.
     private final ArrayList<BattleShipShip> fleetOfShips = new ArrayList();
@@ -84,6 +88,37 @@ public class BattleShipFleet {
             }
         }
         return false;
+    }
+
+    /* Takes a random number from 0 - 1 and compares it to probability
+     * of alteration. As wind speed increases the range of probable
+     * alteration increases. We return whether the shot is missed, changed,
+     * or unchanged for proper protocol handling.
+     */
+    public int calculateShotProbability (Coordinate _shot) {
+        double upperLimit = 50;
+        double windSpeed = BattleShipGame.getWeatherSelection().getWindSpeed();
+        double missProbability = Math.random()  * 1;
+        double xWindSpeed = BattleShipGame.getWeatherSelection().getXWindSpeed();
+        double yWindSpeed = BattleShipGame.getWeatherSelection().getYWindSpeed();
+        double alterProbability = (windSpeed / (windSpeed + upperLimit));
+        if (missProbability < alterProbability) {
+            int alteredColumn = _shot.getColumn() + 1;
+            int alteredRow = _shot.getRow() + 1;
+            if (xWindSpeed < 0) {
+                alteredColumn -= 2;
+            }
+            if (yWindSpeed < 0) {
+                alteredRow -= 2;
+            }
+            _shot.setColumn(alteredColumn);
+            _shot.setRow(alteredRow);
+            if (!BattleShipBoard.boardBoundaryCheck(_shot)) {
+                return BattleShipFleet.SHOTMISS;
+            }
+            return BattleShipFleet.SHOTCHANGED;
+        }
+        return BattleShipFleet.SHOTUNCHANGED;
     }
 
 //*****************     GETTERS     *******************
