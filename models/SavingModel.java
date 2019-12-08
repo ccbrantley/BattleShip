@@ -2,17 +2,17 @@ package battleship.models;
 
 /* @author Area 51 Block Party:
  * Richard Abrams
- * Last Updated: 12/5/2019
- * This class acts as a pipeline to the serizalizer and applies the saved data appropiately.
+ * Last Updated: 12/8/2019
+ * This class acts as a pipeline to the saving translator and applies the saved data appropiately.
  */
 
-import battleship.tools.SerializerAdapter;
+import battleship.tools.SavingTranslator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SavingModel {
 
-    private final SerializerAdapter serializerAdapter = new SerializerAdapter();
+    private final SavingTranslator savingTranslator = new SavingTranslator();
     private MusicPlayer musicPlayer;
     private GraphicEffect graphicsEffect;
 
@@ -24,11 +24,11 @@ public class SavingModel {
 
     //This method loads all the values from the settings file.
     public void loadSettings () {
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.CONTRAST), GraphicEffect.CONTRAST);
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.BRIGHTNESS), GraphicEffect.BRIGHTNESS);
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.HUE), GraphicEffect.HUE);
-        this.setSettings(this.serializerAdapter.extractData(GraphicEffect.SATURATION), GraphicEffect.SATURATION);
-        this.setSettings(this.serializerAdapter.extractData(MusicPlayer.VOLUME), MusicPlayer.VOLUME);
+        this.setSettings(this.savingTranslator.load(GraphicEffect.CONTRAST), GraphicEffect.CONTRAST);
+        this.setSettings(this.savingTranslator.load(GraphicEffect.BRIGHTNESS), GraphicEffect.BRIGHTNESS);
+        this.setSettings(this.savingTranslator.load(GraphicEffect.HUE), GraphicEffect.HUE);
+        this.setSettings(this.savingTranslator.load(GraphicEffect.SATURATION), GraphicEffect.SATURATION);
+        this.setSettings(this.savingTranslator.load(MusicPlayer.VOLUME), MusicPlayer.VOLUME);
     }
 
     //This method saves various settings to the settings file.
@@ -43,7 +43,7 @@ public class SavingModel {
                         _graphicsEffect.getColorAdjust().getSaturation(),
                         _musicPlayer.getMediaPlayer().getVolume()
                 ));
-        this.serializerAdapter.save(data);
+        this.savingTranslator.saveList(data);
     }
 
     //A helper method that applies loaded values to the appropiate classes for settings.
