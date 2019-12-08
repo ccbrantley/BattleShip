@@ -14,12 +14,12 @@ public class SavingTranslator implements SavingInterface {
     private SerializerAdapter serializerAdapter = new SerializerAdapter();
 
     @Override
-    public void saveList(ArrayList<Object> _data) {
+    public void saveList (ArrayList<Object> _data) {
         this.serializerAdapter.save(_data);
     }
 
     @Override
-    public void saveObject(Object... _data) {
+    public void saveObject (Object... _data) {
         this.serializerAdapter.save(_data);
     }
 

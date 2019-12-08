@@ -17,7 +17,7 @@ public class SavingModel {
     private GraphicEffect graphicsEffect;
 
     //This method is the constructor.
-    public SavingModel(MusicPlayer _musicPlayer, GraphicEffect _graphicsEffect){
+    public SavingModel (MusicPlayer _musicPlayer, GraphicEffect _graphicsEffect) {
         musicPlayer = _musicPlayer;
         graphicsEffect = _graphicsEffect;
     }

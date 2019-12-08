@@ -15,6 +15,6 @@ public interface SavingInterface {
 
     public void saveObject (Object... _data);
 
-    public String load(int _searchDemarkerIndex);
+    public String load (int _searchDemarkerIndex);
 
 }
