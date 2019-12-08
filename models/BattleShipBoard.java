@@ -31,13 +31,14 @@ public class BattleShipBoard {
 
     public static Boolean boardBoundaryCheck (Coordinate _coordinate) {
         int row = _coordinate.getRow();
-        int column = _coordinate.getColumn();
-        if (!(row < 0 | row > BattleShipBoard.BOARDSIZE-1 )) {
-            if (!(column < 0 | column > BattleShipBoard.BOARDSIZE-1 )) {
-                return true;
-            }
+        if (!BattleShipBoard.boardBoundaryCheck(row)) {
+            return false;
         }
-        return false;
+        int column = _coordinate.getColumn();
+        if (!BattleShipBoard.boardBoundaryCheck(column)) {
+            return false;
+        }
+        return true;
     }
 
 }
