@@ -12,13 +12,15 @@ import battleship.weather.util.Location;
 public class LocationTest {
     /**
      * Main static method for running this class independently of the rest of the system.
-     * Uncomment whichever test you would like to perform.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         runInvalidCoordinateTests();
     }
 
+    /**
+     * Tests that the makeLocation() method returns a default location when passed invalid coordinates.
+     */
     private static void runInvalidCoordinateTests () {
         final String rdl = " returns default location.";
         //These locations are made with invalid latitude values for testing.
