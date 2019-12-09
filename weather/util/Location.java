@@ -19,7 +19,7 @@ public class Location {
     public static final int TONKIN = 3;
 
     //The default name used when invalid location paramters are used.
-    private static final String DEFAULT_NAME = "Null Island";
+    public static final String DEFAULT_NAME = "Null Island";
 
     //Instance variables
     private final int latitude;
@@ -52,7 +52,6 @@ public class Location {
             return new Location(_latitude, _longitude, _name);
         else
         {
-            System.out.println("Error: Invalid Location coordinate parameters");
             return new Location();
         }
     }
